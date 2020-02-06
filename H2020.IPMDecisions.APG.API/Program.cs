@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Ocelot.DependencyInjection;
 
 namespace H2020.IPMDecisions.APG.API
 {
@@ -16,11 +12,24 @@ namespace H2020.IPMDecisions.APG.API
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var host = Host.CreateDefaultBuilder(args);
+
+            host.ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.ConfigureAppConfiguration((hostingContext, config) => 
                 {
-                    webBuilder.UseStartup<Startup>();
+                    config
+                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                        .AddOcelot("Configuration", hostingContext.HostingEnvironment)                       
+                        .AddEnvironmentVariables();
                 });
+
+                webBuilder.UseStartup<Startup>();
+            });
+
+            return host;
+        }
     }
 }
