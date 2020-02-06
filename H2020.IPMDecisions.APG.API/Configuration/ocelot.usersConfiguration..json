@@ -1,0 +1,34 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/accounts/authenticate",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/users/authenticate",
+            "UpstreamHttpMethod": [
+                "Post"
+            ],
+            "UpstreamScheme": "https"
+        },
+        {
+            "DownstreamPathTemplate": "/api/accounts/register",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/users/register",
+            "UpstreamHttpMethod": [
+                "Post"
+            ],
+            "UpstreamScheme": "https"
+        }
+    ]
+}

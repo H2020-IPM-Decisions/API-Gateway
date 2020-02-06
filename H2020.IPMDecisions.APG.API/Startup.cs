@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using H2020.IPMDecisions.APG.API.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +18,7 @@ namespace H2020.IPMDecisions.APG.API
         {
             Configuration = configuration;
         }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureCors(Configuration);
@@ -40,6 +35,7 @@ namespace H2020.IPMDecisions.APG.API
                  });
 
             services.AddOcelot();
+
             services.ConfigureJwtAuthentication(Configuration);
         }
 
@@ -55,7 +51,6 @@ namespace H2020.IPMDecisions.APG.API
 
             app.UseCors("ApiGatewayCORS");
             app.UseHttpsRedirection();
-            
             app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
