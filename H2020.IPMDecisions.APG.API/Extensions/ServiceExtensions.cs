@@ -39,6 +39,22 @@ namespace H2020.IPMDecisions.APG.API.Extensions
             });
         }
 
+        public static void ConfigureAuthorization(this IServiceCollection services, IConfiguration config)
+        {
+            var claimType = config["AccessClaims:ClaimTypeName"];
+            var accessLevels = AccessLevels(config["AccessClaims:UserAccessLevels"]);
+
+            services.AddAuthorization(options =>
+            {
+                accessLevels.ToList().ForEach(
+                    (level => 
+                    {
+                        options.AddPolicy(level, policy => policy.RequireClaim(claimType, level));                    
+                    }
+                ));
+            });
+        }
+
         public static void ConfigureCors(this IServiceCollection services, IConfiguration config)
         {
             var allowedHosts = config["AllowedHosts"];
@@ -54,6 +70,12 @@ namespace H2020.IPMDecisions.APG.API.Extensions
         {
             var listOfAudiences = audiences.Split(';').ToList();
             return listOfAudiences;
+        }
+
+        public static IEnumerable<string> AccessLevels(string levels)
+        {
+            var listOfLevels = levels.Split(';').ToList();
+            return listOfLevels;
         }
     }
 }

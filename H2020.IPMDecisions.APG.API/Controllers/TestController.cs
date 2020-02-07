@@ -41,5 +41,26 @@ namespace H2020.IPMDecisions.APG.API.Controllers
         {
             return "Only if you have a valid token!";
         }
+
+        [Authorize(Policy = "Level1")]
+        [HttpGet("userlevel")]
+        public string UserLevel()
+        {
+            return "Only if you have a valid token!";
+        }
+
+        [Authorize(Policy = "Level2")]
+        [HttpGet("UserLevel2")]
+        public string UserLevel2()
+        {
+            return "Only if you have a valid token!";
+        }
+
+        [Authorize(Policy = "Level3")]
+        [HttpGet("UserLevel3")]
+        public string UserLevel3()
+        {
+            return "Only if you have a valid token!";
+        }
     }
 }

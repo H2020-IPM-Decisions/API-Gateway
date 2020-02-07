@@ -35,8 +35,9 @@ namespace H2020.IPMDecisions.APG.API
                  });
 
             services.AddOcelot();
-
             services.ConfigureJwtAuthentication(Configuration);
+            services.ConfigureAuthorization(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,10 +49,10 @@ namespace H2020.IPMDecisions.APG.API
             }
 
             app.UseRouting();
-
             app.UseCors("ApiGatewayCORS");
             app.UseHttpsRedirection();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
