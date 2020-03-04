@@ -1,65 +1,20 @@
 {
     "ReRoutes": [
         {
-            "DownstreamPathTemplate": "/api/users",
-            "DownstreamScheme": "http",
+            "DownstreamPathTemplate": "/api/{catchAll}",
+            "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5000
+                    "Port": 5001
                 }
             ],
-            "UpstreamPathTemplate": "/api/admin/users",
-            "UpstreamHttpMethod": [
-                "GET"
-            ],
-            "UpstreamScheme": "https"
-        },
-        {
-            "DownstreamPathTemplate": "/api/users/{id}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5000
-                }
-            ],
-            "UpstreamPathTemplate": "/api/admin/users/{id}",
-            "UpstreamHttpMethod": [
-                "GET"
-            ],
-            "UpstreamScheme": "https"
-        },
-        {
-            "DownstreamPathTemplate": "/api/users/{id}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5000
-                }
-            ],
-            "UpstreamPathTemplate": "/api/admin/users/{id}",
-            "UpstreamHttpMethod": [
-                "DELETE"
-            ],
-            "UpstreamScheme": "https"
-        },
-        {
-            "DownstreamPathTemplate": "/api/users",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5000
-                }
-            ],
-            "UpstreamPathTemplate": "/api/admin/users",
-            "UpstreamHttpMethod": [
-                "Options"
-            ],
-            "UpstreamScheme": "https"
+            "UpstreamPathTemplate": "/api/admin/{catchAll}",
+            "UpstreamScheme": "https",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {}
         }
-
     ]
 }
