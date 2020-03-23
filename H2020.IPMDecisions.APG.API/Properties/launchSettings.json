@@ -3,7 +3,7 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:2282",
+      "applicationUrl": "http://0.0.0.0:2282",
       "sslPort": 44392
     }
   },
@@ -18,7 +18,7 @@
     "H2020.IPMDecisions.APG.API": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "https://localhost:6001;http://localhost:6000",
+      "applicationUrl": "https://0.0.0.0:5003;http://0.0.0.0:5002",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

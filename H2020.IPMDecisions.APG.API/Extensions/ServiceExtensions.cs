@@ -13,7 +13,7 @@ namespace H2020.IPMDecisions.APG.API.Extensions
         public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration config)
         {
             var jwtSecretKey = config["JwtSettings:SecretKey"];
-            var authorizationServerUrl = config["JwtSettings:AuthorizationServerUrl"];
+            var authorizationServerUrl = config["JwtSettings:IssuerServerUrl"];
             var audiencesServerUrl = Audiences(config["JwtSettings:ValidAudiencesUrls"]);
 
             services.AddAuthentication(options =>

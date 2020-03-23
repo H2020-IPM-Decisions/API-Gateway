@@ -2,15 +2,15 @@
     "ReRoutes": [
         {
             "DownstreamPathTemplate": "/api/accounts/{catchAll}",
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
-                    "Port": 5001
+                    "Host": "idp.api",
+                    "Port": 5000
                 }
             ],
             "UpstreamPathTemplate": "/api/users/{catchAll}",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "http"
         }
     ]
 }

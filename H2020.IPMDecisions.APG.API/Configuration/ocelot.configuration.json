@@ -1,6 +1,5 @@
 {
     "GlobalConfiguration": {
-        "BaseUrl": "https://localhost:6001",
         "RequestIdKey": null
     }
 }
