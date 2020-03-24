@@ -348,3 +348,9 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Custom ignores
+H2020.IPMDecisions.APG.API/appsettings.json
+H2020.IPMDecisions.APG.API/ocelot.json
+.vscode/**
+Docker/docker-compose.local.yml

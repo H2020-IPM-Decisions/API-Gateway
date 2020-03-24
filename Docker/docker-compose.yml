@@ -1,0 +1,57 @@
+version: "3.7" 
+services:
+    idp.db:
+        image: mysql:8.0.19
+        container_name: idp-mysql
+        environment:
+            # change root password -> Change it before loading DB
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: H2020.IPMDecisions.IDP
+        volumes:
+            - dbdata:/var/lib/mysql
+            - ./MySQL_Init_Script:/docker-entrypoint-initdb.d
+        restart: always
+    idp.api:
+        depends_on:
+            - idp.db
+        image: ipmdecisions/identityproviderservice:latest
+        container_name: idp-api
+        hostname: idp.api # Important: The hostname must match the one added into the Ocelot configuration (idp.api).
+        restart: always
+        ports:
+            - "5000:80" # Important: In a production environment remove the external port (5000) - kept here for microservice debugging purposes.
+                        # The API Gateway redirects and access through the internal port (80).
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
+            # The following db username and password are created in line 32 in the MySQL_Init_Script/init.sql -> Change them before loading DB
+            - ConnectionStrings:MySqlDbConnection=Server=idp.db;Database=H2020.IPMDecisions.IDP;Uid=ipm_idp_user;Pwd=user_password;
+            - JwtSettings:TokenLifetimeMinutes=80
+            - JwtSettings:SecretKey=YourSecretSameInAllServer
+            - JwtSettings:IssuerServerUrl=IDPServerURL
+            # The following Audience URL is in line 56 in the MySQL_Init_Script/init.sql
+            - JwtSettings:ValidAudiencesUrls=https://testclient.com
+            - AllowedHosts=*
+    apg.api:        
+        image: ipmdecisions/apigateway:latest
+        links:
+            - idp.api
+        depends_on:
+            - idp.api
+        container_name: apg-api
+        restart: always
+        ports:
+            - "5002:80"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+            - JwtSettings:TokenLifetimeMinutes=80
+            - JwtSettings:SecretKey=YourSecretSameInAllServer
+            - JwtSettings:IssuerServerUrl=IDPServerURL
+            # The following Audience URL is in line 56 in the MySQL_Init_Script/init.sql
+            - JwtSettings:ValidAudiencesUrls=https://testclient.com
+            - AllowedHosts=*
+            - AccessClaims:ClaimTypeName="UserAccessType"
+            - AccessClaims:UserAccessLevels="Level1;Level2;Level3"
+volumes:
+    dbdata:

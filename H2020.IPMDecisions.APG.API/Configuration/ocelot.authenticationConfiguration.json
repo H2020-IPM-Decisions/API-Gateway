@@ -1,0 +1,16 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/accounts/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/users/{catchAll}",
+            "UpstreamScheme": "http"
+        }
+    ]
+}
