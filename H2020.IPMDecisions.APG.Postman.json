@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "7958ae64-1505-4309-8508-1197b18c5988",
-		"name": "H2020.IPMDecisions.APG.Postman Local",
+		"_postman_id": "f0ea0e2e-8e83-4108-b82b-bfc6d4bd1ecd",
+		"name": "H2020.IPMDecisions.APG.Postman Docker",
 		"description": "Postman collection with endpoints for the APIGateway provider for the H2020 IPM Decisions project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -142,6 +142,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -176,6 +177,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -206,6 +208,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -236,6 +239,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -266,6 +270,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -296,6 +301,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -326,6 +332,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -356,6 +363,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -390,6 +398,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -440,6 +449,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									],
 									"query": [
@@ -490,6 +500,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients",
 										"08d7aa5b-e23c-496e-8946-6d8af6b98dd6"
 									]
@@ -515,6 +526,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients",
 										"08d7aa5b-e23c-496e-8946-6d8af6b98dd6"
 									],
@@ -546,6 +558,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients",
 										"08d7aa5b-e23c-496e-8946-6d8af6b98dd6"
 									],
@@ -586,12 +599,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients",
+									"raw": "{{baseUrl}}/api/admin/admin/applicationclients",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"api",
+										"admin",
+										"admin",
 										"applicationclients"
 									]
 								}
@@ -631,6 +646,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									]
 								}
@@ -670,6 +686,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients"
 									]
 								}
@@ -697,6 +714,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients",
 										"08d7bab3-f797-46de-8357-fae655024fc6"
 									]
@@ -732,6 +750,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients",
 										"08d7bab4-0eb3-4e0d-83e6-0c145c11fabc"
 									]
@@ -767,6 +786,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients",
 										"08d7bab4-0eb3-4e0d-83e6-0c145c11faea"
 									]
@@ -807,6 +827,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients",
 										"08d7bab4-0eb3-4e0d-83e6-0c145c22fccf"
 									]
@@ -847,6 +868,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"applicationclients",
 										"08d7bab4-0eb3-4e0d-83e6-0c145c22fccf"
 									]
@@ -891,6 +913,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens"
 									]
 								}
@@ -927,6 +950,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens"
 									]
 								}
@@ -963,6 +987,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens"
 									],
 									"query": [
@@ -1005,6 +1030,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens"
 									],
 									"query": [
@@ -1047,6 +1073,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens"
 									],
 									"query": [
@@ -1089,6 +1116,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens"
 									],
 									"query": [
@@ -1135,6 +1163,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens"
 									],
 									"query": [
@@ -1185,6 +1214,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens"
 									],
 									"query": [
@@ -1235,6 +1265,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens",
 										"08d7bac1-da60-4e80-8a4f-e0eb325a8250"
 									]
@@ -1272,6 +1303,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens",
 										"08d7bc43-19e9-4f11-8399-c5b5587a42f9"
 									],
@@ -1315,6 +1347,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens",
 										"08d7bc43-19e9-4f11-8399-c5b5587a42f9"
 									],
@@ -1349,6 +1382,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"refreshtokens",
 										"08d7bf8f-9a2a-4534-8d23-9c51db61dbe7"
 									]
@@ -1393,6 +1427,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles"
 									]
 								}
@@ -1429,6 +1464,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles"
 									],
 									"query": [
@@ -1471,6 +1507,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles"
 									],
 									"query": [
@@ -1513,6 +1550,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles"
 									]
 								}
@@ -1549,6 +1587,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles"
 									],
 									"query": [
@@ -1593,6 +1632,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles"
 									]
 								}
@@ -1631,6 +1671,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles"
 									]
 								}
@@ -1667,6 +1708,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles",
 										"8d671d9f-a23e-4a2c-aa8d-e573d2bd3102"
 									]
@@ -1704,6 +1746,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles",
 										"dd2f7616-65b7-4456-a6dd-37b25a2c050d"
 									],
@@ -1747,6 +1790,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles",
 										"8d671d9f-a23e-4a2c-aa8d-e573d2bd3102"
 									],
@@ -1781,6 +1825,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"roles",
 										"a186ccef-66fa-4cdb-be7f-f178656f63b3"
 									]
@@ -1827,6 +1872,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"0bc659c8-517a-4859-9a7c-62727a13464b",
 										"claims"
@@ -1870,6 +1916,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be",
 										"claims"
@@ -1910,6 +1957,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"0bc659c8-517a-4859-9a7c-62727a13464b",
 										"claims"
@@ -1939,6 +1987,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be",
 										"claims"
@@ -1986,6 +2035,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"0bc659c8-517a-4859-9a7c-62727a13464b",
 										"roles"
@@ -2024,6 +2074,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"0bc659c8-517a-4859-9a7c-62727a13464b",
 										"roles"
@@ -2064,6 +2115,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"6ca41f7a-44cb-48eb-80ad-f58f5912df9b",
 										"roles"
@@ -2104,6 +2156,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be",
 										"roles"
@@ -2149,6 +2202,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									]
 								}
@@ -2185,6 +2239,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									]
 								}
@@ -2221,6 +2276,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2263,6 +2319,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2305,6 +2362,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2347,6 +2405,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2389,6 +2448,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2431,6 +2491,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2473,6 +2534,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2515,6 +2577,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2557,6 +2620,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2603,6 +2667,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2661,6 +2726,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users"
 									],
 									"query": [
@@ -2719,6 +2785,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be"
 									]
@@ -2756,6 +2823,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be"
 									]
@@ -2790,6 +2858,7 @@
 									],
 									"path": [
 										"api",
+										"admin",
 										"users",
 										"b591ada9-dee6-4fcb-9268-ffcf20ea4489"
 									]
@@ -2832,7 +2901,7 @@
 									"raw": "{\n\t\"username\" : \"newuser\",\n\t\"password\" : \"Password1!\",\n\t\"email\" : \"newuser@test.com\"\n}"
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/register",
+									"raw": "{{baseUrl}}/api/users/register",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -2874,7 +2943,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/register",
+									"raw": "{{baseUrl}}/api/users/register",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -2916,7 +2985,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/register",
+									"raw": "{{baseUrl}}/api/users/register",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -2966,7 +3035,7 @@
 									"raw": "{\n\t\"username\" : \"yourUser\",\n\t\"password\" : \"yourPassword\",\n\t\"email\" : \"your@email.com\"\n}"
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/authenticate",
+									"raw": "{{baseUrl}}/api/users/authenticate",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -2997,7 +3066,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users",
+									"raw": "{{baseUrl}}/api/users",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -3083,7 +3152,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/admin/users/authenticate",
+							"raw": "{{baseUrl}}/api/users/authenticate",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -3137,7 +3206,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/api/admin/users/authenticate/token",
+							"raw": "{{baseUrl}}/api/users/authenticate/token",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -3146,6 +3215,37 @@
 								"users",
 								"authenticate",
 								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Test Controller",
+			"item": [
+				{
+					"name": "Not Protected",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/test/notprotected",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"test",
+								"notprotected"
 							]
 						}
 					},
@@ -3172,13 +3272,13 @@
 					}
 				],
 				"url": {
-					"raw": "{{baseUrl}}/api/",
+					"raw": "{{baseUrl}}/api/admin",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"api",
-						""
+						"admin"
 					]
 				}
 			},
@@ -3190,7 +3290,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbml0aWFsYWRtaW51c2VyIiwianRpIjoiNWIwYmM3NzYtZDdmYy00ZWYyLWFhYjgtMWQ3YjFjZjlhZDMwIiwiaWF0IjoxNTgzMzM5MjI3LCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM4MGYwYTY5LWEwMDktNGMzNC04NDk2LTlhNDNjMmUwNjliZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJpbml0aWFsYWRtaW51c2VyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJuYmYiOjE1ODMzMzkyMjcsImV4cCI6MTU4MzM0NDAyNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6ODA4NiIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0LmNvbSJ9.Uh7u3mRUVBtlP41D2ZmRm6MObeLbaKXms_Jl_qHa6MI",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbml0aWFsYWRtaW51c2VyIiwianRpIjoiZTA3MzkxMWUtNzc3My00MTVjLTkxOTktMjhlZTQwNWRmNTAxIiwiaWF0IjoxNTg1MDQzNjcyLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM4MGYwYTY5LWEwMDktNGMzNC04NDk2LTlhNDNjMmUwNjliZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJpbml0aWFsYWRtaW51c2VyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJuYmYiOjE1ODUwNDM2NzIsImV4cCI6MTU4NTA0ODQ3MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cHM6Ly90ZXN0Y2xpZW50LmNvbSJ9.n5xY8_UsTUghuGKJkxZBXVEjIc0jv8M2UGUn8Wx-Ny8",
 				"type": "string"
 			}
 		]
@@ -3219,9 +3319,9 @@
 	],
 	"variable": [
 		{
-			"id": "b1b2fe14-a435-43d3-b77d-a819cf6b5129",
+			"id": "41e9e212-c82d-4ef3-ba4a-55584e01e846",
 			"key": "baseUrl",
-			"value": "https://localhost:6001",
+			"value": "https://localhost:5001",
 			"type": "string"
 		}
 	],
