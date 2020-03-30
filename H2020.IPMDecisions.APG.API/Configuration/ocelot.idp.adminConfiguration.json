@@ -9,11 +9,15 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/api/admin/{catchAll}",
+            "UpstreamPathTemplate": "/idp/api/admin/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer"
             },
+            "DownstreamHeaderTransform": {
+                "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/idp/admin"
+            },
+            "AllowAutoRedirect": false,
             "RouteClaimsRequirement": {
             }
         }

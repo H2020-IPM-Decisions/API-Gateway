@@ -49,7 +49,7 @@ This docker build image doesn't include the Identity Provider, so you will need 
 
 Remember to change the **EXPOSE** ports in the `Dockerfile` if the default ports are taken (80 and 443).
 The following commands assumes that you are in the root directory of the application.
-* The image created will be called: `h2020.ipmdecisions.apigateway`
+* The image created will be called: `ipmdecisions/apigateway`
 * The container created will be called `APG` and will be running in the port `8087`
 * The command bellow assumes that the URL port `H2020.IPMDecisions.APG.API\Properties\launchSettings.json` is 5002
 ```Console

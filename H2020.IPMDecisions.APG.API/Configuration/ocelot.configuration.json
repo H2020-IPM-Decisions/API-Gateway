@@ -1,5 +1,6 @@
 {
     "GlobalConfiguration": {
+        "BaseUrl": "ipmdecisions.com",
         "RequestIdKey": null
     }
 }

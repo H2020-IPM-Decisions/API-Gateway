@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "f0ea0e2e-8e83-4108-b82b-bfc6d4bd1ecd",
-		"name": "H2020.IPMDecisions.APG.Postman Docker",
+		"_postman_id": "4192f599-33ac-4cbf-923a-6d7706176dca",
+		"name": "H2020.IPMDecisions.APG.Postman",
 		"description": "Postman collection with endpoints for the APIGateway provider for the H2020 IPM Decisions project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -24,12 +24,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									]
@@ -49,12 +49,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									]
@@ -74,12 +74,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?searchquery=Test",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?searchquery=Test",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -105,12 +105,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?IsEnabled=true",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?IsEnabled=true",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -136,12 +136,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?searchquery=test&IsEnabled=true",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?searchquery=test&IsEnabled=true",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -171,12 +171,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?fields=id, name",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?fields=id, name",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -202,12 +202,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?fields=id, namexxx",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?fields=id, namexxx",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -233,12 +233,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?fields=name",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?fields=name",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -264,12 +264,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?orderby=name",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?orderby=name",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -295,12 +295,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?orderby=name desc",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?orderby=name desc",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -326,12 +326,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?orderby=namexxx",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?orderby=namexxx",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -357,12 +357,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?PageSize=5&pagenumber=1",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?PageSize=5&pagenumber=1",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -392,12 +392,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?PageSize=2&pagenumber=1&searchquery=test&IsEnabled=true&fields=id,name&orderby=name desc",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?PageSize=2&pagenumber=1&searchquery=test&IsEnabled=true&fields=id,name&orderby=name desc",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -443,12 +443,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients?PageSize=2&pagenumber=1&searchquery=test&IsEnabled=true&fields=id,name&orderby=name desc",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?PageSize=2&pagenumber=1&searchquery=test&IsEnabled=true&fields=id,name&orderby=name desc",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									],
@@ -494,12 +494,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients/08d7aa5b-e23c-496e-8946-6d8af6b98dd6",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients/08d7aa5b-e23c-496e-8946-6d8af6b98dd6",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients",
 										"08d7aa5b-e23c-496e-8946-6d8af6b98dd6"
@@ -520,12 +520,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients/08d7aa5b-e23c-496e-8946-6d8af6b98dd6?fields=name,refreshTokenLifeTime,url",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients/08d7aa5b-e23c-496e-8946-6d8af6b98dd6?fields=name,refreshTokenLifeTime,url",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients",
 										"08d7aa5b-e23c-496e-8946-6d8af6b98dd6"
@@ -552,12 +552,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients/08d7aa5b-e23c-496e-8946-6d8af6b98dd6?fields=name,refreshTokenLifeTime,url",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients/08d7aa5b-e23c-496e-8946-6d8af6b98dd6?fields=name,refreshTokenLifeTime,url",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients",
 										"08d7aa5b-e23c-496e-8946-6d8af6b98dd6"
@@ -599,13 +599,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/admin/applicationclients",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"admin",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									]
@@ -640,12 +639,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									]
@@ -680,12 +679,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients"
 									]
@@ -708,12 +707,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients/08d7bab3-f797-46de-8357-fae655024fc6",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients/08d7bab3-f797-46de-8357-fae655024fc6",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"applicationclients",
 										"08d7bab3-f797-46de-8357-fae655024fc6"
@@ -744,13 +743,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c11fabc",
+									"raw": "{{baseUrl}}/{{idpUrl}}/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c11fabc",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"admin",
+										"{{idpUrl}}",
 										"applicationclients",
 										"08d7bab4-0eb3-4e0d-83e6-0c145c11fabc"
 									]
@@ -780,13 +778,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c11faea",
+									"raw": "{{baseUrl}}/{{idpUrl}}/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c11faea",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"admin",
+										"{{idpUrl}}",
 										"applicationclients",
 										"08d7bab4-0eb3-4e0d-83e6-0c145c11faea"
 									]
@@ -821,13 +818,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c22fccf",
+									"raw": "{{baseUrl}}/{{idpUrl}}/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c22fccf",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"admin",
+										"{{idpUrl}}",
 										"applicationclients",
 										"08d7bab4-0eb3-4e0d-83e6-0c145c22fccf"
 									]
@@ -862,15 +858,54 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c22fccf",
+									"raw": "{{baseUrl}}/{{idpUrl}}/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c22fccf",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"admin",
+										"{{idpUrl}}",
 										"applicationclients",
 										"08d7bab4-0eb3-4e0d-83e6-0c145c22fccf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Options Application Client",
+							"request": {
+								"method": "OPTIONS",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{idpUrl}}",
+										"admin",
+										"applicationclients"
 									]
 								}
 							},
@@ -907,12 +942,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens"
 									]
@@ -944,12 +979,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens"
 									]
@@ -981,12 +1016,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens?fields=id,userId",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens?fields=id,userId",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens"
 									],
@@ -1024,12 +1059,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens?fields=id,userIdx",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens?fields=id,userIdx",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens"
 									],
@@ -1067,12 +1102,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens?fields=userId",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens?fields=userId",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens"
 									],
@@ -1110,12 +1145,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens?PageSize=5&pagenumber=1",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens?PageSize=5&pagenumber=1",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens"
 									],
@@ -1157,12 +1192,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens?fields=id,userId&PageSize=5&pagenumber=1",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens?fields=id,userId&PageSize=5&pagenumber=1",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens"
 									],
@@ -1208,12 +1243,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens?fields=id,userId&PageSize=5&pagenumber=1",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens?fields=id,userId&PageSize=5&pagenumber=1",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens"
 									],
@@ -1259,12 +1294,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens/08d7bac1-da60-4e80-8a4f-e0eb325a8250",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens/08d7bac1-da60-4e80-8a4f-e0eb325a8250",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens",
 										"08d7bac1-da60-4e80-8a4f-e0eb325a8250"
@@ -1297,12 +1332,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens/08d7bc43-19e9-4f11-8399-c5b5587a42f9?fields=id,userid",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens/08d7bc43-19e9-4f11-8399-c5b5587a42f9?fields=id,userid",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens",
 										"08d7bc43-19e9-4f11-8399-c5b5587a42f9"
@@ -1341,12 +1376,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens/08d7bc43-19e9-4f11-8399-c5b5587a42f9?fields=id,userid",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens/08d7bc43-19e9-4f11-8399-c5b5587a42f9?fields=id,userid",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens",
 										"08d7bc43-19e9-4f11-8399-c5b5587a42f9"
@@ -1376,12 +1411,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/refreshtokens/08d7bf8f-9a2a-4534-8d23-9c51db61dbe7",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens/08d7bf8f-9a2a-4534-8d23-9c51db61dbe7",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"refreshtokens",
 										"08d7bf8f-9a2a-4534-8d23-9c51db61dbe7"
@@ -1421,12 +1456,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles"
 									]
@@ -1458,12 +1493,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles?fields=id, name",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles?fields=id, name",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles"
 									],
@@ -1501,12 +1536,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles?fields=name",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles?fields=name",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles"
 									],
@@ -1544,12 +1579,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles"
 									]
@@ -1581,12 +1616,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles?fields=id,name",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles?fields=id,name",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles"
 									],
@@ -1626,12 +1661,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles"
 									]
@@ -1665,12 +1700,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles"
 									]
@@ -1702,12 +1737,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles/8d671d9f-a23e-4a2c-aa8d-e573d2bd3102",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles/8d671d9f-a23e-4a2c-aa8d-e573d2bd3102",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles",
 										"8d671d9f-a23e-4a2c-aa8d-e573d2bd3102"
@@ -1740,12 +1775,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles/dd2f7616-65b7-4456-a6dd-37b25a2c050d?fields=id,name",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles/dd2f7616-65b7-4456-a6dd-37b25a2c050d?fields=id,name",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles",
 										"dd2f7616-65b7-4456-a6dd-37b25a2c050d"
@@ -1784,12 +1819,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles/8d671d9f-a23e-4a2c-aa8d-e573d2bd3102?fields=name",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles/8d671d9f-a23e-4a2c-aa8d-e573d2bd3102?fields=name",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles",
 										"8d671d9f-a23e-4a2c-aa8d-e573d2bd3102"
@@ -1819,12 +1854,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/roles/a186ccef-66fa-4cdb-be7f-f178656f63b3",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles/a186ccef-66fa-4cdb-be7f-f178656f63b3",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"roles",
 										"a186ccef-66fa-4cdb-be7f-f178656f63b3"
@@ -1866,12 +1901,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/claims",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/claims",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"0bc659c8-517a-4859-9a7c-62727a13464b",
@@ -1910,12 +1945,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/claims",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/claims",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be",
@@ -1951,12 +1986,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/claims",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/claims",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"0bc659c8-517a-4859-9a7c-62727a13464b",
@@ -1981,12 +2016,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/claims",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/claims",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be",
@@ -2029,12 +2064,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/roles",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/roles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"0bc659c8-517a-4859-9a7c-62727a13464b",
@@ -2068,12 +2103,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/roles",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/roles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"0bc659c8-517a-4859-9a7c-62727a13464b",
@@ -2109,12 +2144,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/6ca41f7a-44cb-48eb-80ad-f58f5912df9b/roles",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/6ca41f7a-44cb-48eb-80ad-f58f5912df9b/roles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"6ca41f7a-44cb-48eb-80ad-f58f5912df9b",
@@ -2150,12 +2185,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/roles",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/roles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be",
@@ -2196,12 +2231,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									]
@@ -2233,12 +2268,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									]
@@ -2270,12 +2305,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?searchQuery=test",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?searchQuery=test",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
@@ -2313,19 +2348,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?fields=username,id",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?fields=email,id",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
 									"query": [
 										{
 											"key": "fields",
-											"value": "username,id"
+											"value": "email,id"
 										}
 									]
 								}
@@ -2356,19 +2391,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?fields=usernamexx,id",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?fields=emailxx,id",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
 									"query": [
 										{
 											"key": "fields",
-											"value": "usernamexx,id"
+											"value": "emailxx,id"
 										}
 									]
 								}
@@ -2399,19 +2434,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?fields=username",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?fields=email",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
 									"query": [
 										{
 											"key": "fields",
-											"value": "username"
+											"value": "email"
 										}
 									]
 								}
@@ -2442,62 +2477,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?orderby=username",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?orderby=email",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
 									"query": [
 										{
 											"key": "orderby",
-											"value": "username"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get All Users - OrderBy 2 Fields",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?orderby=username,email",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"users"
-									],
-									"query": [
-										{
-											"key": "orderby",
-											"value": "username,email"
+											"value": "email"
 										}
 									]
 								}
@@ -2528,19 +2520,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?orderby=username",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?orderby=email desc",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
 									"query": [
 										{
 											"key": "orderby",
-											"value": "username"
+											"value": "email desc"
 										}
 									]
 								}
@@ -2571,12 +2563,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?orderby=user",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?orderby=user",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
@@ -2614,12 +2606,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?PageSize=1&pagenumber=2",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?PageSize=1&pagenumber=2",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
@@ -2661,12 +2653,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?searchQuery=test&fields=username,id&orderby=username desc&PageSize=1&pagenumber=2",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?searchQuery=test&fields=email,id&orderby=email desc&PageSize=1&pagenumber=2",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
@@ -2677,11 +2669,11 @@
 										},
 										{
 											"key": "fields",
-											"value": "username,id"
+											"value": "email,id"
 										},
 										{
 											"key": "orderby",
-											"value": "username desc"
+											"value": "email desc"
 										},
 										{
 											"key": "PageSize",
@@ -2720,12 +2712,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users?searchQuery=test&fields=username,id&orderby=username desc&PageSize=1&pagenumber=2",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users?searchQuery=test&fields=email,id&orderby=email desc&PageSize=1&pagenumber=2",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users"
 									],
@@ -2736,11 +2728,11 @@
 										},
 										{
 											"key": "fields",
-											"value": "username,id"
+											"value": "email,id"
 										},
 										{
 											"key": "orderby",
-											"value": "username desc"
+											"value": "email desc"
 										},
 										{
 											"key": "PageSize",
@@ -2779,12 +2771,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be"
@@ -2817,12 +2809,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069be"
@@ -2852,12 +2844,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/admin/users/b591ada9-dee6-4fcb-9268-ffcf20ea4489",
+									"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/b591ada9-dee6-4fcb-9268-ffcf20ea4489",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
+										"{{idpUrl}}",
 										"admin",
 										"users",
 										"b591ada9-dee6-4fcb-9268-ffcf20ea4489"
@@ -2874,10 +2866,10 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Users Redirect",
+			"name": "Users",
 			"item": [
 				{
-					"name": "Account Controller",
+					"name": "Authorization Controller",
 					"item": [
 						{
 							"name": "Create New User",
@@ -2898,16 +2890,16 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"username\" : \"newuser\",\n\t\"password\" : \"Password1!\",\n\t\"email\" : \"newuser@test.com\"\n}"
+									"raw": "{\n\t\"password\" : \"Password1!\",\n\t\"email\" : \"newuser@test.com\"\n}"
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/users/register",
+									"raw": "{{baseUrl}}/{{idpUrl}}/authorization/register",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"users",
+										"{{idpUrl}}",
+										"authorization",
 										"register"
 									]
 								}
@@ -2943,13 +2935,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/users/register",
+									"raw": "{{baseUrl}}/{{idpUrl}}/authorization/register",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"users",
+										"{{idpUrl}}",
+										"authorization",
 										"register"
 									]
 								}
@@ -2985,13 +2977,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/users/register",
+									"raw": "{{baseUrl}}/{{idpUrl}}/authorization/register",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"users",
+										"{{idpUrl}}",
+										"authorization",
 										"register"
 									]
 								}
@@ -3035,13 +3027,13 @@
 									"raw": "{\n\t\"username\" : \"yourUser\",\n\t\"password\" : \"yourPassword\",\n\t\"email\" : \"your@email.com\"\n}"
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/users/authenticate",
+									"raw": "{{baseUrl}}/{{idpUrl}}/authorization/authenticate",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"users",
+										"{{idpUrl}}",
+										"authorization",
 										"authenticate"
 									]
 								}
@@ -3066,13 +3058,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/users",
+									"raw": "{{baseUrl}}/{{idpUrl}}/authorization",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"api",
-										"users"
+										"{{idpUrl}}",
+										"authorization"
 									]
 								}
 							},
@@ -3144,7 +3136,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\" : \"INITIALADMINUSER\",\n\t\"password\" : \"Password1!\"\n}",
+							"raw": "{\n\t\"email\" : \"ADMIN@TEST.COM\",\n\t\"password\" : \"Password1!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3152,13 +3144,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/users/authenticate",
+							"raw": "{{baseUrl}}/{{idpUrl}}/authorization/authenticate",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"api",
-								"users",
+								"{{idpUrl}}",
+								"authorization",
 								"authenticate"
 							]
 						}
@@ -3201,18 +3193,18 @@
 							},
 							{
 								"key": "refresh_token",
-								"value": "MfNZtc6OmGzNR8DiPoA6oT1J+I7EUlNRksFmhE34tiI=",
+								"value": "zcWwLx6smm0yJcyhGmAKnaiHv0JspXEEnfQ0/dUXvIM=",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/api/users/authenticate/token",
+							"raw": "{{baseUrl}}/{{idpUrl}}/authorization/authenticate/token",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"api",
-								"users",
+								"{{idpUrl}}",
+								"authorization",
 								"authenticate",
 								"token"
 							]
@@ -3272,13 +3264,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{baseUrl}}/api/admin",
+					"raw": "{{baseUrl}}/{{idpUrl}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
-						"admin"
+						"{{idpUrl}}"
 					]
 				}
 			},
@@ -3290,7 +3281,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbml0aWFsYWRtaW51c2VyIiwianRpIjoiZTA3MzkxMWUtNzc3My00MTVjLTkxOTktMjhlZTQwNWRmNTAxIiwiaWF0IjoxNTg1MDQzNjcyLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM4MGYwYTY5LWEwMDktNGMzNC04NDk2LTlhNDNjMmUwNjliZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJpbml0aWFsYWRtaW51c2VyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJuYmYiOjE1ODUwNDM2NzIsImV4cCI6MTU4NTA0ODQ3MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cHM6Ly90ZXN0Y2xpZW50LmNvbSJ9.n5xY8_UsTUghuGKJkxZBXVEjIc0jv8M2UGUn8Wx-Ny8",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsImp0aSI6ImVjOTU0MmU3LWY4YzgtNGQwZS1iNTM4LWNmZTZjMmE3ZmY3YSIsImlhdCI6MTU4NTU2MDM0OSwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIzODBmMGE2OS1hMDA5LTRjMzQtODQ5Ni05YTQzYzJlMDY5YmUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AdGVzdC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsIm5iZiI6MTU4NTU2MDM0OSwiZXhwIjoxNTg1NTY1MTQ5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo4MDg2IiwiYXVkIjoiaHR0cHM6Ly90ZXN0Y2xpZW50LmNvbSJ9.KCmZpdFuw83tMpjF2zvEauEb667Z2DcDugCOXmpz1UU",
 				"type": "string"
 			}
 		]
@@ -3319,9 +3310,15 @@
 	],
 	"variable": [
 		{
-			"id": "41e9e212-c82d-4ef3-ba4a-55584e01e846",
+			"id": "fd1259cb-07ae-463e-928c-0a74bc00fe03",
 			"key": "baseUrl",
 			"value": "https://localhost:5001",
+			"type": "string"
+		},
+		{
+			"id": "b578a7e3-ded0-4d3d-99d5-b5af6d0dcf5d",
+			"key": "idpUrl",
+			"value": "idp/api",
 			"type": "string"
 		}
 	],

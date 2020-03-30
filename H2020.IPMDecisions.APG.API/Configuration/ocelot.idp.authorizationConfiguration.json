@@ -1,0 +1,31 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/accounts/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/idp/api/authorization/{catchAll}",
+            "UpstreamScheme": "http",
+            "RouteClaimsRequirement": {}
+        },
+        {
+            "DownstreamPathTemplate": "/api/accounts/",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/idp/authorization/",
+            "UpstreamScheme": "http",
+            "UpstreamHttpMethod": [ "Options" ],
+            "RouteClaimsRequirement": {}
+        }
+    ]
+}

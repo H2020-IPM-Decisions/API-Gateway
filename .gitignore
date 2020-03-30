@@ -354,3 +354,4 @@ H2020.IPMDecisions.APG.API/appsettings.json
 H2020.IPMDecisions.APG.API/ocelot.json
 .vscode/**
 Docker/docker-compose.local.yml
+**/Configuration.local/**
