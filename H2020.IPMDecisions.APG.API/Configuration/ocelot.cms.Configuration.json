@@ -1,0 +1,20 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/upr/api/{catchAll}",
+            "UpstreamScheme": "http",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {}
+        }
+    ]
+}

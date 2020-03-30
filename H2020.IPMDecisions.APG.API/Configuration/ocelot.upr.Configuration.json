@@ -1,0 +1,20 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "cms",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/cms/api/{catchAll}",
+            "UpstreamScheme": "http",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {}
+        }
+    ]
+}
