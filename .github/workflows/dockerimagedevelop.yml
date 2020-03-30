@@ -3,7 +3,7 @@ name: Build And Push Docker on Develop Branch
 on:
   push:
     branches:
-      - develops
+      - develop
 env:
   DOCKER_IMAGE_NAME: ipmdecisions/apigateway
 jobs:
