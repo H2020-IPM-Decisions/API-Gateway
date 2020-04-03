@@ -22,7 +22,11 @@ namespace H2020.IPMDecisions.APG.API
                 {
                     config
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                        .AddOcelot("Configuration", hostingContext.HostingEnvironment)                       
+#if DEBUG
+                        .AddOcelot("Configuration.Local", hostingContext.HostingEnvironment)
+#else
+                        .AddOcelot("Configuration", hostingContext.HostingEnvironment)
+#endif                    
                         .AddEnvironmentVariables();
                 });
 

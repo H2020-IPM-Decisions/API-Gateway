@@ -9,7 +9,7 @@ services:
             MYSQL_DATABASE: H2020.IPMDecisions.IDP
         volumes:
             - dbdata:/var/lib/mysql
-            - ./MySQL_Init_Script:/docker-entrypoint-initdb.d
+            - ./IDP_MySQL_Init_Script/init.sql:/docker-entrypoint-initdb.d/init.sql
         restart: always
     idp.api:
         depends_on:
@@ -24,7 +24,7 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
-            # The following db username and password are created in line 32 in the MySQL_Init_Script/init.sql -> Change them before loading DB
+            # The following db username and password are created in line 32 in the IDP_MySQL_Init_Script/init.sql -> Change them before loading DB
             - ConnectionStrings:MySqlDbConnection=Server=idp.db;Database=H2020.IPMDecisions.IDP;Uid=ipm_idp_user;Pwd=user_password;
             - JwtSettings:TokenLifetimeMinutes=80
             - JwtSettings:SecretKey=YourSecretSameInAllServer
@@ -32,6 +32,44 @@ services:
             # The following Audience URL is in line 56 in the MySQL_Init_Script/init.sql
             - JwtSettings:ValidAudiencesUrls=https://testclient.com
             - AllowedHosts=*
+    upr.db:
+        image: postgres:12.2
+        container_name: upr-postgres
+        environment:            
+            # change default username/password 
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: H2020.IPMDecisions.UPR
+        restart: always
+        expose:
+            - "5432"
+        ports:
+            - "5432:5432"
+        volumes: 
+            - upr_postgres_volume:/var/lib/postgresql/data
+            # Change username and password before loading the data
+            - ./UPR_Postgresql_Init_Script/1.createUser.sql :/docker-entrypoint-initdb.d/1.createUser.sql
+            - ./UPR_Postgresql_Init_Script/2.dbBackup.sql :/docker-entrypoint-initdb.d/2.dbBackup.sql
+    upr.api:
+        depends_on:
+            - upr.db
+        image: ipmdecisions/userprovisionservice:develop
+        container_name: upr-api
+        hostname: upr.api
+        restart: always
+        ports:
+            - "5005:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
+                    # The API Gateway redirects and access through the internal port (80).
+        environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
+        # The following db username and password are create in file in UPR_Postgresql_Init_Script/1.createUser.sql
+        - ConnectionStrings:MyPostgreSQLConnection=Host=upr.db;Port=5432;Database=H2020.IPMDecisions.UPR;Username=upr_user;Password=xxxxxx;
+        - JwtSettings:SecretKey=YourSecretSameInAllServer
+        - JwtSettings:IssuerServerUrl=IDPServerURL
+        # The following Audience URL is in line 56 in the IDP_MySQL_Init_Script/init.sql
+        - JwtSettings:ValidAudiencesUrls=https://testclient.com
+        - AllowedHosts=*
     apg.api:        
         image: ipmdecisions/apigateway:latest
         links:
@@ -53,5 +91,18 @@ services:
             - AllowedHosts=*
             - AccessClaims:ClaimTypeName="UserAccessType"
             - AccessClaims:UserAccessLevels="Level1;Level2;Level3"
+    adminer:
+        image: adminer
+        container_name: adminer
+        restart: always
+        ports:
+            - 8080:8080
+        links:
+            - idp.db
+            - upr.db
+        depends_on:
+            - idp.db
+            - upr.db
 volumes:
-    dbdata:
+    idp_msql_dbdata:
+    upr_postgres_volume:

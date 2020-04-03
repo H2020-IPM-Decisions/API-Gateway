@@ -15,7 +15,7 @@ These instructions will get you a copy of the project up and running on your loc
 The API Gateway uses the following technologies:
 
 ```
-ASP.NET Core 3.1
+ASP.NET Core 3.1.101
 ```
 1. [Install](https://dotnet.microsoft.com/download/dotnet-core/3.1) the required .NET Core SDK.
 
@@ -65,13 +65,29 @@ You can deploy the API Gateway, including the Identity Provider Service and a My
 A file called `docker-compose.yml` is located in the following folder `Docker` locate in the root folder of the project.
 
 Before starting the solution you should modify the file with your information. We recommend to change the following data:
+### Identity Provider Database
 * On the `idp.db` (Identity Provider Database) service, change the value for the `MYSQL_ROOT_PASSWORD`
+
+### Identity Provider API
 * On the `idp.api` (Identity Provider API) service:
   - The gateway is expecting a hostname called **idp.api** that is running on the port **80**. If you wish to change the port, a new docker image will need to be built.
   - On the connection string, if you want to change the username and password, you will have to use change the [data loading script](MySQL_Init_Script/init.sql) line 32. Obviously, you can do this manually if you wish.
   - On the JwtSettings:SecretKey as unique string to sign the tokens e.g, `BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q`. **This key will be shared with the API Gateway as it will be needed to validate the token**.
   - On the JwtSettings:IssuerServerUrl, enter the URL of the IDP. **This URL will be shared with the API Gateway as it will be in charge to validate the token**.
-  - On the JwtSettings:ValidAudiencesUrls, a default valid client is added in the [data loading script](MySQL_Init_Script/init.sql) line 56, to allow you work with postman. Each time a new client is added into the database, you will need to reload the docker compose file. **This URL(s) will be shared with the API Gateway as it will be in charge to validate the token**.
+  - On the JwtSettings:ValidAudiencesUrls, a default valid client is added in the [data loading script](IDP_MySQL_Init_Script/init.sql) line 56, to allow you work with postman. Each time a new client is added into the database, you will need to reload the docker compose file. **This URL(s) will be shared with the API Gateway as it will be in charge to validate the token**.
+
+### User Provision Database
+* On the `upr.db` (User Provision Database) service, change the value for the `POSTGRES_USER` and `POSTGRES_PASSWORD`
+
+### User Provision API
+* On the `upr.api` (User Provision API) service:
+  - The gateway is expecting a hostname called **upr.api** that is running on the port **80**. If you wish to change the port, a new docker image will need to be built.
+  - On the connection string, if you want to change the username and password, you will have to use change the [data loading script](UPR_Postgresql_Init_Script/1.createUser.sql). Obviously, you can do this manually if you wish later.
+  - On the JwtSettings:SecretKey as unique string to sign the tokens e.g, `BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q`. **This key will be shared with the API Gateway as it will be needed to validate the token**.
+  - On the JwtSettings:IssuerServerUrl, enter the URL of the IDP. **This URL will be shared with the API Gateway as it will be in charge to validate the token**.
+  - On the JwtSettings:ValidAudiencesUrls, a default valid client is added in the [data loading script](IDP_MySQL_Init_Script/init.sql) line 56, to allow you work with postman. Each time a new client is added into the database, you will need to reload the docker compose file. **This URL(s) will be shared with the API Gateway as it will be in charge to validate the token**.
+
+### API GateWay API
 * For the `apg.api` (API GateWay API) service, you must match the same values as the `idp.api` on the following parameters:
   * JwtSettings:SecretKey
   * JwtSettings:IssuerServerUrl
@@ -86,7 +102,7 @@ docker-compose -f "./Docker/Docker-compose.yml" up -d
 
 If the default port has not been modified in the `apg.api`, the solution will be working in the URL `localhost:5002`, so you can check that the API works using the Postman collection.
 
-The docker compose file will also load data into the database. Please read more about this in the [ReadMe.md](H2020.IPMDecisions.APG.API\Docker\ReadMe.md) file located in `Docker\MySQL_Init_Script`.
+The docker compose file will also load data into the database. Please read more about this in the [ReadMe.md](H2020.IPMDecisions.APG.API\Docker\ReadMe.md) file located in `Docker\IDP_MySQL_Init_Script`.
 
 To help modifying the default data, a postman collection has been created with the calls needed. Also, please note that if a new Client is added into the database, this one will be needed added into the `H2020.IPMDecisions.APG.API\appsettings.Development.json`. You can achieve this modifying the `docker-compose.yml` file and running `docker-compose up -d` again.
 
