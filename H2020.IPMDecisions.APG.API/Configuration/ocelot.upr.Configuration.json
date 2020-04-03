@@ -5,11 +5,11 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "cms",
+                    "Host": "upr.api",
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/cms/api/{catchAll}",
+            "UpstreamPathTemplate": "/upr/api/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer"
