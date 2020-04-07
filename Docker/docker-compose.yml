@@ -54,8 +54,8 @@ services:
         depends_on:
             - upr.db
         image: ipmdecisions/userprovisionservice:develop
-        container_name: upr-api
-        hostname: upr.api
+        container_name: upr-api 
+        hostname: upr.api # Important: The hostname must match the one added into the Ocelot configuration (upr.api).
         restart: always
         ports:
             - "5005:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
@@ -74,8 +74,10 @@ services:
         image: ipmdecisions/apigateway:latest
         links:
             - idp.api
+            - upr.api
         depends_on:
             - idp.api
+            - upr.api
         container_name: apg-api
         restart: always
         ports:
