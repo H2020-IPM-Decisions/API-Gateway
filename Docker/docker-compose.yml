@@ -19,7 +19,7 @@ services:
         hostname: idp.api # Important: The hostname must match the one added into the Ocelot configuration (idp.api).
         restart: always
         ports:
-            - "5000:80" # Important: In a production environment remove the external port (5000) - kept here for microservice debugging purposes.
+            - "5001:80" # Important: In a production environment remove the external port (5000) - kept here for microservice debugging purposes.
                         # The API Gateway redirects and access through the internal port (80).
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
@@ -58,7 +58,7 @@ services:
         hostname: upr.api # Important: The hostname must match the one added into the Ocelot configuration (upr.api).
         restart: always
         ports:
-            - "5005:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
+            - "5002:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
                     # The API Gateway redirects and access through the internal port (80).
         environment:
         - ASPNETCORE_ENVIRONMENT=Development
@@ -70,18 +70,28 @@ services:
         # The following Audience URL is in line 56 in the IDP_MySQL_Init_Script/init.sql
         - JwtSettings:ValidAudiencesUrls=https://testclient.com
         - AllowedHosts=*
+    cms:
+        image: ipmdecisions/content-management-system:latest
+        hostname: cms # Important: The hostname must match the one added into the Ocelot configuration (upr.api).
+        ports:
+        - "5003:80"
+        volumes:
+        - ./CMS/storage:/var/www/html/storage
+        - ./CMS/config:/var/www/html/config
     apg.api:        
         image: ipmdecisions/apigateway:latest
         links:
             - idp.api
             - upr.api
+            - cms
         depends_on:
             - idp.api
             - upr.api
+            - cms
         container_name: apg-api
         restart: always
         ports:
-            - "5002:80"
+            - "5000:80"
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://+:80
@@ -93,6 +103,13 @@ services:
             - AllowedHosts=*
             - AccessClaims:ClaimTypeName="UserAccessType"
             - AccessClaims:UserAccessLevels="Level1;Level2;Level3"
+    web:
+        container_name: ipm-ui
+        restart: always
+        image: ipmdecisions/ipm-decisions-platform
+        ports:
+        - "4999:80"
+        - "444:443"
     adminer:
         image: adminer
         container_name: adminer
