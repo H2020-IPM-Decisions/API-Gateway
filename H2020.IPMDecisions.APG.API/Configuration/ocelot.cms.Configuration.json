@@ -1,7 +1,7 @@
 {
     "ReRoutes": [
         {
-            "DownstreamPathTemplate": "/api/{catchAll}",
+            "DownstreamPathTemplate": "/{catchAll}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -12,7 +12,6 @@
             "UpstreamPathTemplate": "/cms/api/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer"
             },
             "RouteClaimsRequirement": {}
         }
