@@ -3,78 +3,197 @@ HOST: https://polls.apiblueprint.org/
 
 # H2020 IPM Decisions - API Gateway
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+The H2020 IPM Decisions API Gateway is the main entry point for the usage of the other H2020 IPM Decisions microservices. In this document, each microservice will be discribed individually.
 
-## Questions Collection [/questions]
+## Microservices
+Below is a list of each microservice and the path for accessing them, e.g, `https://theurl.com/idp/api`
+* Identity Prodiver Service: /idp/api
+* User provision Sercice: /upr/api
+* Content Management System: /cms/
+* Weather Service: /wx/api
+* Decision Suppor system: /dss/api/
 
-### List All Questions [GET]
+## Contact
+* Name: ADAS Modelling and Informatics Team
+* Url: 'https://www.adas.uk/'
+* Email: software@adas.co.uk
 
-+ Response 200 (application/json)
+## License
+* [Use under GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.txt)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+## API Version
+* Version: v1
 
-### Create a New Question [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+
+# Group IDP - Identity Provider Service
+
+As explained above the following request will be precede by `idp/api/`. The Api Gateway will redirect the request to the approiate end point on the IDP microservice.
+
+# Group Authorization
+
+## Register  [/idp/api/authorization/register]
+
+### Register a New User [POST]
+
+Use this request to register/create a new user into the database. This request is anonymous. If `User Type` is ommited, a default value defined on the configuration file will be added.
 
 + Request (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+    + Headers
+    
+            Accept: application/json
 
-+ Response 201 (application/json)
+    + Attributes (UserForRegistrationDto)
+
++ Response 200
+
+        Succes
+    
+    + Attributes (UserDto)
+
++ Response 400
+
+        Bad Request 
+            
+## Authenticate with password  [/idp/api/authorization/authenticate]
+
+An existing user can authenticate and get a token that will be use to access the rest of the API.
+
+### AuthenticateUser [POST]
+
++ Request (application/json)
 
     + Headers
+    
+            Accept: application/json
+            grant_type: password (required)
+            client_id: string (required)
+            client_secret: string 
 
-            Location: /questions/2
+    + Attributes (UserForAuthenticationDto)
 
-    + Body
++ Response 200
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+        Success
+        
+    + Headers
+    
+            Accept: application/json
+    
+    + Attributes (AuthenticationDto)
+
++ Response 400
+
+        Bad Request
+        
+## Authenticate with refresh token  [/idp/api/authorization/authenticate/token]
+
+An existing user can authenticate using a refresh token and get a new token to access keep accessing the API.
+
+### AuthenticateUserWithToken [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
+            grant_type: refres_token (required)
+            client_id: string (required)
+            client_secret: string
+            refresh_token: string (required)
+
++ Response 200
+
+    Success
+
+    + Headers
+    
+            Accept: application/json
+    
+    + Attributes (AuthenticationDto)
+
++ Response 400
+
+        Bad Request
+        
+# Data Structures
+
+## AuthenticationDto (object)
+
+###  Properties
++ `Id` (string) 
++ `email` (string) 
++ `roles` (string) - List of roles
++ `claims` (string) - List of claims applied to the user
++ `token` (string) 
++ `tokenType`: bearer (string) 
++ `refreshToken` (string) 
+
+## UserDto (object)
+
+### Properties
++ `Id` (string) 
++ `email` (string) 
+
+## UserForRegistrationDto (object)
+
+### Properties
++ `userType` (string, optional, nullable) 
++ `email`: myemail@test.com (string, required) 
++ `password`: Password1! (string, required) - Min 6 characters , requires a digit, lowecase, uppercase and special character
+
+
+## UserForAuthenticationDto (object)
+
+### Properties
++ `email`: myemail@test.com (string, required) 
++ `password`: Password1! (string, required) 
+
+
+## ApplicationClientForCreationDto (object)
+
+### Properties
++ `name` (string, required) 
++ `applicationClientType` (enum[number], required) 
+    + `0` - Public - Doesn't need client secret to log in
+    + `1` - Confidential - Needs client secret to log in
++ `enabled` (boolean, required) 
++ `refreshTokenLifeTime` (number, required) 
++ `url` (string, required) 
+
+
+## ApplicationClientDto (object)
+
+### Properties
++ `id` (string, optional) 
++ `base64Secret` (string, optional, nullable) 
++ `name` (string, required) 
++ `applicationClientType` (enum[number], required) 
+    + `0`
+    + `1`
++ `enabled` (boolean, required) 
++ `refreshTokenLifeTime` (number, required) 
++ `url` (string, required) 
+
+
+## Operation (object)
+
+### Properties
++ `value` (object, optional, nullable) 
++ `path` (string, optional, nullable) 
++ `op` (string, optional, nullable) 
++ `from` (string, optional, nullable) 
+
+
+## RoleForManipulationDto (object)
+
+### Properties
++ `name` (string, required) 
+
+
+## ClaimForManipulationDto (object)
+
+### Properties
++ `type` (string, optional, nullable) 
++ `value` (string, optional, nullable)
