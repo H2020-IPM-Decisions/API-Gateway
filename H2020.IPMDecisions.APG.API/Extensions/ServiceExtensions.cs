@@ -62,7 +62,9 @@ namespace H2020.IPMDecisions.APG.API.Extensions
             {
                 options.AddPolicy("ApiGatewayCORS", builder =>
                 {
-                    builder.WithOrigins(allowedHosts);
+                    builder
+                    .WithOrigins(allowedHosts)
+                    .AllowAnyHeader();
                 });
             });
         }
