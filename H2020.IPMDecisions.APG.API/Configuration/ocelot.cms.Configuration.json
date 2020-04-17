@@ -11,8 +11,7 @@
             ],
             "UpstreamPathTemplate": "/cms/{catchAll}",
             "UpstreamScheme": "http",
-            "AuthenticationOptions": {
-            },
+            "AuthenticationOptions": {},
             "RouteClaimsRequirement": {}
         }
     ]

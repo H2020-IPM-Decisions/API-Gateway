@@ -76,8 +76,13 @@ services:
         ports:
         - "5003:80"
         volumes:
-        - ./CMS/storage:/var/www/html/storage
-        - ./CMS/config:/var/www/html/config
+            - ./CMS/storage:/var/www/html/storage
+            - ./CMS/config:/var/www/html/config
+            - ./CMS/defines.php :/var/www/html/defines.php
+        environment:
+            APP_NAME: H2020.IPMDecisions.CMS
+            COCKPIT_SESSION_NAME: cockpit
+            BASE_ROUTE: theURLWithTheAPI
     apg.api:        
         image: ipmdecisions/apigateway:latest
         links:
