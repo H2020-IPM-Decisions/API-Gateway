@@ -31,7 +31,7 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 
 # Group IDP - Identity Provider Service
 
-As explained above the following request will be precede by `idp/api/`. The Api Gateway will redirect the request to the approiate end point on the IDP microservice.
+As explained above the following request will be precede by `idp/api/`. The Api Gateway will redirect the request to the appropriate end point on the IDP microservice.
 This microservices has two main areas **Authorization** and **Admin**.
 * Authorization: This area of the API is on charge of the authentification and authorization of the users so `Anonymous` request are allowed.
 * Admin: This area of the API is on charge of the administration of the IDP, so only user with `Admin` privileges will be allow to make requests.
@@ -52,8 +52,7 @@ This request allows you to check if the microservice is working and some valid r
         
         Succes
 
-    + Attributes (array[LinkDto]) 
-
+    + Attributes (array[LinkDto])
 
 ## Authorization - Register  [/idp/api/authorization/register]
 
@@ -161,7 +160,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + pageSize (number, optional, `5`) ... Default 10; Maximun 20
 
-    + orderBy (string, optional, `name desc`) ... id, name, url - add `desc` at the end for descending order 
+    + orderBy (string, optional, `name desc`) ... name or url - add `desc` at the end for descending order 
 
     + searchQuery (string, optional, `test`) ... Search against name and url properties
 
@@ -250,7 +249,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     
     + Headers
     
-            Location: http://theurl/idp/api/admin/applicationclients/newID
+            Location: http://theurl/idp/api/admin/applicationclients/{userId}
 
 + Response 400 (application/json)
 
@@ -276,12 +275,17 @@ If an no existing `ID` is passed and the json-patch document has enough informat
     
 + Request (application/json-patch+json)
 
-    + Attributes (array[JsonPatchOperation])
+    + Attributes (ApplicationClientDto)
     + Headers
     
             Authorization: Bearer JWT
 
 + Response 201 
+
+    + Attributes (array[JsonPatchOperation])
+    + Headers
+    
+            Location: http://theurl/idp/api/admin/applicationclients/{userId}
 
 + Response 204
 
@@ -310,7 +314,6 @@ If an no existing `ID` is passed and the json-patch document has enough informat
             Authorization: Bearer JWT
 
 + Response 204 
-
 
 + Response 401 
 
@@ -577,7 +580,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     
     + Headers
     
-            Location: http://theurl/idp/api/admin/roles/newID
+            Location: http://theurl/idp/api/admin/roles/{userId}
 
 + Response 400 (application/json)
 
@@ -917,11 +920,310 @@ This request allows you to know what type of methods are allowed in this endpoin
 
         Forbidden
 
+## Admin - Users [/idp/api/admin/users]
+
+Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each ApplicationClientDto object
+
+### Get Users [GET /{?pageSize,orderBy,searchQuery,pageNumber,fields}]
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+
++ Parameters
+
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+
+    + orderBy (string, optional, `email desc`) ... email - add `desc` at the end for descending order 
+
+    + searchQuery (string, optional, `test`) ... Search against the email property
+
+    + pageNumber (number, optional, `1`)
+
+    + fields (string, optional, `id, email`) ... Any property and `id` is required.
 
 
++ Response 200 
 
-
+    + Headers
         
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+                
+    + Attributes (ShapedDataWithLinksUsers)
+                
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+        
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Get User By Id [GET /{id}{?fields}] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+            
++ Parameters
+
+    + id (string, required)
+    
+    + fields (string, optional, `email`) ... Any property.
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (UserWithRolesClaimsDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Delete User [DELETE/{id}]
+
++ Parameters
+
+    + id (string, required)
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 204 
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+### Options [OPTIONS]
+
+This request allows you to know what type of methods are allowed in this endpoint
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
++ Response 200
+    
+    + Headers
+    
+            Allow: OPTIONS, POST, GET, DELETE
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+### Head [HEAD]
+
+This request allows you to know if the endpoint is correct and is working.
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200
+
++ Response 401
+
++ Response 403 
+
+
+# Group UPR - User Provision Service
+
+As explained above the following request will be precede by `upr/api/`. The Api Gateway will redirect the request to the appropriate end point on the UPR microservice.
+
+## User Profiles [/upr/api/users/{userId}/profiles]
+
+### Get User Profile [GET] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
++ Parameters
+
+    + userId (string, required)
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (UserProfileDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Create User Profile [POST]
+
++ Parameters
+
+    + userId (string, required)
+
++ Request (application/json)
+
+    + Attributes (UserProfileForCreationDto)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (UserProfileDto)
+    
+    + Headers
+    
+            Location: http://theurl/idp/api/admin/applicationclients/{userId}
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+### Partial Update User Profile [PATCH]
+
+Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
+
+If an no existing `ID` is passed and the json-patch document has enough information for creating a UserProfile (see UserProfileForCreationDto), a new UserProfile will be created.
+
++ Parameters
+
+    + userId (string, required)
+    
++ Request (application/json-patch+json)
+
+    + Attributes (array[JsonPatchOperation])
+    
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 201 
+
+    + Attributes (UserProfileDto)
+    
+    + Headers
+    
+            Location: http://theurl/upr/api/user/{userId}/profiles
+
++ Response 204
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+        
++ Response 403 
+
+        Forbidden
+        
+### Delete User Profile [DELETE]
+
++ Parameters
+
+    + userId (string, required)
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 204
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+# Group CMS - Content Management System Service
+
+As explained above the following request will be precede by `cms/api/`. The Api Gateway will redirect the request to the appropriate end point on the CMS microservice.
+
+The CMS has been build using [Cockpit CMS](https://getcockpit.com/). So the API endpoint resquest can be found on its [documentation](https://getcockpit.com/documentation/api).
+ 
+# Group WX - Weather Service // ToDo
+
+As explained above the following request will be precede by `wx/api/`. The Api Gateway will redirect the request to the appropriate end point on the WX microservice.
+
+# Group DSS - Decision Suport System Service // ToDo
+
+As explained above the following request will be precede by `dss/api/`. The Api Gateway will redirect the request to the appropriate end point on the DSS microservice.
+
+
 # Data Structures
 
 ## AuthenticationDto (object)
@@ -929,36 +1231,10 @@ This request allows you to know what type of methods are allowed in this endpoin
 + `id` (string) 
 + `email` (string) 
 + `roles` (array[RoleDto]) - List of roles
-+ `claims` (array[ClaimDto]) - List of claims applied to the user
++ `claims` (array[Claim]) - List of claims applied to the user
 + `token` (string) 
 + `tokenType`: bearer(string) 
-+ `refreshToken` (string) 
-
-## UserDto (object)
-### Properties
-+ `id` (string) 
-+ `email` (string) 
-
-## UserForRegistrationDto (object)
-### Properties
-+ `userType` (string, optional, nullable) 
-+ `email`: myemail@test.com (string, required) 
-+ `password`: Password1! (string, required) - Min 6 characters , requires a digit, lowecase, uppercase and special character
-
-## UserForAuthenticationDto (object)
-### Properties
-+ `email`: myemail@test.com (string, required) 
-+ `password`: Password1! (string, required) 
-
-## ApplicationClientForCreationDto (object)
-### Properties
-+ `name` (string, required) 
-+ `applicationClientType` (enum[number], required) 
-    + `0` - Public - Doesn't need client secret to log in
-    + `1` - Confidential - Needs client secret to log in
-+ `enabled` (boolean, required) 
-+ `refreshTokenLifeTime` (number, required) 
-+ `url` (string, required) 
++ `refreshToken` (string)
 
 ## ApplicationClientDto (object)
 ### Properties
@@ -974,12 +1250,55 @@ This request allows you to know what type of methods are allowed in this endpoin
 + `refreshTokenLifeTime` (number) 
 + `url` (string) 
 
+## ApplicationClientForCreationDto (object)
+### Properties
++ `name` (string, required) 
++ `applicationClientType` (enum[number], required) 
+    + `0` - Public - Doesn't need client secret to log in
+    + `1` - Confidential - Needs client secret to log in
++ `enabled` (boolean, required) 
++ `refreshTokenLifeTime` (number, required) 
++ `url` (string, required)
+
+## Claim (object)
+### Properties
++ `issuer` (string)
++ `originalIssuer` (string)
++ `properties` (string)
++ `subject` (string)
++ `type` (string) 
+    This is used for user authorization
++ `value` (string)
+    This is used for user authorization
++ `valueType` (string)
+
+## ClaimDto (object)
+### Properties
++ `type` (string) 
+    This is used for user authorization
++ `value` (string)
+    This is used for user authorization
+
+## ClaimForManipulationDto (object)
+### Properties
++ `type` (string, required, nullable) 
++ `value` (string, required, nullable)
+
 ## JsonPatchOperation (object)
 ### Properties
 + `value` (object, optional, nullable) - For `add`, `replace` or `test` operations
 + `path` (string, optional, nullable) - Property name
 + `op` (string, optional, nullable) - add, remove, replace, copy, move or test
 + `from` (string, optional, nullable) - For `copy` or `move` operations
+
+## LinkDto (object)
+### Properties
++ `href` (string)
++ `rel` (enum[string]) 
+    + `self` 
+    + `next_page`
+    + `previous_page`
++ `method` (string)
 
 ## RoleDto (object)
 ### Properties
@@ -989,21 +1308,7 @@ This request allows you to know what type of methods are allowed in this endpoin
 
 ## RoleForManipulationDto (object)
 ### Properties
-+ `name` (string, required) 
-
-
-## ClaimDto (object)
-### Properties
-+ `type` (string) 
-    This is used for user authorization
-+ `value` (string)
-    This is used for user authorization
-    
-
-## ClaimForManipulationDto (object)
-### Properties
-+ `type` (string, required, nullable) 
-+ `value` (string, required, nullable)
++ `name` (string, required)
 
 ## ShapedDataWithLinksApplicationClients (object)
 ### Properties
@@ -1025,31 +1330,64 @@ This request allows you to know what type of methods are allowed in this endpoin
     Returns a list of roles
 + `links` (array[LinkDto])
     Returns a list of links
-
-## PaginationMetaData (object)
+    
+## ShapedDataWithLinksUsers (object)
 ### Properties
-+ `TotalCount` (number)
-+ `PageSize` (number)
-+ `CurrentPage` (number)
-+ `TotalPages` (number)
++ `value` (array[UserDto])
+    Returns a list of users
++ `links` (array[LinkDto])
+    Returns a list of links
 
-## LinkDto (object)
+## UserDto (object)
 ### Properties
-+ `href` (string)
-+ `rel` (enum[string]) 
-    + `self` 
-    + `next_page`
-    + `previous_page`
-+ `method` (string)
++ `id` (string) 
++ `email` (string) 
 
-## Claim (object)
+## UserForAuthenticationDto (object)
 ### Properties
-+ `issuer` (string)
-+ `originalIssuer` (string)
-+ `properties` (string)
-+ `subject` (string)
-+ `type` (string) 
-    This is used for user authorization
-+ `value` (string)
-    This is used for user authorization
-+ `valueType` (string)
++ `email`: myemail@test.com (string, required) 
++ `password`: Password1! (string, required)
+
+## UserForRegistrationDto (object)
+### Properties
++ `userType` (string, optional, nullable) 
++ `email`: myemail@test.com (string, required) 
++ `password`: Password1! (string, required) - Min 6 characters , requires a digit, lowecase, uppercase and special character
+
+## UserProfileDto (object)
+### Properties
++ `id` (string)
++ `userId` (string)
++ `fullName` (string)
++ `phoneNumber` (string)
++ `mobileNumber` (string)
++ `address` (string)
++ `postcode` (string)
++ `country` (string)
+
+## UserProfileForCreationDto (object)
+### Properties
++ `firstName` (string)
++ `lastName` (string)
++ `phoneNumber` (string)
++ `mobileNumber` (string)
++ `address` (string)
++ `postcode` (string)
++ `country` (string)
+
+## UserProfileForUpdateDto (object)
+### Properties
++ `firstName` (string)
++ `lastName` (string)
++ `phoneNumber` (string)
++ `mobileNumber` (string)
++ `address` (string)
++ `postcode` (string)
++ `country` (string)
+
+## UserWithRolesClaimsDto (object)
+### Properties
++ `id` (string) 
++ `email` (string) 
++ `roles` (array[RoleDto]) - List of roles
++ `claims` (array[Claim]) - List of claims applied to the user
