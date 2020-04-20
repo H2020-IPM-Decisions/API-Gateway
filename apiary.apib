@@ -2,14 +2,17 @@ FORMAT: 1A
 HOST: https://polls.apiblueprint.org/
 
 # H2020 IPM Decisions - API Gateway
-
 The H2020 IPM Decisions API Gateway is the main entry point for the usage of the other H2020 IPM Decisions microservices. In this document, each microservice will be discribed individually.
+
+## Authentication and Authorization
+The API Gateway uses [Bearer Token Authorization.](https://tools.ietf.org/html/rfc6750)
+Tokens will be provided by the Identity Provider Service (IDP). Please see on section `Authorization` how to obtain tokens to access the API. 
 
 ## Microservices
 Below is a list of each microservice and the path for accessing them, e.g, `https://theurl.com/idp/api`
 * Identity Prodiver Service: /idp/api
 * User provision Sercice: /upr/api
-* Content Management System: /cms/
+* Content Management System: /cms/api
 * Weather Service: /wx/api
 * Decision Suppor system: /dss/api/
 
@@ -29,10 +32,11 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 # Group IDP - Identity Provider Service
 
 As explained above the following request will be precede by `idp/api/`. The Api Gateway will redirect the request to the approiate end point on the IDP microservice.
+This microservices has two main areas **Authorization** and **Admin**.
+* Authorization: This area of the API is on charge of the authentification and authorization of the users so `Anonymous` request are allowed.
+* Admin: This area of the API is on charge of the administration of the IDP, so only user with `Admin` privileges will be allow to make requests.
 
-# Group Authorization
-
-## Register  [/idp/api/authorization/register]
+## Authorization - Register  [/idp/api/authorization/register]
 
 ### Register a New User [POST]
 
@@ -56,7 +60,7 @@ Use this request to register/create a new user into the database. This request i
 
         Bad Request 
             
-## Authenticate with password  [/idp/api/authorization/authenticate]
+## Authorization -Authenticate with password  [/idp/api/authorization/authenticate]
 
 An existing user can authenticate and get a token that will be use to access the rest of the API.
 
@@ -87,7 +91,7 @@ An existing user can authenticate and get a token that will be use to access the
 
         Bad Request
         
-## Authenticate with refresh token  [/idp/api/authorization/authenticate/token]
+## Authorization - Authenticate with refresh token  [/idp/api/authorization/authenticate/token]
 
 An existing user can authenticate using a refresh token and get a new token to access keep accessing the API.
 
@@ -117,23 +121,178 @@ An existing user can authenticate using a refresh token and get a new token to a
 
         Bad Request
         
+
+## Admin - ApplicationClients [/idp/api/admin/applicationclients]
+
+Application clients are APIs, JavaScript Clients, etc., that are allowed to use this API.
+Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each ApplicationClientDto object
+
+### Get Application Clients [GET /{?isEnabled,pageSize,orderBy,searchQuery,pageNumber,fields}]
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+
++ Parameters
+
+    + isEnabled (boolean, optional, `true`) ... Application Clients Filter
+
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+
+    + orderBy (string, optional, `name desc`) ... id, name, url - add `desc` at the end for descending order 
+
+    + searchQuery (string, optional, `test`) ... Search against name and url properties
+
+    + pageNumber (number, optional, `1`)
+
+    + fields (string, optional, `id, name`) ... Any property by `id` is required.
+
+
++ Response 200 
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+                
+    + Attributes (ShapedDataWithLinksApplicationClients)
+                
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+        
+### Get Application Client By Id [GET /{id}{?fields}] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            
++ Parameters
+
+    + id (string, required)
+    
+    + fields (string, optional, `name, refreshTokenLifeTime`) ... Any property.
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (ApplicationClientDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+
+### Create Application Client [POST]
+
++ Request (application/json)
+
+    + Attributes (ApplicationClientForCreationDto)
+    
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (ApplicationClientDto)
+    
+    + Headers
+    
+            Location: http://theurl/api/idp/admin/applicationclients/newID
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+### Partial Update Application Client [PATCH/{id}]
+Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
+
+If an no existing `ID` is passed and the json-patch document has enough information for creating an AplicationClient (see ApplicationClientForCreationDto), a new AplicationClient will be created.
+
++ Parameters
+
+    + id (string, required)
+    
++ Request (application/json-patch+json)
+
+    + Attributes (array[Operation])
+
++ Response 201 
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+        
++ Response 403 
+
+        Forbidden
+        
+### Delete Application Client [DELETE/{id}]
+
++ Parameters
+
+    + id (string, required)
+
++ Response 204 
+
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+
+        
 # Data Structures
 
 ## AuthenticationDto (object)
 
 ###  Properties
-+ `Id` (string) 
++ `id` (string) 
 + `email` (string) 
 + `roles` (string) - List of roles
 + `claims` (string) - List of claims applied to the user
 + `token` (string) 
-+ `tokenType`: bearer (string) 
++ `tokenType`: bearer(string) 
 + `refreshToken` (string) 
 
 ## UserDto (object)
 
 ### Properties
-+ `Id` (string) 
++ `id` (string) 
 + `email` (string) 
 
 ## UserForRegistrationDto (object)
@@ -166,24 +325,26 @@ An existing user can authenticate using a refresh token and get a new token to a
 ## ApplicationClientDto (object)
 
 ### Properties
-+ `id` (string, optional) 
-+ `base64Secret` (string, optional, nullable) 
-+ `name` (string, required) 
-+ `applicationClientType` (enum[number], required) 
-    + `0`
++ `id` (string) 
++ `base64Secret` (string) 
++ `name` (string) 
++ `applicationClientType` (enum[number]) 
+    + `0` 
+    Public - Doesn't need client secret to log in
     + `1`
-+ `enabled` (boolean, required) 
-+ `refreshTokenLifeTime` (number, required) 
-+ `url` (string, required) 
+    Confidential - Needs client secret to log in
++ `enabled` (boolean) 
++ `refreshTokenLifeTime` (number) 
++ `url` (string) 
 
 
 ## Operation (object)
 
 ### Properties
-+ `value` (object, optional, nullable) 
-+ `path` (string, optional, nullable) 
-+ `op` (string, optional, nullable) 
-+ `from` (string, optional, nullable) 
++ `value` (object, optional, nullable) - For `add`, `replace` or `test` operations
++ `path` (string, optional, nullable) - Property name
++ `op` (string, optional, nullable) - add, remove, replace, copy, move or test
++ `from` (string, optional, nullable) - For `copy` or `move` operations
 
 
 ## RoleForManipulationDto (object)
@@ -197,3 +358,29 @@ An existing user can authenticate using a refresh token and get a new token to a
 ### Properties
 + `type` (string, optional, nullable) 
 + `value` (string, optional, nullable)
+
+## ShapedDataWithLinksApplicationClients (object)
+
+### Properties
++ `value` (ApplicationClientDto)
+    Returns a list of application clients 
++ `links` (LinkDto)
+    Returns a list of links
+
+## PaginationMetaData (object)
+
+### Properties
++ `TotalCount` (number)
++ `PageSize` (number)
++ `CurrentPage` (number)
++ `TotalPages` (number)
+
+## LinkDto (object)
+
+### Properties
++ `href` (string)
++ `rel` (enum[string]) 
+    + `self` 
+    + `next_page`
+    + `previous_page`
++ `method` (string)
