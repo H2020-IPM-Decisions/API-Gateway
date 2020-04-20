@@ -36,7 +36,23 @@ This microservices has two main areas **Authorization** and **Admin**.
 * Authorization: This area of the API is on charge of the authentification and authorization of the users so `Anonymous` request are allowed.
 * Admin: This area of the API is on charge of the administration of the IDP, so only user with `Admin` privileges will be allow to make requests.
 
-## Root 
+## Root [/idp/api]
+
+### Root [GET]
+
+This request allows you to check if the microservice is working and some valid requests.
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
+
++ Response 200
+        
+        Succes
+
+    + Attributes (array[LinkDto]) 
 
 
 ## Authorization - Register  [/idp/api/authorization/register]
@@ -123,7 +139,6 @@ An existing user can authenticate using a refresh token and get a new token to a
 + Response 400
 
         Bad Request
-        
 
 ## Admin - ApplicationClients [/idp/api/admin/applicationclients]
 
@@ -235,6 +250,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
         Forbidden
         
 ### Partial Update Application Client [PATCH/{id}]
+
 Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
 
 If an no existing `ID` is passed and the json-patch document has enough information for creating an AplicationClient (see ApplicationClientForCreationDto), a new AplicationClient will be created.
@@ -296,14 +312,109 @@ This request allows you to know what type of methods are allowed in this endpoin
         Forbidden
         
 ### Head [HEAD]
-This request allows you to know if the endpoint is correct
+
+This request allows you to know if the endpoint is correct and is working.
+
++ Response 200
+
++ Response 401 
+
++ Response 403
+
+## Admin - RefeshTokens [/idp/api/admin/refreshtokens]
+
+Refresh Tokens are unique tokens linked to a user that allows to authentificate into the API without the need of username and password.
+Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
+
+### Get Refresh Tokens [GET /{?pageSize,pageNumber,fields}]
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+
++ Parameters
+
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+
+    + pageNumber (number, optional, `1`)
+
+    + fields (string, optional, `id, name`) ... Any property by `id` is required.
+
++ Response 200 
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+                
+    + Attributes (ShapedDataWithLinksRefreshTokens)
+                
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+        
+### Get Refresh Token By Id [GET /{id}{?fields}] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            
++ Parameters
+
+    + id (string, required)
+    
+    + fields (string, optional, `userId, applicationClientId`) ... Any property.
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (ApplicationClientDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+
+### Delete Refresh Token [DELETE/{id}]
+
++ Parameters
+
+    + id (string, required)
+
++ Response 204 
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+### Head [HEAD]
+
+This request allows you to know if the endpoint is correct and is working.
 
 + Response 200
 
 + Response 401 
 
 + Response 403 
-
         
 # Data Structures
 
@@ -391,9 +502,17 @@ This request allows you to know if the endpoint is correct
 ## ShapedDataWithLinksApplicationClients (object)
 
 ### Properties
-+ `value` (ApplicationClientDto)
++ `value` (array[ApplicationClientDto])
     Returns a list of application clients 
-+ `links` (LinkDto)
++ `links` (array[LinkDto])
+    Returns a list of links
+    
+## ShapedDataWithLinksRefreshTokens (object)
+
+### Properties
++ `value` (array[ApplicationClientDto])
+    Returns a list of application clients 
++ `links` (array[LinkDto])
     Returns a list of links
 
 ## PaginationMetaData (object)
