@@ -31,10 +31,10 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 
 # Group IDP - Identity Provider Service
 
-As explained above the following request will be precede by `idp/api/`. The Api Gateway will redirect the request to the appropriate end point on the IDP microservice.
-This microservices has two main areas **Authorization** and **Admin**.
-* Authorization: This area of the API is on charge of the authentification and authorization of the users so `Anonymous` request are allowed.
-* Admin: This area of the API is on charge of the administration of the IDP, so only user with `Admin` privileges will be allow to make requests.
+As explained above, the following request will be preceded by `idp/api`. The Api Gateway will redirect the request to the appropriate end point on the IDP microservice.
+This microservice has two main areas **Authorization** and **Admin**.
+* Authorization: This area of the API is on charge of the authentification and authorization of the users, so `Anonymous` requests are allowed.
+* Admin: This area of the API is on charge of the administration of the IDP, so only users with `Admin` privileges will be allowed to make requests.
 
 ## Root [/idp/api]
 
@@ -80,7 +80,7 @@ Use this request to register/create a new user into the database. This request i
             
 ## Authorization -Authenticate with password  [/idp/api/authorization/authenticate]
 
-An existing user can authenticate and get a token that will be use to access the rest of the API.
+An existing user can authenticate and get a token that will be used to access the rest of the API.
 
 ### AuthenticateUser [POST]
 
@@ -111,7 +111,7 @@ An existing user can authenticate and get a token that will be use to access the
         
 ## Authorization - Authenticate with refresh token  [/idp/api/authorization/authenticate/token]
 
-An existing user can authenticate using a refresh token and get a new token to access keep accessing the API.
+An existing user can authenticate using a refresh token and get a new token to keep accessing the API.
 
 ### AuthenticateUserWithToken [POST]
 
@@ -267,7 +267,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
 Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
 
-If an no existing `ID` is passed and the json-patch document has enough information for creating an AplicationClient (see ApplicationClientForCreationDto), a new AplicationClient will be created.
+If a no existing `ID` is passed and the json-patch document has enough information for creating an AplicationClient (see ApplicationClientForCreationDto), a new AplicationClient will be created.
 
 + Parameters
 
@@ -365,7 +365,7 @@ This request allows you to know if the endpoint is correct and is working.
 
 ## Admin - RefeshTokens [/idp/api/admin/refreshtokens]
 
-Refresh Tokens are unique tokens linked to a user that allows to authentificate into the API without the need of username and password.
+Refresh Tokens are unique tokens linked to a user that allows to authentificate into the API without the need for username and password.
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
 
@@ -487,7 +487,7 @@ This request allows you to know if the endpoint is correct and is working.
 
 ## Admin - Roles [/idp/api/admin/roles]
 
-In these end points you can manage the different roles available for users.
+In these end points, it will be managed the different roles available for users.
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
 
@@ -1072,7 +1072,7 @@ This request allows you to know if the endpoint is correct and is working.
 
 # Group UPR - User Provision Service
 
-As explained above the following request will be precede by `upr/api/`. The Api Gateway will redirect the request to the appropriate end point on the UPR microservice.
+As explained above, the following request will be preceded by `upr/api`. The Api Gateway will redirect the request to the appropriate end point on the UPR microservice.
 
 ## User Profiles [/upr/api/users/{userId}/profiles]
 
@@ -1151,7 +1151,7 @@ As explained above the following request will be precede by `upr/api/`. The Api 
 
 Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
 
-If an no existing `ID` is passed and the json-patch document has enough information for creating a UserProfile (see UserProfileForCreationDto), a new UserProfile will be created.
+If a no existing `ID` is passed and the json-patch document has enough information for creating a UserProfile (see UserProfileForCreationDto), a new UserProfile will be created.
 
 + Parameters
 
@@ -1211,17 +1211,17 @@ If an no existing `ID` is passed and the json-patch document has enough informat
         
 # Group CMS - Content Management System Service
 
-As explained above the following request will be precede by `cms/api/`. The Api Gateway will redirect the request to the appropriate end point on the CMS microservice.
+As explained above, the following request will be preceded by `cms/api`. The Api Gateway will redirect the request to the appropriate end point on the CMS microservice.
 
 The CMS has been build using [Cockpit CMS](https://getcockpit.com/). So the API endpoint resquest can be found on its [documentation](https://getcockpit.com/documentation/api).
  
 # Group WX - Weather Service // ToDo
 
-As explained above the following request will be precede by `wx/api/`. The Api Gateway will redirect the request to the appropriate end point on the WX microservice.
+As explained above, the following request will be preceded by `wx/api`. The Api Gateway will redirect the request to the appropriate end point on the WX microservice.
 
 # Group DSS - Decision Suport System Service // ToDo
 
-As explained above the following request will be precede by `dss/api/`. The Api Gateway will redirect the request to the appropriate end point on the DSS microservice.
+As explained above, the following request will be preceded by `dss/api`. The Api Gateway will redirect the request to the appropriate end point on the DSS microservice.
 
 
 # Data Structures
