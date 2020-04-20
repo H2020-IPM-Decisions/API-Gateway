@@ -143,6 +143,7 @@ An existing user can authenticate using a refresh token and get a new token to a
 ## Admin - ApplicationClients [/idp/api/admin/applicationclients]
 
 Application clients are APIs, JavaScript Clients, etc., that are allowed to use this API.
+
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each ApplicationClientDto object
 
 ### Get Application Clients [GET /{?isEnabled,pageSize,orderBy,searchQuery,pageNumber,fields}]
@@ -152,6 +153,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Headers
     
             Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
 
 + Parameters
 
@@ -165,7 +167,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + pageNumber (number, optional, `1`)
 
-    + fields (string, optional, `id, name`) ... Any property by `id` is required.
+    + fields (string, optional, `id, name`) ... Any property and `id` is required.
 
 
 + Response 200 
@@ -184,6 +186,14 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Unauthorized
         
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
 ### Get Application Client By Id [GET /{id}{?fields}] 
 
 + Request (application/json)
@@ -191,6 +201,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Headers
     
             Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
             
 + Parameters
 
@@ -215,6 +226,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 + Response 403 
 
         Forbidden
+        
++ Response 404
+
+        Not Found
 
 ### Create Application Client [POST]
 
@@ -235,7 +250,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     
     + Headers
     
-            Location: http://theurl/api/idp/admin/applicationclients/newID
+            Location: http://theurl/idp/api/admin/applicationclients/newID
 
 + Response 400 (application/json)
 
@@ -261,9 +276,14 @@ If an no existing `ID` is passed and the json-patch document has enough informat
     
 + Request (application/json-patch+json)
 
-    + Attributes (array[Operation])
+    + Attributes (array[JsonPatchOperation])
+    + Headers
+    
+            Authorization: Bearer JWT
 
 + Response 201 
+
++ Response 204
 
 + Response 400 (application/json)
 
@@ -283,6 +303,12 @@ If an no existing `ID` is passed and the json-patch document has enough informat
 
     + id (string, required)
 
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
 + Response 204 
 
 
@@ -295,8 +321,15 @@ If an no existing `ID` is passed and the json-patch document has enough informat
         Forbidden
         
 ### Options [OPTIONS]
+
 This request allows you to know what type of methods are allowed in this endpoint
 
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
 + Response 200
     
     + Headers
@@ -315,15 +348,22 @@ This request allows you to know what type of methods are allowed in this endpoin
 
 This request allows you to know if the endpoint is correct and is working.
 
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
 + Response 200
 
-+ Response 401 
++ Response 401
 
-+ Response 403
++ Response 403 
 
 ## Admin - RefeshTokens [/idp/api/admin/refreshtokens]
 
 Refresh Tokens are unique tokens linked to a user that allows to authentificate into the API without the need of username and password.
+
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
 
 ### Get Refresh Tokens [GET /{?pageSize,pageNumber,fields}]
@@ -333,6 +373,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Headers
     
             Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
 
 + Parameters
 
@@ -340,7 +381,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + pageNumber (number, optional, `1`)
 
-    + fields (string, optional, `id, name`) ... Any property by `id` is required.
+    + fields (string, optional, `id, name`) ... Any property and `id` is required.
 
 + Response 200 
 
@@ -357,6 +398,14 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 + Response 401 
 
         Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
         
 ### Get Refresh Token By Id [GET /{id}{?fields}] 
 
@@ -365,6 +414,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Headers
     
             Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
             
 + Parameters
 
@@ -389,14 +439,195 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 + Response 403 
 
         Forbidden
+        
++ Response 404
+
+        Not Found
 
 ### Delete Refresh Token [DELETE/{id}]
 
 + Parameters
 
     + id (string, required)
+    
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
 
 + Response 204 
+
++ Response 401 
+
+        Unauthorized
+        
++ Response 403 
+
+        Forbidden
+        
+### Head [HEAD]
+
+This request allows you to know if the endpoint is correct and is working.
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200
+
++ Response 401 
+
++ Response 403 
+
+## Admin - Roles [/idp/api/admin/roles]
+
+In these end points you can manage the different roles available for users.
+
+Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
+
+### Get Roles [GET /{?fields}]
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+
++ Parameters
+
+    + fields (string, optional, `id, name`) ... Any property and `id` is required.
+
++ Response 200 
+                
+    + Attributes (ShapedDataWithLinksRoles)
+                
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Get Role By Id [GET /{id}{?fields}] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+            
++ Parameters
+
+    + id (string, required)
+    
+    + fields (string, optional, `normalizedName`) ... Any property.
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (ApplicationClientDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Create Role [POST]
+
++ Request (application/json)
+
+    + Attributes (RoleForManipulationDto)
+    
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (RoleForManipulationDto)
+    
+    + Headers
+    
+            Location: http://theurl/idp/api/admin/roles/newID
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+
+### Delete Role [DELETE/{id}]
+
++ Parameters
+
+    + id (string, required)
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 204 
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+### Options [OPTIONS]
+
+This request allows you to know what type of methods are allowed in this endpoint
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
++ Response 200
+    
+    + Headers
+    
+            Allow: OPTIONS, POST, GET, DELETE
 
 + Response 401 
 
@@ -410,48 +641,316 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
 This request allows you to know if the endpoint is correct and is working.
 
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
 + Response 200
 
 + Response 401 
 
 + Response 403 
+
+## Admin - User Claims [/idp/api/admin/{userid}/claims]
+
+### Get Claims From User [GET] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
++ Parameters
+
+    + userid (string, required)
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (array[Claim])
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Add Claims To User [POST] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
+    + Attributes(array[ClaimForManipulationDto])
+            
++ Parameters
+
+    + userid (string, required)
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (UserDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Remove Claims From User [DELETE] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
+    + Attributes(array[ClaimForManipulationDto])
+            
++ Parameters
+
+    + userid (string, required)
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (UserDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+
+### Options [OPTIONS]
+
+This request allows you to know what type of methods are allowed in this endpoint
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
++ Response 200
+    
+    + Headers
+    
+            Allow: OPTIONS, POST, GET, DELETE
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+
+## Admin - User Roles [/idp/api/admin/{userid}/roles]
+
+### Get Roles From User [GET] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
++ Parameters
+
+    + userid (string, required)
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (array[RoleDto])
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Add Roles To User [POST] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
+    + Attributes(array[RoleForManipulationDto])
+            
++ Parameters
+
+    + userid (string, required)
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (UserDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+### Remove Roles From User [DELETE] 
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
+    + Attributes(array[RoleForManipulationDto])
+            
++ Parameters
+
+    + userid (string, required)
+    
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (UserDto)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+
+### Options [OPTIONS]
+
+This request allows you to know what type of methods are allowed in this endpoint
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
++ Response 200
+    
+    + Headers
+    
+            Allow: OPTIONS, POST, GET, DELETE
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+
+
+
+
+
         
 # Data Structures
 
 ## AuthenticationDto (object)
-
 ###  Properties
 + `id` (string) 
 + `email` (string) 
-+ `roles` (string) - List of roles
-+ `claims` (string) - List of claims applied to the user
++ `roles` (array[RoleDto]) - List of roles
++ `claims` (array[ClaimDto]) - List of claims applied to the user
 + `token` (string) 
 + `tokenType`: bearer(string) 
 + `refreshToken` (string) 
 
 ## UserDto (object)
-
 ### Properties
 + `id` (string) 
 + `email` (string) 
 
 ## UserForRegistrationDto (object)
-
 ### Properties
 + `userType` (string, optional, nullable) 
 + `email`: myemail@test.com (string, required) 
 + `password`: Password1! (string, required) - Min 6 characters , requires a digit, lowecase, uppercase and special character
 
-
 ## UserForAuthenticationDto (object)
-
 ### Properties
 + `email`: myemail@test.com (string, required) 
 + `password`: Password1! (string, required) 
 
-
 ## ApplicationClientForCreationDto (object)
-
 ### Properties
 + `name` (string, required) 
 + `applicationClientType` (enum[number], required) 
@@ -461,9 +960,7 @@ This request allows you to know if the endpoint is correct and is working.
 + `refreshTokenLifeTime` (number, required) 
 + `url` (string, required) 
 
-
 ## ApplicationClientDto (object)
-
 ### Properties
 + `id` (string) 
 + `base64Secret` (string) 
@@ -477,30 +974,38 @@ This request allows you to know if the endpoint is correct and is working.
 + `refreshTokenLifeTime` (number) 
 + `url` (string) 
 
-
-## Operation (object)
-
+## JsonPatchOperation (object)
 ### Properties
 + `value` (object, optional, nullable) - For `add`, `replace` or `test` operations
 + `path` (string, optional, nullable) - Property name
 + `op` (string, optional, nullable) - add, remove, replace, copy, move or test
 + `from` (string, optional, nullable) - For `copy` or `move` operations
 
+## RoleDto (object)
+### Properties
++ `id` (string) 
++ `name` (string) 
++ `normalizedName` (string) 
 
 ## RoleForManipulationDto (object)
-
 ### Properties
 + `name` (string, required) 
 
 
-## ClaimForManipulationDto (object)
-
+## ClaimDto (object)
 ### Properties
-+ `type` (string, optional, nullable) 
-+ `value` (string, optional, nullable)
++ `type` (string) 
+    This is used for user authorization
++ `value` (string)
+    This is used for user authorization
+    
+
+## ClaimForManipulationDto (object)
+### Properties
++ `type` (string, required, nullable) 
++ `value` (string, required, nullable)
 
 ## ShapedDataWithLinksApplicationClients (object)
-
 ### Properties
 + `value` (array[ApplicationClientDto])
     Returns a list of application clients 
@@ -508,15 +1013,20 @@ This request allows you to know if the endpoint is correct and is working.
     Returns a list of links
     
 ## ShapedDataWithLinksRefreshTokens (object)
-
 ### Properties
 + `value` (array[ApplicationClientDto])
     Returns a list of application clients 
 + `links` (array[LinkDto])
     Returns a list of links
+    
+## ShapedDataWithLinksRoles (object)
+### Properties
++ `value` (array[RoleDto])
+    Returns a list of roles
++ `links` (array[LinkDto])
+    Returns a list of links
 
 ## PaginationMetaData (object)
-
 ### Properties
 + `TotalCount` (number)
 + `PageSize` (number)
@@ -524,7 +1034,6 @@ This request allows you to know if the endpoint is correct and is working.
 + `TotalPages` (number)
 
 ## LinkDto (object)
-
 ### Properties
 + `href` (string)
 + `rel` (enum[string]) 
@@ -532,3 +1041,15 @@ This request allows you to know if the endpoint is correct and is working.
     + `next_page`
     + `previous_page`
 + `method` (string)
+
+## Claim (object)
+### Properties
++ `issuer` (string)
++ `originalIssuer` (string)
++ `properties` (string)
++ `subject` (string)
++ `type` (string) 
+    This is used for user authorization
++ `value` (string)
+    This is used for user authorization
++ `valueType` (string)
