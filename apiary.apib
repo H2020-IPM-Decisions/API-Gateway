@@ -36,6 +36,9 @@ This microservices has two main areas **Authorization** and **Admin**.
 * Authorization: This area of the API is on charge of the authentification and authorization of the users so `Anonymous` request are allowed.
 * Admin: This area of the API is on charge of the administration of the IDP, so only user with `Admin` privileges will be allow to make requests.
 
+## Root 
+
+
 ## Authorization - Register  [/idp/api/authorization/register]
 
 ### Register a New User [POST]
@@ -274,6 +277,32 @@ If an no existing `ID` is passed and the json-patch document has enough informat
 + Response 403 
 
         Forbidden
+        
+### Options [OPTIONS]
+This request allows you to know what type of methods are allowed in this endpoint
+
++ Response 200
+    
+    + Headers
+    
+            Allow: OPTIONS, POST, GET, DELETE, PATCH
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+### Head [HEAD]
+This request allows you to know if the endpoint is correct
+
++ Response 200
+
++ Response 401 
+
++ Response 403 
 
         
 # Data Structures
