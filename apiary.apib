@@ -1,5 +1,4 @@
 FORMAT: 1A
-HOST: https://polls.apiblueprint.org/
 
 # H2020 IPM Decisions - API Gateway
 The H2020 IPM Decisions API Gateway is the main entry point for the usage of the other H2020 IPM Decisions microservices. In this document, each microservice will be discribed individually.
@@ -18,7 +17,7 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 
 ## Contact
 * Name: ADAS Modelling and Informatics Team
-* Url: 'https://www.adas.uk/'
+* Url: https://www.adas.uk/
 * Email: software@adas.co.uk
 
 ## License
@@ -26,8 +25,6 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 
 ## API Version
 * Version: v1
-
-
 
 # Group IDP - Identity Provider Service
 
@@ -120,7 +117,7 @@ An existing user can authenticate using a refresh token and get a new token to k
     + Headers
     
             Accept: application/json
-            grant_type: refres_token (required)
+            grant_type: refresh_token (required)
             client_id: string (required)
             client_secret: string
             refresh_token: string (required)
@@ -166,7 +163,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + pageNumber (number, optional, `1`)
 
-    + fields (string, optional, `id, name`) ... Any property and `id` is required.
+    + fields (string, optional, `id, name`) ... Any property from ApplicationClientDto and `id` is required.
 
 
 + Response 200 
@@ -206,7 +203,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + id (string, required)
     
-    + fields (string, optional, `name, refreshTokenLifeTime`) ... Any property.
+    + fields (string, optional, `name, refreshTokenLifeTime`) ... Any property from ApplicationClientDto.
     
 + Response 200 (application/json)
 
@@ -384,7 +381,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + pageNumber (number, optional, `1`)
 
-    + fields (string, optional, `id, name`) ... Any property and `id` is required.
+    + fields (string, optional, `id, name`) ... Any property RefreshTokenDto and `id` is required.
 
 + Response 200 
 
@@ -423,13 +420,13 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + id (string, required)
     
-    + fields (string, optional, `userId, applicationClientId`) ... Any property.
+    + fields (string, optional, `userId, applicationClientId`) ... Any property from RefreshTokenDto.
     
 + Response 200 (application/json)
 
         Success
 
-    + Attributes (ApplicationClientDto)
+    + Attributes (RefreshTokenDto)
 
 + Response 400 (application/json)
 
@@ -502,7 +499,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
 + Parameters
 
-    + fields (string, optional, `id, name`) ... Any property and `id` is required.
+    + fields (string, optional, `id, name`) ... Any property from RoleDto and `id` is required.
 
 + Response 200 
                 
@@ -537,13 +534,13 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + id (string, required)
     
-    + fields (string, optional, `normalizedName`) ... Any property.
+    + fields (string, optional, `normalizedName`) ... Any property from RoleDto.
     
 + Response 200 (application/json)
 
         Success
 
-    + Attributes (ApplicationClientDto)
+    + Attributes (RoleDto)
 
 + Response 400 (application/json)
 
@@ -943,7 +940,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
     + pageNumber (number, optional, `1`)
 
-    + fields (string, optional, `id, email`) ... Any property and `id` is required.
+    + fields (string, optional, `id, email`) ... Any property from UserDto and `id` is required.
 
 
 + Response 200 
@@ -972,18 +969,18 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
         
 ### Get User By Id [GET /idp/api/admin/users/{id}{?fields}] 
 
++ Parameters
+
+    + id (string, required)
+    
+    + fields (string, optional, `email`) ... Any property from UserWithRolesClaimsDto.
+
 + Request (application/json)
 
     + Headers
     
             Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
             Authorization: Bearer JWT
-            
-+ Parameters
-
-    + id (string, required)
-    
-    + fields (string, optional, `email`) ... Any property.
     
 + Response 200 (application/json)
 
@@ -1076,18 +1073,21 @@ As explained above, the following request will be preceded by `upr/api`. The Api
 
 ## User Profiles [/upr/api/users/{userId}/profiles]
 
-### Get User Profile [GET] 
+### Get User Profile [GET /upr/api/users/{userId}/profiles{?fields}] 
 
-+ Request (application/json)
-
-    + Headers
-    
-            Authorization: Bearer JWT
-            
 + Parameters
 
     + userId (string, required)
     
+    + fields (string, optional, `id, fullname`) ... Any property from UserProfileDto.
+
++ Request (application/json)
+
+    + Headers
+            
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+
 + Response 200 (application/json)
 
         Success
@@ -1122,7 +1122,7 @@ As explained above, the following request will be preceded by `upr/api`. The Api
     
     + Headers
     
-            Accept: application/json
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
             Authorization: Bearer JWT
 
 + Response 200 (application/json)
@@ -1214,7 +1214,313 @@ If a no existing `ID` is passed and the json-patch document has enough informati
 As explained above, the following request will be preceded by `cms/api`. The Api Gateway will redirect the request to the appropriate end point on the CMS microservice.
 
 The CMS has been build using [Cockpit CMS](https://getcockpit.com/). So the API endpoint resquest can be found on its [documentation](https://getcockpit.com/documentation/api).
- 
+
+## Singletons
+
+Singletons represent Data structure in Cockpit CMS that is used just one time, which perfectly fit for content on Landing Page of IPM Decision Portal
+
+## Assets List [/cms/api/cockpit/assets]
+List of all avaibable assets in CMS with details about them.
+
+### Get Assets List [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+    + Attributes 
+        + assets (array[Asset])
+        + total (number)
+        
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+
+## Resources [/cms/api/singletons/get]
+
+## Footer [/cms/api/singletons/get/footer]
+
+Footer in HTML format
+
+### Get footer [GET]
+
+
++ Request (application/json)
+
+    + Headers
+            
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+     + Attributes (Footer)
+     
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+## Banner [/cms/api/singletons/get/banner]
+
+Website Logo
+
+### Get banner [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+     + Attributes (Image)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+## Home Slideshow [/cms/api/singletons/get/slideshow]
+
+Slideshow pictures on Landing Page
+
+###Get Slideshow [GET]
+
++ Request (application/json)
+
+    + Headers
+            
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+     + Attributes (Slideshow)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+## Home Article 1 [/cms/api/singletons/get/homearticle1]
+
+First article on Landing Page
+
+### Get Home Article 1 [GET]
+
++ Request (application/json)
+
+    + Headers
+            
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+     + Attributes (HomeArticle1)
+        
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+## Home Article 2 [/cms/api/singletons/get/homearticle2]
+
+First article on Landing Page
+
+### Get Home Article 2 [GET]
+
++ Request (application/json)
+
+    + Headers
+            
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+     + Attributes (HomeArticle1)
+        
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+## Home Grid [/cms/api/singletons/get/homegrid]
+
+Home Grid on Landing Page
+
+### Get Home Grid [GET]
+
++ Request (application/json)
+
+    + Headers
+            
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+     + Attributes (HomeGrid)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+## News [/cms/api/singletons/get/news]
+
+News on Landing Page
+
+### Get News [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+     + Attributes (News)
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
+
+## Terms and conditions [/cms/api/singletons/get/termsnconditions]
+
+Application Terms and conditions
+
+### Get Terms and Conditions [GET]
+
++ Request (application/json)
+
+    + Headers
+            
+            Authorization: Bearer JWT
+            Cockpit-Token: Bearer JWT
+            
++ Response 200 (application/json)
+
+     + Attributes ()
+
++ Response 400 (application/json)
+
+        Bad Request
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
++ Response 404
+
+        Not Found
+        
 # Group WX - Weather Service // ToDo
 
 As explained above, the following request will be preceded by `wx/api`. The Api Gateway will redirect the request to the appropriate end point on the WX microservice.
@@ -1226,15 +1532,28 @@ As explained above, the following request will be preceded by `dss/api`. The Api
 
 # Data Structures
 
-## AuthenticationDto (object)
-###  Properties
-+ `id` (string) 
-+ `email` (string) 
-+ `roles` (array[RoleDto]) - List of roles
-+ `claims` (array[Claim]) - List of claims applied to the user
-+ `token` (string) 
-+ `tokenType`: bearer(string) 
-+ `refreshToken` (string)
+## Asset (object)
+### Properties
++ `path` (string)
++ `title` (string)
++ `mime` (string)
++ `description` (string)
++ `tags` (array[number]) - List of asset tags
++ `size` (number)
++ `image` (boolean)
++ `video` (boolean)
++ `audio` (boolean)
++ `archive` (boolean)
++ `document` (boolean)
++ `code` (boolean)
++ `created` (string)
++ `modified` (string)
++ `_by` (string)
++ `width` (number)
++ `height` (number)
++ `colors` (array[string]) - List of colors
++ `folder` (string)
++ `_id` (string)
 
 ## ApplicationClientDto (object)
 ### Properties
@@ -1260,6 +1579,16 @@ As explained above, the following request will be preceded by `dss/api`. The Api
 + `refreshTokenLifeTime` (number, required) 
 + `url` (string, required)
 
+## AuthenticationDto (object)
+###  Properties
++ `id` (string) 
++ `email` (string) 
++ `roles` (array[RoleDto]) - List of roles
++ `claims` (array[Claim]) - List of claims applied to the user
++ `token` (string) 
++ `tokenType`: bearer(string) 
++ `refreshToken` (string)
+
 ## Claim (object)
 ### Properties
 + `issuer` (string)
@@ -1284,6 +1613,53 @@ As explained above, the following request will be preceded by `dss/api`. The Api
 + `type` (string, required, nullable) 
 + `value` (string, required, nullable)
 
+## Footer (object)
+### Properties
++ `content` (string)
++ `_mby` (string)
++ `_by` (string)
+
+## HomeArticle1 (object)
+### Properties
++ `title` (string)
++ `content` (string)
++ `_mby` (string)
++ `_by` (string)
+
+## HomeArticle2 (object)
+### Properties
++ `title` (string)
++ `content` (string)
++ `contentUrl` (Asset)
++ `_mby` (string)
++ `_by` (string)
++ `media` (Asset)
++ `mediabackground` 
+    + `path` (string)
+
+## HomeGrid (object)
+### Properties
++ `title1` (string)
++ `content1` (string)
++ `title2` (string)
++ `content2` (string)
++ `title3` (string)
++ `content3` (string)
++ `title4` (string)
++ `content4` (string)
++ `title5` (string)
++ `content5` (string)
++ `title6` (string)
++ `content6` (string)
++ `_mby` (string)
++ `_by` (string)
+
+## Image (object) (object)
+### Properties
++ `path` (string)
++ `_mby` (string)
++ `_by` (string)
+
 ## JsonPatchOperation (object)
 ### Properties
 + `value` (object, optional, nullable) - For `add`, `replace` or `test` operations
@@ -1299,6 +1675,30 @@ As explained above, the following request will be preceded by `dss/api`. The Api
     + `next_page`
     + `previous_page`
 + `method` (string)
+
+## News (object)
+### Properties
++ `picture`
+    + `path` (string)
++ `news` (array[NewsField])
++ `_mby` (string)
++ `_by` (string)
++ `articles` (array[NewsField])
+
+## NewsField (object)
+### Properties
++ `field`
+    + `type` (string)
+    + `name` (string)
++ `value` (string)
+
+## RefreshTokenDto (object)
+### Properties
++ `id` (string) 
++ `userID` (string) 
++ `applicationClientId` (string)
++ `protectedTicket` (string)
++ `expiresUtc` (string)
 
 ## RoleDto (object)
 ### Properties
@@ -1316,27 +1716,36 @@ As explained above, the following request will be preceded by `dss/api`. The Api
     Returns a list of application clients 
 + `links` (array[LinkDto])
     Returns a list of links
-    
+
 ## ShapedDataWithLinksRefreshTokens (object)
 ### Properties
 + `value` (array[ApplicationClientDto])
     Returns a list of application clients 
 + `links` (array[LinkDto])
     Returns a list of links
-    
+
 ## ShapedDataWithLinksRoles (object)
 ### Properties
 + `value` (array[RoleDto])
     Returns a list of roles
 + `links` (array[LinkDto])
     Returns a list of links
-    
+
 ## ShapedDataWithLinksUsers (object)
 ### Properties
 + `value` (array[UserDto])
     Returns a list of users
 + `links` (array[LinkDto])
     Returns a list of links
+
+## Slideshow (object)
+### Properties
+
+## TermsAndConditions (object)
+###Properties
++ `content` (string)
++ `_mby` (string)
++ `_by` (string)
 
 ## UserDto (object)
 ### Properties
