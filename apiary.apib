@@ -1071,6 +1071,25 @@ This request allows you to know if the endpoint is correct and is working.
 
 As explained above, the following request will be preceded by `upr/api`. The Api Gateway will redirect the request to the appropriate end point on the UPR microservice.
 
+## Root [/upr/api]
+
+### Root [GET]
+
+This request allows you to check if the microservice is working and some valid requests.
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
+
++ Response 200
+        
+        Succes
+
+    + Attributes (array[LinkDto])
+
+
 ## User Profiles [/upr/api/users/{userId}/profiles]
 
 ### Get User Profile [GET /upr/api/users/{userId}/profiles{?fields}] 
@@ -1208,6 +1227,46 @@ If a no existing `ID` is passed and the json-patch document has enough informati
 + Response 403 
 
         Forbidden
+        
+### Options [OPTIONS]
+
+This request allows you to know what type of methods are allowed in this endpoint
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+            
++ Response 200
+    
+    + Headers
+    
+            Allow: OPTIONS, POST, GET, DELETE
+
++ Response 401 
+
+        Unauthorized
+
++ Response 403 
+
+        Forbidden
+        
+### Head [HEAD]
+
+This request allows you to know if the endpoint is correct and is working.
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200
+
++ Response 401
+
++ Response 403
         
 # Group CMS - Content Management System Service
 
