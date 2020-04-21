@@ -145,7 +145,7 @@ Application clients are APIs, JavaScript Clients, etc., that are allowed to use 
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each ApplicationClientDto object
 
-### Get Application Clients [GET /{?isEnabled,pageSize,orderBy,searchQuery,pageNumber,fields}]
+### Get Application Clients [GET /idp/api/admin/applicationclients{?isEnabled,pageSize,orderBy,searchQuery,pageNumber,fields}]
 
 + Request (application/json)
 
@@ -193,7 +193,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Get Application Client By Id [GET /{id}{?fields}] 
+### Get Application Client By Id [GET /idp/api/admin/applicationclients/{id}{?fields}] 
 
 + Request (application/json)
 
@@ -263,7 +263,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Forbidden
         
-### Partial Update Application Client [PATCH/{id}]
+### Partial Update Application Client [PATCH /idp/api/admin/applicationclients/{id}]
 
 Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
 
@@ -301,7 +301,7 @@ If a no existing `ID` is passed and the json-patch document has enough informati
 
         Forbidden
         
-### Delete Application Client [DELETE/{id}]
+### Delete Application Client [DELETE /idp/api/admin/applicationclients/{id}]
 
 + Parameters
 
@@ -369,7 +369,7 @@ Refresh Tokens are unique tokens linked to a user that allows to authentificate 
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
 
-### Get Refresh Tokens [GET /{?pageSize,pageNumber,fields}]
+### Get Refresh Tokens [GET /idp/api/admin/refreshtokens{?pageSize,pageNumber,fields}]
 
 + Request (application/json)
 
@@ -410,7 +410,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Get Refresh Token By Id [GET /{id}{?fields}] 
+### Get Refresh Token By Id [GET /idp/api/admin/refreshtokens/{id}{?fields}] 
 
 + Request (application/json)
 
@@ -447,7 +447,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
 
-### Delete Refresh Token [DELETE/{id}]
+### Delete Refresh Token [DELETE /idp/api/admin/refreshtokens/{id}]
 
 + Parameters
 
@@ -491,7 +491,7 @@ In these end points, it will be managed the different roles available for users.
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
 
-### Get Roles [GET /{?fields}]
+### Get Roles [GET /idp/api/admin/roles{?fields}]
 
 + Request (application/json)
 
@@ -524,7 +524,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Get Role By Id [GET /{id}{?fields}] 
+### Get Role By Id [GET /idp/api/admin/roles/{id}{?fields}] 
 
 + Request (application/json)
 
@@ -594,7 +594,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Forbidden
 
-### Delete Role [DELETE/{id}]
+### Delete Role [DELETE /idp/api/admin/roles/{id}]
 
 + Parameters
 
@@ -924,7 +924,7 @@ This request allows you to know what type of methods are allowed in this endpoin
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each ApplicationClientDto object
 
-### Get Users [GET /{?pageSize,orderBy,searchQuery,pageNumber,fields}]
+### Get Users [GET /idp/api/admin/users{?pageSize,orderBy,searchQuery,pageNumber,fields}]
 
 + Request (application/json)
 
@@ -970,7 +970,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Get User By Id [GET /{id}{?fields}] 
+### Get User By Id [GET /idp/api/admin/users/{id}{?fields}] 
 
 + Request (application/json)
 
@@ -1007,7 +1007,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Delete User [DELETE/{id}]
+### Delete User [DELETE /idp/api/admin/users/{id}]
 
 + Parameters
 
