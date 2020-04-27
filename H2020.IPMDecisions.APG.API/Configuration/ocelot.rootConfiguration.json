@@ -11,6 +11,18 @@
             ],
             "UpstreamPathTemplate": "/idp/api",
             "UpstreamScheme": "http"
+        },
+        {
+            "DownstreamPathTemplate": "/api",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/upr/api",
+            "UpstreamScheme": "http"
         }
     ]
 }
