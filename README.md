@@ -41,7 +41,7 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 * Weather Service: /wx/api
 * Decision Support system: dss.api
 
-The API Gateway redirects expects the docker containers to have exposed default ports, 80 for HTPP and 443 for HTTPS, and be called like the following@
+The API Gateway redirects expect the docker containers to expose default ports, 80 for HTPP ~~and 443 for HTTPS~~, and be called like the following:
 * Identity Provider Service: idp.api
 * User Provision Service: upr.api
 * Content Management System: cms

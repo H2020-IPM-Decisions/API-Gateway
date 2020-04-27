@@ -19,7 +19,7 @@ services:
         hostname: idp.api # Important: The hostname must match the one added into the Ocelot configuration (idp.api).
         restart: always
         ports:
-            - "5001:80" # Important: In a production environment remove the external port (5000) - kept here for microservice debugging purposes.
+            - "5001:80" # Important: In a production environment remove the external port (5001) - kept here for microservice debugging purposes.
                         # The API Gateway redirects and access through the internal port (80).
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
@@ -58,7 +58,7 @@ services:
         hostname: upr.api # Important: The hostname must match the one added into the Ocelot configuration (upr.api).
         restart: always
         ports:
-            - "5002:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
+            - "5002:80" # Important: In a production environment remove the external port (5002) - kept here for microservice debugging purposes.
                     # The API Gateway redirects and access through the internal port (80).
         environment:
         - ASPNETCORE_ENVIRONMENT=Development
@@ -72,9 +72,10 @@ services:
         - AllowedHosts=*
     cms:
         image: ipmdecisions/content-management-system:latest
-        hostname: cms # Important: The hostname must match the one added into the Ocelot configuration (upr.api).
+        hostname: cms # Important: The hostname must match the one added into the Ocelot configuration (cms).
         ports:
-        - "5003:80"
+        - "5003:80" # Important: In a production environment remove the external port (5003) - kept here for microservice debugging purposes.
+                    # The API Gateway redirects and access through the internal port (80).
         volumes:
             - ./CMS/storage:/var/www/html/storage
             - ./CMS/config:/var/www/html/config
@@ -83,16 +84,32 @@ services:
             APP_NAME: H2020.IPMDecisions.CMS
             COCKPIT_SESSION_NAME: cockpit
             BASE_ROUTE: theURLWithTheAPI
+    # dss.api:
+    #     image: 
+    #     hostname: dss.api # Important: The hostname must match the one added into the Ocelot configuration (dss.api).
+    #     ports:
+    #     - "5004:80" # Important: In a production environment remove the external port (5004) - kept here for microservice debugging purposes.
+    #                 # The API Gateway redirects and access through the internal port (80).
+    # wx.api:
+    #     image: 
+    #     hostname: wx.api # Important: The hostname must match the one added into the Ocelot configuration (wx.apii).
+    #     ports:
+    #     - "5005:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
+    #                 # The API Gateway redirects and access through the internal port (80).
     apg.api:        
         image: ipmdecisions/apigateway:latest
         links:
             - idp.api
             - upr.api
             - cms
+            # - dss.api
+            # - wx.api
         depends_on:
             - idp.api
             - upr.api
             - cms
+            # - dss.api
+            # - wx.api
         container_name: apg-api
         restart: always
         ports:
