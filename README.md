@@ -30,8 +30,23 @@ cd API-Gateway
 
 git checkout develop
 ```
-
 You can also [download the repository as a zip](https://github.com/H2020-IPM-Decisions/API-Gateway/archive/master.zip).
+
+### Microservices available
+
+Below is a list of each microservice and the path for accessing them, e.g, `https://theurl.com/idp/api`
+* Identity Provider Service: /idp/api
+* User Provision Service: /upr/api
+* Content Management System: /cms/api
+* Weather Service: /wx/api
+* Decision Support system: dss.api
+
+The API Gateway redirects expects the docker containers to have exposed default ports, 80 for HTPP and 443 for HTTPS, and be called like the following@
+* Identity Provider Service: idp.api
+* User Provision Service: upr.api
+* Content Management System: cms
+* Weather Service: wx.api
+* Decision Support system: dss.api
 
 ### How to interact with the project
 
@@ -86,6 +101,12 @@ Before starting the solution you should modify the file with your information. W
   - On the JwtSettings:SecretKey as unique string to sign the tokens e.g, `BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q`. **This key will be shared with the API Gateway as it will be needed to validate the token**.
   - On the JwtSettings:IssuerServerUrl, enter the URL of the IDP. **This URL will be shared with the API Gateway as it will be in charge to validate the token**.
   - On the JwtSettings:ValidAudiencesUrls, a default valid client is added in the [data loading script](IDP_MySQL_Init_Script/init.sql) line 56, to allow you work with postman. Each time a new client is added into the database, you will need to reload the docker compose file. **This URL(s) will be shared with the API Gateway as it will be in charge to validate the token**.
+
+### Decision Support System API
+Not implemented yet
+
+### Weather Service API
+Not implemented yet
 
 ### API GateWay API
 * For the `apg.api` (API GateWay API) service, you must match the same values as the `idp.api` on the following parameters:
