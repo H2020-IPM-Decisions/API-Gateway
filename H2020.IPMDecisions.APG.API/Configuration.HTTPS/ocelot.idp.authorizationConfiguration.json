@@ -2,11 +2,11 @@
     "ReRoutes": [
         {
             "DownstreamPathTemplate": "/api/accounts/{catchAll}",
-            "DownstreamScheme": "http",
+            "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "idp.api",
-                    "Port": 80
+                    "Port": 443
                 }
             ],
             "UpstreamPathTemplate": "/idp/api/authorization/{catchAll}",
@@ -15,11 +15,11 @@
         },
         {
             "DownstreamPathTemplate": "/api/accounts/",
-            "DownstreamScheme": "http",
+            "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "idp.api",
-                    "Port": 80
+                    "Port": 443
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/authorization/",

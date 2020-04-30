@@ -2,11 +2,11 @@
     "ReRoutes": [
         {
             "DownstreamPathTemplate": "/api/{catchAll}",
-            "DownstreamScheme": "http",
+            "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "upr.api",
-                    "Port": 80
+                    "Port": 443
                 }
             ],
             "UpstreamPathTemplate": "/upr/api/{catchAll}",

@@ -1,0 +1,18 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/{catchAll}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "wx.api",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/wx/api/{catchAll}",
+            "UpstreamScheme": "https",
+            "AuthenticationOptions": {},
+            "RouteClaimsRequirement": {}
+        }
+    ]
+}

@@ -23,5 +23,23 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
+    ,
+    "H2020.IPMDecisions.APG.API_Staging": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "applicationUrl": "https://0.0.0.0:6003;http://0.0.0.0:6002",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      }
+    }
+    ,
+    "H2020.IPMDecisions.APG.API_Production": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "applicationUrl": "https://0.0.0.0:7003;http://0.0.0.0:7002",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    }
   }
 }

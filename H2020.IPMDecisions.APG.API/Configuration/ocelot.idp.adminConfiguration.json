@@ -10,7 +10,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/idp/api/admin/{catchAll}",
-            "UpstreamScheme": "http",
+            "UpstreamScheme": "https",
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer"
             },
@@ -18,8 +18,7 @@
                 "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/idp/admin"
             },
             "AllowAutoRedirect": false,
-            "RouteClaimsRequirement": {
-            }
+            "RouteClaimsRequirement": {}
         }
     ]
 }
