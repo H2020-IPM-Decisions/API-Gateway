@@ -18,15 +18,20 @@ namespace H2020.IPMDecisions.APG.API
 
             host.ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.ConfigureAppConfiguration((hostingContext, config) => 
+                webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
                 {
+                    var ocelotConfiguration = "Configuration";
+                    if (hostingContext.HostingEnvironment.IsProduction()){
+                        ocelotConfiguration = $"{ocelotConfiguration}.HTTPS";
+                    }
+
                     config
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
 #if DEBUG
-                        .AddOcelot("Configuration.Local", hostingContext.HostingEnvironment)
+                        .AddOcelot($"{ocelotConfiguration}.Local", hostingContext.HostingEnvironment)
 #else
-                        .AddOcelot("Configuration", hostingContext.HostingEnvironment)
-#endif                    
+                        .AddOcelot(ocelotConfiguration, hostingContext.HostingEnvironment)
+#endif
                         .AddEnvironmentVariables();
                 });
 
