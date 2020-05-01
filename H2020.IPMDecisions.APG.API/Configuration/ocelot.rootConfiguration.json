@@ -9,7 +9,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/idp/apis",
+            "UpstreamPathTemplate": "/idp/api",
             "UpstreamScheme": "https"
         },
         {
@@ -21,7 +21,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/idp/api",
+            "UpstreamPathTemplate": "/upr/api",
             "UpstreamScheme": "https"
         }
     ]
