@@ -20,19 +20,27 @@ namespace H2020.IPMDecisions.APG.API
             {
                 webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
                 {
+                    var jsonConfig = new ConfigurationBuilder()
+                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                        .AddJsonFile("appsettings.json")
+                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json")
+                        .AddEnvironmentVariables()
+                        .Build();
+
+                    var microservicesInHttps =  bool.Parse(jsonConfig["ENFORCE_MICROSERVICES_HTTPS_REDIRECT"]);
+
                     var ocelotConfiguration = "Configuration";
-                    if (hostingContext.HostingEnvironment.IsProduction()){
+                    if (!hostingContext.HostingEnvironment.IsDevelopment() && microservicesInHttps)
+                    {
                         ocelotConfiguration = $"{ocelotConfiguration}.HTTPS";
                     }
 
                     config
-                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
 #if DEBUG
-                        .AddOcelot($"{ocelotConfiguration}.Local", hostingContext.HostingEnvironment)
+                        .AddOcelot($"{ocelotConfiguration}.Local", hostingContext.HostingEnvironment);
 #else
-                        .AddOcelot(ocelotConfiguration, hostingContext.HostingEnvironment)
+                        .AddOcelot(ocelotConfiguration, hostingContext.HostingEnvironment);
 #endif
-                        .AddEnvironmentVariables();
                 });
 
                 webBuilder.UseStartup<Startup>();
