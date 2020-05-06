@@ -1,0 +1,24 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/upr/api/{catchAll}",
+            "UpstreamScheme": "https",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "DownstreamHeaderTransform": {
+                "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/upr"
+            },
+            "AllowAutoRedirect": false,
+            "RouteClaimsRequirement": {}
+        }
+    ]
+}

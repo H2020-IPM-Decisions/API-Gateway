@@ -8,8 +8,8 @@ services:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: H2020.IPMDecisions.IDP
         volumes:
-            - dbdata:/var/lib/mysql
-            - ./MySQL_Init_Script:/docker-entrypoint-initdb.d
+            - idp_msql_dbdata:/var/lib/mysql
+            - ./IDP_MySQL_Init_Script/init.sql:/docker-entrypoint-initdb.d/init.sql
         restart: always
     idp.api:
         depends_on:
@@ -19,12 +19,11 @@ services:
         hostname: idp.api # Important: The hostname must match the one added into the Ocelot configuration (idp.api).
         restart: always
         ports:
-            - "5000:80" # Important: In a production environment remove the external port (5000) - kept here for microservice debugging purposes.
-                        # The API Gateway redirects and access through the internal port (80).
+            - "5001:80" # Important: In a production environment remove the external ports (5001/6001) - kept here for microservice debugging purposes.
+            - "6001:443" # The API Gateway redirects and access through the internal port (80/443).
         environment:
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
-            # The following db username and password are created in line 32 in the MySQL_Init_Script/init.sql -> Change them before loading DB
+            - ASPNETCORE_ENVIRONMENT=Development # Development, Staging or Production. Production enforces HTTPS, so only use when certificates installed      
+            # The following db username and password are created in line 32 in the IDP_MySQL_Init_Script/init.sql -> Change them before loading DB
             - ConnectionStrings:MySqlDbConnection=Server=idp.db;Database=H2020.IPMDecisions.IDP;Uid=ipm_idp_user;Pwd=user_password;
             - JwtSettings:TokenLifetimeMinutes=80
             - JwtSettings:SecretKey=YourSecretSameInAllServer
@@ -32,19 +31,106 @@ services:
             # The following Audience URL is in line 56 in the MySQL_Init_Script/init.sql
             - JwtSettings:ValidAudiencesUrls=https://testclient.com
             - AllowedHosts=*
+            - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
+            # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate
+            # - ASPNETCORE_URLS=https://+:443;http://+:80 # Important: The port must match the one added into the Ocelot configuration (80/443)
+            # - ASPNETCORE_HTTPS_PORT=443
+            # - ASPNETCORE_Kestrel__Certificates__Default__Password=YourCertificatePassword
+            # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/YourCertificate.pfx
+        # volumes: 
+        #     - ~/.aspnet/https:/https:ro # Path certificate in Host machine
+    upr.db:
+        image: postgres:12.2
+        container_name: upr-postgres
+        environment:            
+            # change default username/password 
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: H2020.IPMDecisions.UPR
+        restart: always
+        expose:
+            - "5432"
+        ports:
+            - "5432:5432"
+        volumes: 
+            - upr_postgres_volume:/var/lib/postgresql/data
+            # Change username and password before loading the data
+            - ./UPR_Postgresql_Init_Script/1.createUser.sql :/docker-entrypoint-initdb.d/1.createUser.sql
+            - ./UPR_Postgresql_Init_Script/2.dbBackup.sql :/docker-entrypoint-initdb.d/2.dbBackup.sql
+    upr.api:
+        depends_on:
+            - upr.db
+        image: ipmdecisions/userprovisionservice:develop
+        container_name: upr-api 
+        hostname: upr.api # Important: The hostname must match the one added into the Ocelot configuration (upr.api).
+        restart: always
+        ports:
+            - "5002:80" # Important: In a production environment remove the external port (5002) - kept here for microservice debugging purposes.
+                    # The API Gateway redirects and access through the internal port (80).
+        environment:
+        - ASPNETCORE_ENVIRONMENT=Development # Development, Staging or Production. Production enforces HTTPS, so only use when certificates installed
+        # The following db username and password are create in file in UPR_Postgresql_Init_Script/1.createUser.sql
+        - ConnectionStrings:MyPostgreSQLConnection=Host=upr.db;Port=5432;Database=H2020.IPMDecisions.UPR;Username=upr_user;Password=xxxxxx;
+        - JwtSettings:SecretKey=YourSecretSameInAllServer
+        - JwtSettings:IssuerServerUrl=IDPServerURL
+        # The following Audience URL is in line 56 in the IDP_MySQL_Init_Script/init.sql
+        - JwtSettings:ValidAudiencesUrls=https://testclient.com
+        - AllowedHosts=*
+        - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
+        # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate
+        # - ASPNETCORE_URLS=https://+:443;http://+:80 # Important: The port must match the one added into the Ocelot configuration (80/443)
+        # - ASPNETCORE_HTTPS_PORT=443
+        # - ASPNETCORE_Kestrel__Certificates__Default__Password=YourCertificatePassword
+        # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/YourCertificate.pfx
+        # volumes: 
+        #     - ~/.aspnet/https:/https:ro # Path certificate in Host machine
+    cms:
+        image: ipmdecisions/content-management-system:latest
+        container_name: cms
+        hostname: cms # Important: The hostname must match the one added into the Ocelot configuration (cms).
+        ports:
+        - "5003:80" # Important: In a production environment remove the external port (5003) - kept here for microservice debugging purposes.
+                    # The API Gateway redirects and access through the internal port (80).
+        volumes:
+            - ./CMS/storage:/var/www/html/storage
+            - ./CMS/config:/var/www/html/config
+            - ./CMS/defines.php :/var/www/html/defines.php
+        environment:
+            APP_NAME: H2020.IPMDecisions.CMS
+            COCKPIT_SESSION_NAME: cockpit
+            BASE_ROUTE: theURLWithTheAPI
+    # dss.api:
+    #     image: 
+    #     hostname: dss.api # Important: The hostname must match the one added into the Ocelot configuration (dss.api).
+    #     ports:
+    #     - "5004:80" # Important: In a production environment remove the external port (5004) - kept here for microservice debugging purposes.
+    #                 # The API Gateway redirects and access through the internal port (80).
+    # wx.api:
+    #     image: 
+    #     hostname: wx.api # Important: The hostname must match the one added into the Ocelot configuration (wx.apii).
+    #     ports:
+    #     - "5005:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
+    #                 # The API Gateway redirects and access through the internal port (80).
     apg.api:        
         image: ipmdecisions/apigateway:latest
         links:
             - idp.api
+            - upr.api
+            - cms
+            # - dss.api
+            # - wx.api
         depends_on:
             - idp.api
+            - upr.api
+            - cms
+            # - dss.api
+            # - wx.api
         container_name: apg-api
         restart: always
         ports:
-            - "5002:80"
+            - "5000:80"
         environment:
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=http://+:80
+            - ASPNETCORE_ENVIRONMENT=Development # Development, Staging or Production. Production enforces HTTPS, so only use when certificates installed            
             - JwtSettings:TokenLifetimeMinutes=80
             - JwtSettings:SecretKey=YourSecretSameInAllServer
             - JwtSettings:IssuerServerUrl=IDPServerURL
@@ -53,5 +139,35 @@ services:
             - AllowedHosts=*
             - AccessClaims:ClaimTypeName="UserAccessType"
             - AccessClaims:UserAccessLevels="Level1;Level2;Level3"
+            # Enforce Https redirect to microservice when CA certificate installed
+            - ENFORCE_MICROSERVICES_HTTPS_REDIRECT=false 
+            - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
+        # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate
+        # - ASPNETCORE_URLS=https://+:443;http://+:80 # Important: The port must match the one added into the Ocelot configuration (80/443)
+        # - ASPNETCORE_HTTPS_PORT=443
+        # - ASPNETCORE_Kestrel__Certificates__Default__Password=YourCertificatePassword
+        # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/YourCertificate.pfx
+        # volumes: 
+        #     - ~/.aspnet/https:/https:ro # Path certificate in Host machine
+    web:
+        container_name: ipm-ui
+        restart: always
+        image: ipmdecisions/ipm-decisions-platform
+        ports:
+        - "4999:80"
+        - "444:443"
+    adminer:
+        image: adminer
+        container_name: adminer
+        restart: always
+        ports:
+            - 8080:8080
+        links:
+            - idp.db
+            - upr.db
+        depends_on:
+            - idp.db
+            - upr.db
 volumes:
-    dbdata:
+    idp_msql_dbdata:
+    upr_postgres_volume:

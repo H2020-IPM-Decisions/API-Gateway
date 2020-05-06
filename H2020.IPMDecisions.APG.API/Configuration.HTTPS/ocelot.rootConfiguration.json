@@ -1,0 +1,28 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/idp/api",
+            "UpstreamScheme": "https"
+        },
+        {
+            "DownstreamPathTemplate": "/api",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/upr/api",
+            "UpstreamScheme": "https"
+        }
+    ]
+}

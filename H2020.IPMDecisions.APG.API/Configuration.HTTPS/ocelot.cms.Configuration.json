@@ -1,0 +1,18 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/{catchAll}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "cms",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/cms/{catchAll}",
+            "UpstreamScheme": "http",
+            "AuthenticationOptions": {},
+            "RouteClaimsRequirement": {}
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/accounts/{catchAll}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/idp/api/accounts/{catchAll}",
+            "UpstreamScheme": "https",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {}
+        }
+    ]
+}

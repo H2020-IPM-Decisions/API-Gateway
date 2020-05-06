@@ -1,0 +1,31 @@
+# custom config
+
+# debug: true
+# app.name: H2020.IPMDecisions.CMS
+
+# cors:
+#     allowedHeaders: 'X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding, Cockpit-Token'
+#     allowedMethods: 'PUT, POST, GET, OPTIONS, DELETE'
+#     allowedOrigins: '*'
+#     maxAge: '1000'
+#     allowCredentials: 'true'
+#     exposedHeaders: 'true'
+# languages:
+#   en: English
+
+# site_url: 'http://localhost:5000/cms/'
+# base_route: 'http://localhost:5000/cms/'
+# base_host: 'http://localhost:5000/cms/'
+# paths:
+    # '#root': COCKPIT_DIR
+    # '#storage'  => COCKPIT_STORAGE_FOLDER,
+    # '#pstorage' => COCKPIT_PUBLIC_STORAGE_FOLDER,
+    # '#data'     => COCKPIT_STORAGE_FOLDER.'/data',
+    # '#cache'    => COCKPIT_STORAGE_FOLDER.'/cache',
+    # '#tmp'      => COCKPIT_STORAGE_FOLDER.'/tmp',
+    # '#thumbs'   => COCKPIT_PUBLIC_STORAGE_FOLDER.'/thumbs',
+    # '#modules'  => COCKPIT_DIR.'/modules',
+    # '#addons'   => COCKPIT_DIR.'/addons',
+    # '#config'   => COCKPIT_CONFIG_DIR,
+    # 'assets'    => COCKPIT_DIR.'/assets',
+    # 'site'      => COCKPIT_SITE_DIR

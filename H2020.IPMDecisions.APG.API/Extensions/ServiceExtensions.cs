@@ -1,7 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -62,10 +67,42 @@ namespace H2020.IPMDecisions.APG.API.Extensions
             {
                 options.AddPolicy("ApiGatewayCORS", builder =>
                 {
-                    builder.WithOrigins(allowedHosts);
+                    builder
+                    .WithOrigins(allowedHosts)
+                    .AllowAnyHeader();
                 });
             });
         }
+
+        public static void ConfigureKestrelWebServer(this IServiceCollection services, IConfiguration config)
+        {
+            services.Configure<KestrelServerOptions>(
+                config.GetSection("Kestrel")
+            );
+        }
+        
+        public static void ConfigureHttps(this IServiceCollection services, IConfiguration config)
+        {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(60);
+            });
+
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
+                options.HttpsPort = int.Parse(config["ASPNETCORE_HTTPS_PORT"]);
+            });
+        }
+        
         public static IEnumerable<string> Audiences(string audiences)
         {
             var listOfAudiences = audiences.Split(';').ToList();

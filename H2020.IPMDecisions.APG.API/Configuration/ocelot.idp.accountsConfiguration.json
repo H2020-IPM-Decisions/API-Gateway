@@ -1,7 +1,7 @@
 {
     "ReRoutes": [
         {
-            "DownstreamPathTemplate": "/api/{catchAll}",
+            "DownstreamPathTemplate": "/api/accounts/{catchAll}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -9,13 +9,12 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/api/admin/{catchAll}",
-            "UpstreamScheme": "http",
+            "UpstreamPathTemplate": "/idp/api/accounts/{catchAll}",
+            "UpstreamScheme": "https",
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer"
             },
-            "RouteClaimsRequirement": {
-            }
+            "RouteClaimsRequirement": {}
         }
     ]
 }
