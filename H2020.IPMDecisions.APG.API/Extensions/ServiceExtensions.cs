@@ -80,15 +80,18 @@ namespace H2020.IPMDecisions.APG.API.Extensions
                 config.GetSection("Kestrel")
             );
         }
-        
-        public static void ConfigureHttps(this IServiceCollection services, IConfiguration config)
+
+        public static void ConfigureForwardedHeaders(this IServiceCollection services)
         {
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
-
+        }
+        
+        public static void ConfigureHttps(this IServiceCollection services, IConfiguration config)
+        {
             services.AddHsts(options =>
             {
                 options.Preload = true;
