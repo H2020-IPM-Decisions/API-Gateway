@@ -1,0 +1,28 @@
+{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/{catchAll}",
+            "DownstreamScheme": "https",
+            "UpstreamPathTemplate": "/idp/api/admin/{catchAll}",
+            "UpstreamHttpMethod": [
+                "Get",
+                "Post",
+                "Delete",
+                "Patch",
+                "Options"
+            ],
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "DownstreamHeaderTransform": {
+                "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/idp/api/admin"
+            },
+            "UpstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}/idp/api/admin"
+            }
+        }
+    ]
+}
