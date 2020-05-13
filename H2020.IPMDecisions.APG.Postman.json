@@ -57,15 +57,11 @@
 											{
 												"key": "Content-Type",
 												"value": "application/json"
-											},
-											{
-												"key": "Accept",
-												"value": "application/json"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"password\" : \"Password1!\",\n\t\"email\" : \"newuser@test.com\"\n}"
+											"raw": "{\n\t\"password\" : \"Password1!\",\n\t\"email\" : \"newuser1@test.com\"\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/{{idpUrl}}/authorization/register",
@@ -199,7 +195,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"username\" : \"yourUser\",\n\t\"password\" : \"yourPassword\",\n\t\"email\" : \"your@email.com\"\n}"
+											"raw": "{\n\t\"password\" : \"yourPassword\",\n\t\"email\" : \"your@email.com\"\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/{{idpUrl}}/authorization/authenticate",
@@ -556,7 +552,7 @@
 											}
 										],
 										"url": {
-											"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?fields=id, name",
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?fields=id, name, refreshTokenLifeTime",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -568,7 +564,7 @@
 											"query": [
 												{
 													"key": "fields",
-													"value": "id, name"
+													"value": "id, name, refreshTokenLifeTime"
 												}
 											]
 										}
@@ -1081,7 +1077,14 @@
 									"name": "Delete Application Client",
 									"request": {
 										"method": "DELETE",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/atom+xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
 										"body": {
 											"mode": "raw",
 											"raw": "{\n        \"name\": \"My Authorization Server\",\n        \"applicationClientType\": 1,\n        \"enabled\": true,\n        \"refreshTokenLifeTime\": 10\n}",
@@ -1128,14 +1131,15 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/{{idpUrl}}/applicationclients/08d7bab4-0eb3-4e0d-83e6-0c145c11fabc",
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients/08d7e51b-d7b9-4a6e-8261-1fd07aff3687",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
 												"{{idpUrl}}",
+												"admin",
 												"applicationclients",
-												"08d7bab4-0eb3-4e0d-83e6-0c145c11fabc"
+												"08d7e51b-d7b9-4a6e-8261-1fd07aff3687"
 											]
 										}
 									},
@@ -1270,7 +1274,8 @@
 											{
 												"key": "Accept",
 												"type": "text",
-												"value": "application/json"
+												"value": "application/atom+xml",
+												"disabled": true
 											}
 										],
 										"body": {
@@ -1291,6 +1296,56 @@
 												"{{idpUrl}}",
 												"admin",
 												"applicationclients"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Head Application Client",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "HEAD",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml-dtd",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "cont",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/applicationclients?co",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"{{idpUrl}}",
+												"admin",
+												"applicationclients"
+											],
+											"query": [
+												{
+													"key": "co",
+													"value": null
+												}
 											]
 										}
 									},
@@ -1809,6 +1864,43 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Head Refresh Tokens",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "HEAD",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/refreshtokens",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"{{idpUrl}}",
+												"admin",
+												"refreshtokens"
+											]
+										}
+									},
+									"response": []
 								}
 							],
 							"protocolProfileBehavior": {},
@@ -2252,6 +2344,77 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Head Roles",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "HEAD",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"{{idpUrl}}",
+												"admin",
+												"roles"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Options Roles",
+									"request": {
+										"method": "OPTIONS",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/roles",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"{{idpUrl}}",
+												"admin",
+												"roles"
+											]
+										}
+									},
+									"response": []
 								}
 							],
 							"protocolProfileBehavior": {},
@@ -2278,7 +2441,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "[\n\t{\n\t\t\"type\" : \"UserAccessType\",\n\t\t\"value\" : \"Level1\"\n\t}\n]\n",
+											"raw": "[\n\t{\n\t\t\"type\" : \"UserAccessType\",\n\t\t\"value\" : \"Level1\"\n\t},\n\t{\n\t\t\"type\" : \"UserAccessType\",\n\t\t\"value\" : \"Level2\"\n\t}\n]\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2286,7 +2449,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/claims",
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/claims",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -2294,7 +2457,7 @@
 												"{{idpUrl}}",
 												"admin",
 												"users",
-												"0bc659c8-517a-4859-9a7c-62727a13464b",
+												"380f0a69-a009-4c34-8496-9a43c2e069be",
 												"claims"
 											]
 										}
@@ -2363,7 +2526,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "[\n\t{\n\t\t\"type\" : \"UserAccessType\",\n\t\t\"Value\" : \"Level3\"\n\t}\n]",
+											"raw": "[\n\t{\n\t\t\"type\" : \"UserAccessType\",\n\t\t\"Value\" : \"Level2\"\n\t}\n]",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2371,7 +2534,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/claims",
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/claims",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -2379,7 +2542,7 @@
 												"{{idpUrl}}",
 												"admin",
 												"users",
-												"0bc659c8-517a-4859-9a7c-62727a13464b",
+												"380f0a69-a009-4c34-8496-9a43c2e069be",
 												"claims"
 											]
 										}
@@ -2488,7 +2651,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/0bc659c8-517a-4859-9a7c-62727a13464b/roles",
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/380f0a69-a009-4c34-8496-9a43c2e069be/roles",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -2496,7 +2659,7 @@
 												"{{idpUrl}}",
 												"admin",
 												"users",
-												"0bc659c8-517a-4859-9a7c-62727a13464b",
+												"380f0a69-a009-4c34-8496-9a43c2e069be",
 												"roles"
 											]
 										}
@@ -2529,7 +2692,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/6ca41f7a-44cb-48eb-80ad-f58f5912df9b/roles",
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users/6ca41f7a-44cb-48eb-80ad-f58f5912ddf9b/roles",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -2537,7 +2700,7 @@
 												"{{idpUrl}}",
 												"admin",
 												"users",
-												"6ca41f7a-44cb-48eb-80ad-f58f5912df9b",
+												"6ca41f7a-44cb-48eb-80ad-f58f5912ddf9b",
 												"roles"
 											]
 										}
@@ -2604,6 +2767,77 @@
 												"key": "Accept",
 												"value": "application/json",
 												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"{{idpUrl}}",
+												"admin",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Head Users",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "HEAD",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/{{idpUrl}}/admin/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"{{idpUrl}}",
+												"admin",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Options Users",
+									"request": {
+										"method": "OPTIONS",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -3254,6 +3488,9 @@
 				{
 					"name": "Root",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -3353,6 +3590,41 @@
 										"{{uprUrl}}",
 										"users",
 										"380f0a69-a009-4c34-8496-9a43c2e069ba",
+										"profiles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User Profile - Error - Bad UserId on URL",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"firstName\" : \"Antonio\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{uprUrl}}/users/380f0a69-a009-4c34-8496-9a43c2e069/profiles",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{uprUrl}}",
+										"users",
+										"380f0a69-a009-4c34-8496-9a43c2e069",
 										"profiles"
 									]
 								}
@@ -3518,41 +3790,6 @@
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "Create User Profile - Error - Bad UserId on URL",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"firstName\" : \"Antonio\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/{{uprUrl}}/users/380f0a69-a009-4c34-8496-9a43c2e069/profiles",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"{{uprUrl}}",
-										"users",
-										"380f0a69-a009-4c34-8496-9a43c2e069",
-										"profiles"
-									]
-								}
-							},
-							"response": []
 						}
 					],
 					"event": [
@@ -3579,6 +3816,23 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Root",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{uprUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{uprUrl}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -3752,6 +4006,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Cockpit-Token",
+								"value": "token",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -3838,6 +4097,80 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "EML",
+			"item": [
+				{
+					"name": "Accounts",
+					"item": [
+						{
+							"name": "RegistrationEmail",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"toAddress\" : \"test@emal.com\",\n\t\"emailSubject\": \"Welcome to IPM\",\n\t\"registrationToken\": \"1234567ABC\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{emlUrl}}/accounts/registrationemail",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{emlUrl}}",
+										"accounts",
+										"registrationemail"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Root",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{emlUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{emlUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Authenticate Default Role Admin With Default Client",
 			"request": {
 				"auth": {
@@ -3901,7 +4234,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzODBmMGE2OS1hMDA5LTRjMzQtODQ5Ni05YTQzYzJlMDY5YmUiLCJqdGkiOiJhMzYzNDg2Ny1kODljLTQyODctOGMzMi1mNDJkZDE3ZjMzODkiLCJpYXQiOjE1ODYzNDQ2ODgsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMzgwZjBhNjktYTAwOS00YzM0LTg0OTYtOWE0M2MyZTA2OWJlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluQHRlc3QuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJuYmYiOjE1ODYzNDQ2ODgsImV4cCI6MTU4NjM0OTQ4OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cHM6Ly90ZXN0Y2xpZW50LmNvbSJ9.wMMX5ORGuOsLMdLItMh-zJ0_OtZDQsgyCP9VycsP0FU",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZjRmYjExNi04MDcwLTRhZTEtYmU1MS0yMjRjMTg5NjhlNmQiLCJqdGkiOiJkMDc4NWZiYS0zN2U1LTRhZjUtYjEwOS01MGIwMmYyYTRhMmUiLCJpYXQiOjE1ODg1ODQ4MjMsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiM2Y0ZmIxMTYtODA3MC00YWUxLWJlNTEtMjI0YzE4OTY4ZTZkIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Im5ld3VzZXIxQHRlc3QuY29tIiwiVXNlckFjY2Vzc1R5cGUiOiJMZXZlbDAiLCJuYmYiOjE1ODg1ODQ4MjMsImV4cCI6MTU4ODU4OTYyMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cHM6Ly90ZXN0Y2xpZW50LmNvbSJ9.sxlWHnzDjWhufEsU8E6mKLWAVnQVMMqDj-GTCOmJDic",
 				"type": "string"
 			}
 		]
@@ -3930,33 +4263,39 @@
 	],
 	"variable": [
 		{
-			"id": "2e01e468-5833-4999-a2f3-4a981e682989",
+			"id": "465b2f20-7114-4dfb-91ba-1d180aa06702",
 			"key": "baseUrl",
 			"value": "https://localhost:5001",
 			"type": "string"
 		},
 		{
-			"id": "6057d671-183d-48a7-a3c0-c1e6cc4a3dfc",
+			"id": "98e90782-22f6-4f06-8098-36539e6801f3",
 			"key": "idpUrl",
 			"value": "idp/api",
 			"type": "string"
 		},
 		{
-			"id": "850b981e-9f58-4966-b441-25a15be7a478",
+			"id": "e291ee94-cc8c-4534-99f5-244caa6e609c",
 			"key": "uprUrl",
 			"value": "upr/api",
 			"type": "string"
 		},
 		{
-			"id": "5909d430-7755-4cc8-808a-5f1441de03d9",
+			"id": "35ddb340-c686-4b56-8d41-d338ca83a2f0",
 			"key": "cmsUrl",
 			"value": "cms/api",
 			"type": "string"
 		},
 		{
-			"id": "6386e96d-5a34-40c7-9fb4-79d99b51bdb1",
+			"id": "88b784c6-076d-4191-b7c9-49e992be2713",
 			"key": "cmsUrlOwnServer",
 			"value": "http://localhost:5001",
+			"type": "string"
+		},
+		{
+			"id": "64208988-c6e2-456d-a116-ac14e7d733d1",
+			"key": "emlUrl",
+			"value": "eml/api",
 			"type": "string"
 		}
 	],
