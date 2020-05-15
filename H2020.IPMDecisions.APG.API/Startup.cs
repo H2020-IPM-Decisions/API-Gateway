@@ -25,7 +25,7 @@ namespace H2020.IPMDecisions.APG.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureForwardedHeaders();
+            services.ConfigureForwardedHeaders(Configuration);
             
             if (!CurrentEnvironment.IsDevelopment())
             {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -81,12 +82,14 @@ namespace H2020.IPMDecisions.APG.API.Extensions
             );
         }
 
-        public static void ConfigureForwardedHeaders(this IServiceCollection services)
+        public static void ConfigureForwardedHeaders(this IServiceCollection services, IConfiguration config)
         {
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+
+                options.KnownProxies.Add(IPAddress.Parse(config["ProxyIpAddress"]));
             });
         }
         
