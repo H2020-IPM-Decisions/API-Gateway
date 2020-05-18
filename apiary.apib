@@ -9,11 +9,12 @@ Tokens will be provided by the Identity Provider Service (IDP). Please see on se
 
 ## Microservices
 Below is a list of each microservice and the path for accessing them, e.g, `https://theurl.com/idp/api`
-* Identity Provider Service: /idp/api
-* User Provision Service: /upr/api
-* Content Management System: /cms/api
-* Weather Service: /wx/api
-* Decision Support system: /dss/api/
+* Identity Provider Service: /api/idp
+* User Provision Service: /api/upr
+* Content Management System: /api/cms
+* Weather Service: /api/wx
+* Decision Support system: /api/dss
+* Email Service: /api/eml
 
 ## Contact
 * Name: ADAS Modelling and Informatics Team
@@ -51,7 +52,7 @@ This request allows you to check if the microservice is working and some valid r
 
     + Attributes (array[LinkDto])
 
-## Authorization - Register  [/idp/api/authorization/register]
+## Authorization - Register  [/api/idp/authorization/register]
 
 ### Register a New User [POST]
 
@@ -75,7 +76,7 @@ Use this request to register/create a new user into the database. This request i
 
         Bad Request 
             
-## Authorization -Authenticate with password  [/idp/api/authorization/authenticate]
+## Authorization -Authenticate with password  [/api/idp/authorization/authenticate]
 
 An existing user can authenticate and get a token that will be used to access the rest of the API.
 
@@ -106,7 +107,7 @@ An existing user can authenticate and get a token that will be used to access th
 
         Bad Request
         
-## Authorization - Authenticate with refresh token  [/idp/api/authorization/authenticate/token]
+## Authorization - Authenticate with refresh token  [/api/idp/authorization/authenticate/token]
 
 An existing user can authenticate using a refresh token and get a new token to keep accessing the API.
 
@@ -136,13 +137,13 @@ An existing user can authenticate using a refresh token and get a new token to k
 
         Bad Request
 
-## Admin - ApplicationClients [/idp/api/admin/applicationclients]
+## Admin - ApplicationClients [/api/idp/admin/applicationclients]
 
 Application clients are APIs, JavaScript Clients, etc., that are allowed to use this API.
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each ApplicationClientDto object
 
-### Get Application Clients [GET /idp/api/admin/applicationclients{?isEnabled,pageSize,orderBy,searchQuery,pageNumber,fields}]
+### Get Application Clients [GET /api/idp/admin/applicationclients{?isEnabled,pageSize,orderBy,searchQuery,pageNumber,fields}]
 
 + Request (application/json)
 
@@ -190,7 +191,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Get Application Client By Id [GET /idp/api/admin/applicationclients/{id}{?fields}] 
+### Get Application Client By Id [GET /api/idp/admin/applicationclients/{id}{?fields}] 
 
 + Request (application/json)
 
@@ -246,7 +247,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     
     + Headers
     
-            Location: http://theurl/idp/api/admin/applicationclients/{userId}
+            Location: http://theurl/api/idp/admin/applicationclients/{userId}
 
 + Response 400 (application/json)
 
@@ -260,7 +261,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Forbidden
         
-### Partial Update Application Client [PATCH /idp/api/admin/applicationclients/{id}]
+### Partial Update Application Client [PATCH /api/idp/admin/applicationclients/{id}]
 
 Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
 
@@ -282,7 +283,7 @@ If a no existing `ID` is passed and the json-patch document has enough informati
     + Attributes (array[JsonPatchOperation])
     + Headers
     
-            Location: http://theurl/idp/api/admin/applicationclients/{userId}
+            Location: http://theurl/api/idp/admin/applicationclients/{userId}
 
 + Response 204
 
@@ -298,7 +299,7 @@ If a no existing `ID` is passed and the json-patch document has enough informati
 
         Forbidden
         
-### Delete Application Client [DELETE /idp/api/admin/applicationclients/{id}]
+### Delete Application Client [DELETE /api/idp/admin/applicationclients/{id}]
 
 + Parameters
 
@@ -360,13 +361,13 @@ This request allows you to know if the endpoint is correct and is working.
 
 + Response 403 
 
-## Admin - RefeshTokens [/idp/api/admin/refreshtokens]
+## Admin - RefeshTokens [/api/idp/admin/refreshtokens]
 
 Refresh Tokens are unique tokens linked to a user that allows to authentificate into the API without the need for username and password.
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
 
-### Get Refresh Tokens [GET /idp/api/admin/refreshtokens{?pageSize,pageNumber,fields}]
+### Get Refresh Tokens [GET /api/idp/admin/refreshtokens{?pageSize,pageNumber,fields}]
 
 + Request (application/json)
 
@@ -407,7 +408,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Get Refresh Token By Id [GET /idp/api/admin/refreshtokens/{id}{?fields}] 
+### Get Refresh Token By Id [GET /api/idp/admin/refreshtokens/{id}{?fields}] 
 
 + Request (application/json)
 
@@ -444,7 +445,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
 
-### Delete Refresh Token [DELETE /idp/api/admin/refreshtokens/{id}]
+### Delete Refresh Token [DELETE /api/idp/admin/refreshtokens/{id}]
 
 + Parameters
 
@@ -482,13 +483,13 @@ This request allows you to know if the endpoint is correct and is working.
 
 + Response 403 
 
-## Admin - Roles [/idp/api/admin/roles]
+## Admin - Roles [/api/idp/admin/roles]
 
 In these end points, it will be managed the different roles available for users.
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each RefreshTokenDto object
 
-### Get Roles [GET /idp/api/admin/roles{?fields}]
+### Get Roles [GET /api/idp/admin/roles{?fields}]
 
 + Request (application/json)
 
@@ -521,7 +522,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Get Role By Id [GET /idp/api/admin/roles/{id}{?fields}] 
+### Get Role By Id [GET /api/idp/admin/roles/{id}{?fields}] 
 
 + Request (application/json)
 
@@ -577,7 +578,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     
     + Headers
     
-            Location: http://theurl/idp/api/admin/roles/{userId}
+            Location: http://theurl/api/idp/admin/roles/{userId}
 
 + Response 400 (application/json)
 
@@ -591,7 +592,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Forbidden
 
-### Delete Role [DELETE /idp/api/admin/roles/{id}]
+### Delete Role [DELETE /api/idp/admin/roles/{id}]
 
 + Parameters
 
@@ -653,7 +654,7 @@ This request allows you to know if the endpoint is correct and is working.
 
 + Response 403 
 
-## Admin - User Claims [/idp/api/admin/{userid}/claims]
+## Admin - User Claims [/api/idp/admin/{userid}/claims]
 
 ### Get Claims From User [GET] 
 
@@ -785,7 +786,7 @@ This request allows you to know what type of methods are allowed in this endpoin
 
         Forbidden
 
-## Admin - User Roles [/idp/api/admin/{userid}/roles]
+## Admin - User Roles [/api/idp/admin/{userid}/roles]
 
 ### Get Roles From User [GET] 
 
@@ -917,11 +918,11 @@ This request allows you to know what type of methods are allowed in this endpoin
 
         Forbidden
 
-## Admin - Users [/idp/api/admin/users]
+## Admin - Users [/api/idp/admin/users]
 
 Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of each ApplicationClientDto object
 
-### Get Users [GET /idp/api/admin/users{?pageSize,orderBy,searchQuery,pageNumber,fields}]
+### Get Users [GET /api/idp/admin/users{?pageSize,orderBy,searchQuery,pageNumber,fields}]
 
 + Request (application/json)
 
@@ -967,7 +968,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Get User By Id [GET /idp/api/admin/users/{id}{?fields}] 
+### Get User By Id [GET /api/idp/admin/users/{id}{?fields}] 
 
 + Parameters
 
@@ -1004,7 +1005,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
         Not Found
         
-### Delete User [DELETE /idp/api/admin/users/{id}]
+### Delete User [DELETE /api/idp/admin/users/{id}]
 
 + Parameters
 
@@ -1090,9 +1091,9 @@ This request allows you to check if the microservice is working and some valid r
     + Attributes (array[LinkDto])
 
 
-## User Profiles [/upr/api/users/{userId}/profiles]
+## User Profiles [/api/upr/users/{userId}/profiles]
 
-### Get User Profile [GET /upr/api/users/{userId}/profiles{?fields}] 
+### Get User Profile [GET /api/upr/users/{userId}/profiles{?fields}] 
 
 + Parameters
 
@@ -1152,7 +1153,7 @@ This request allows you to check if the microservice is working and some valid r
     
     + Headers
     
-            Location: http://theurl/idp/api/admin/applicationclients/{userId}
+            Location: http://theurl/api/idp/admin/applicationclients/{userId}
 
 + Response 400 (application/json)
 
@@ -1190,7 +1191,7 @@ If a no existing `ID` is passed and the json-patch document has enough informati
     
     + Headers
     
-            Location: http://theurl/upr/api/user/{userId}/profiles
+            Location: http://theurl/api/upr/user/{userId}/profiles
 
 + Response 204
 
@@ -1278,7 +1279,7 @@ The CMS has been build using [Cockpit CMS](https://getcockpit.com/). So the API 
 
 Singletons represent Data structure in Cockpit CMS that is used just one time, which perfectly fit for content on Landing Page of IPM Decision Portal
 
-## Assets List [/cms/api/cockpit/assets]
+## Assets List [/api/cms/cockpit/assets]
 List of all avaibable assets in CMS with details about them.
 
 ### Get Assets List [GET]
@@ -1312,9 +1313,9 @@ List of all avaibable assets in CMS with details about them.
 
         Not Found
 
-## Resources [/cms/api/singletons/get]
+## Resources [/api/cms/singletons/get]
 
-## Footer [/cms/api/singletons/get/footer]
+## Footer [/api/cms/singletons/get/footer]
 
 Footer in HTML format
 
@@ -1348,7 +1349,7 @@ Footer in HTML format
 
         Not Found
         
-## Banner [/cms/api/singletons/get/banner]
+## Banner [/api/cms/singletons/get/banner]
 
 Website Logo
 
@@ -1381,7 +1382,7 @@ Website Logo
 
         Not Found
         
-## Home Slideshow [/cms/api/singletons/get/slideshow]
+## Home Slideshow [/api/cms/singletons/get/slideshow]
 
 Slideshow pictures on Landing Page
 
@@ -1414,7 +1415,7 @@ Slideshow pictures on Landing Page
 
         Not Found
         
-## Home Article 1 [/cms/api/singletons/get/homearticle1]
+## Home Article 1 [/api/cms/singletons/get/homearticle1]
 
 First article on Landing Page
 
@@ -1447,7 +1448,7 @@ First article on Landing Page
 
         Not Found
         
-## Home Article 2 [/cms/api/singletons/get/homearticle2]
+## Home Article 2 [/api/cms/singletons/get/homearticle2]
 
 First article on Landing Page
 
@@ -1480,7 +1481,7 @@ First article on Landing Page
 
         Not Found
         
-## Home Grid [/cms/api/singletons/get/homegrid]
+## Home Grid [/api/cms/singletons/get/homegrid]
 
 Home Grid on Landing Page
 
@@ -1513,7 +1514,7 @@ Home Grid on Landing Page
 
         Not Found
         
-## News [/cms/api/singletons/get/news]
+## News [/api/cms/singletons/get/news]
 
 News on Landing Page
 
@@ -1547,7 +1548,7 @@ News on Landing Page
         Not Found
         
 
-## Terms and conditions [/cms/api/singletons/get/termsnconditions]
+## Terms and conditions [/api/cms/singletons/get/termsnconditions]
 
 Application Terms and conditions
 
@@ -1582,11 +1583,15 @@ Application Terms and conditions
         
 # Group WX - Weather Service // ToDo
 
-As explained above, the following request will be preceded by `wx/api`. The Api Gateway will redirect the request to the appropriate end point on the WX microservice.
+As explained above, the following request will be preceded by `api/wx`. The Api Gateway will redirect the request to the appropriate end point on the WX microservice.
 
 # Group DSS - Decision Suport System Service // ToDo
 
-As explained above, the following request will be preceded by `dss/api`. The Api Gateway will redirect the request to the appropriate end point on the DSS microservice.
+As explained above, the following request will be preceded by `api/dss`. The Api Gateway will redirect the request to the appropriate end point on the DSS microservice.
+
+# Group EML - Email Service // ToDo
+
+As explained above, the following request will be preceded by `/api/eml`. The Api Gateway will redirect the request to the appropriate end point on the EML microservice.
 
 
 # Data Structures
