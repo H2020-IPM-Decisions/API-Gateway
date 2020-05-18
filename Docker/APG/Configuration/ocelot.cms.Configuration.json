@@ -9,7 +9,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/cms/{catchAll}",
+            "UpstreamPathTemplate": "/api/cms/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {}
