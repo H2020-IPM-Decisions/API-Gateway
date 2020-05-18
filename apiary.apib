@@ -8,7 +8,7 @@ The API Gateway uses [Bearer Token Authorization.](https://tools.ietf.org/html/r
 Tokens will be provided by the Identity Provider Service (IDP). Please see on section `Authorization` how to obtain tokens to access the API. 
 
 ## Microservices
-Below is a list of each microservice and the path for accessing them, e.g, `https://theurl.com/idp/api`
+Below is a list of each microservice and the path for accessing them, e.g, `https://theurl.com/api/idp`
 * Identity Provider Service: /api/idp
 * User Provision Service: /api/upr
 * Content Management System: /api/cms
@@ -29,12 +29,12 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 
 # Group IDP - Identity Provider Service
 
-As explained above, the following request will be preceded by `idp/api`. The Api Gateway will redirect the request to the appropriate end point on the IDP microservice.
+As explained above, the following request will be preceded by `api/idp`. The Api Gateway will redirect the request to the appropriate end point on the IDP microservice.
 This microservice has two main areas **Authorization** and **Admin**.
 * Authorization: This area of the API is on charge of the authentification and authorization of the users, so `Anonymous` requests are allowed.
 * Admin: This area of the API is on charge of the administration of the IDP, so only users with `Admin` privileges will be allowed to make requests.
 
-## Root [/idp/api]
+## Root [/api/idp]
 
 ### Root [GET]
 
@@ -1070,9 +1070,9 @@ This request allows you to know if the endpoint is correct and is working.
 
 # Group UPR - User Provision Service
 
-As explained above, the following request will be preceded by `upr/api`. The Api Gateway will redirect the request to the appropriate end point on the UPR microservice.
+As explained above, the following request will be preceded by `api/upr`. The Api Gateway will redirect the request to the appropriate end point on the UPR microservice.
 
-## Root [/upr/api]
+## Root [/api/upr]
 
 ### Root [GET]
 
@@ -1271,7 +1271,7 @@ This request allows you to know if the endpoint is correct and is working.
         
 # Group CMS - Content Management System Service
 
-As explained above, the following request will be preceded by `cms/api`. The Api Gateway will redirect the request to the appropriate end point on the CMS microservice.
+As explained above, the following request will be preceded by `api/cms`. The Api Gateway will redirect the request to the appropriate end point on the CMS microservice.
 
 The CMS has been build using [Cockpit CMS](https://getcockpit.com/). So the API endpoint resquest can be found on its [documentation](https://getcockpit.com/documentation/api).
 
