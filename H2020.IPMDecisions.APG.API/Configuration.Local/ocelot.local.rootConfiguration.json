@@ -9,7 +9,7 @@
                     "Port": 5000
                 }
             ],
-            "UpstreamPathTemplate": "/idp/api",
+            "UpstreamPathTemplate": "/api/idp",
             "UpstreamScheme": "http",
             "UpstreamHttpMethod": [ "Get" ]
         },
@@ -22,7 +22,7 @@
                     "Port": 5500
                 }
             ],
-            "UpstreamPathTemplate": "/eml/api",
+            "UpstreamPathTemplate": "/api/eml",
             "UpstreamScheme": "http",
             "UpstreamHttpMethod": [
                 "Get"

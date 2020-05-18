@@ -9,7 +9,7 @@
                     "Port": 5000
                 }
             ],
-            "UpstreamPathTemplate": "/idp/api/authorization/{catchAll}",
+            "UpstreamPathTemplate": "/api/idp/authorization/{catchAll}",
             "UpstreamScheme": "http",
             "RouteClaimsRequirement": {}
         },
@@ -22,7 +22,7 @@
                     "Port": 5000
                 }
             ],
-            "UpstreamPathTemplate": "/idp/api/authorization/",
+            "UpstreamPathTemplate": "/api/idp/authorization/",
             "UpstreamScheme": "http",
             "UpstreamHttpMethod": [ "Options" ],
             "RouteClaimsRequirement": {}

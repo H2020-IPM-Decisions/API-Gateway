@@ -3,7 +3,7 @@
         {
             "DownstreamPathTemplate": "/api/{catchAll}",
             "DownstreamScheme": "https",
-            "UpstreamPathTemplate": "/idp/api/admin/{catchAll}",
+            "UpstreamPathTemplate": "/api/idp/admin/{catchAll}",
             "UpstreamHttpMethod": [
                 "Get",
                 "Post",
