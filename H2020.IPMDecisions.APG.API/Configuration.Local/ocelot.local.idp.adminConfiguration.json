@@ -18,10 +18,10 @@
                 }
             ],
             "DownstreamHeaderTransform": {
-                "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/idp/api/admin"
+                "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/adp/admin"
             },
             "UpstreamHeaderTransform": {
-                "X-Forwarded-For": "{BaseUrl}/idp/api/admin"
+                "X-Forwarded-For": "{BaseUrl}/api/idp/admin"
             }
         }
     ]

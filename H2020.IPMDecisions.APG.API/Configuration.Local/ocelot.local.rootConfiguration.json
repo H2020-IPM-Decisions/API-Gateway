@@ -19,6 +19,21 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
+                    "Port": 5005
+                }
+            ],
+            "UpstreamPathTemplate": "/api/upr",
+            "UpstreamScheme": "http",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
                     "Port": 5500
                 }
             ],

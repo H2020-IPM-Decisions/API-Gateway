@@ -9,7 +9,7 @@
                     "Port": 5500
                 }
             ],
-            "UpstreamPathTemplate": "/eml/api/{catchAll}",
+            "UpstreamPathTemplate": "/api/eml/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {}
