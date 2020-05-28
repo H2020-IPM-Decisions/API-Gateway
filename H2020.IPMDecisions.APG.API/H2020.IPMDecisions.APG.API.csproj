@@ -24,4 +24,8 @@
     <PackageReference Include="Ocelot.Provider.Kubernetes" Version="15.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\H2020.IPMDecisions.APG.Core\H2020.IPMDecisions.APG.Core.csproj" />
+  </ItemGroup>
+
 </Project>
