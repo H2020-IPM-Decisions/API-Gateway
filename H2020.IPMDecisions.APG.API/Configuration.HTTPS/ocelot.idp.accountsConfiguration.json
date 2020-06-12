@@ -9,11 +9,26 @@
                     "Port": 443
                 }
             ],
-            "UpstreamPathTemplate": "/idp/api/accounts/{catchAll}",
+            "UpstreamPathTemplate": "/api/idp/accounts/{catchAll}",
             "UpstreamScheme": "https",
+            "Priority": 0,
+            "RouteClaimsRequirement": {}
+        },
+        {
+            "DownstreamPathTemplate": "/api/users/{userId}/accounts/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/api/idp/accounts/{userId}/manage/{catchAll}",
+            "UpstreamScheme": "http",
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer"
             },
+            "Priority": 1,
             "RouteClaimsRequirement": {}
         }
     ]

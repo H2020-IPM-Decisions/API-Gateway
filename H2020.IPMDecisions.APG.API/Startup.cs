@@ -25,7 +25,8 @@ namespace H2020.IPMDecisions.APG.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.ConfigureForwardedHeaders(Configuration);
+            
             if (!CurrentEnvironment.IsDevelopment())
             {
                 services.ConfigureHttps(Configuration);
@@ -55,6 +56,8 @@ namespace H2020.IPMDecisions.APG.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseForwardedHeaders();
+
             if (CurrentEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,7 +66,6 @@ namespace H2020.IPMDecisions.APG.API
             {
                 if (CurrentEnvironment.IsProduction())
                 {
-                    app.UseForwardedHeaders();
                     app.UseHsts();
                     app.UseHttpsRedirection();
                 }

@@ -5,8 +5,8 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "idp.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5000
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/accounts/{catchAll}",
@@ -19,8 +19,8 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "idp.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5000
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/accounts/{userId}/manage/{catchAll}",

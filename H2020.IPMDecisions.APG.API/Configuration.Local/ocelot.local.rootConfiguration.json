@@ -5,36 +5,43 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "idp.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5000
                 }
             ],
             "UpstreamPathTemplate": "/api/idp",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "http",
+            "UpstreamHttpMethod": [ "Get" ]
         },
         {
             "DownstreamPathTemplate": "/api",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "upr.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5005
                 }
             ],
             "UpstreamPathTemplate": "/api/upr",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "http",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
         },
         {
             "DownstreamPathTemplate": "/api",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "eml.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5500
                 }
             ],
             "UpstreamPathTemplate": "/api/eml",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "http",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
         }
     ]
 }

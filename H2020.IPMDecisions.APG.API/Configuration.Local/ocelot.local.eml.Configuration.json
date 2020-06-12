@@ -1,15 +1,15 @@
 {
     "ReRoutes": [
         {
-            "DownstreamPathTemplate": "/{catchAll}",
+            "DownstreamPathTemplate": "/api/{catchAll}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "dss.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5500
                 }
             ],
-            "UpstreamPathTemplate": "/api/dss/{catchAll}",
+            "UpstreamPathTemplate": "/api/eml/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {}

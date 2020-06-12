@@ -16,6 +16,7 @@ EXPOSE ${URL_EXPOSE_PORT_HTTPS}
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
 COPY ["H2020.IPMDecisions.APG.API/H2020.IPMDecisions.APG.API.csproj", "H2020.IPMDecisions.APG.API/"]
+COPY ["H2020.IPMDecisions.APG.API/appsettingsTemplate.json", "H2020.IPMDecisions.APG.API/appsettings.json"]
 RUN dotnet restore "H2020.IPMDecisions.APG.API/H2020.IPMDecisions.APG.API.csproj"
 
 COPY . .
@@ -32,13 +33,5 @@ ARG URL_PORT_HTTPS=443
 
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-ENV JwtSettings:SecretKey="BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q"
-ENV JwtSettings:IssuerServerUrl="http://localhost:8086"
-ENV JwtSettings:ValidAudiencesUrls="https://testclient.com"
-ENV AccessClaims:ClaimTypeName="UserAccessType"
-ENV AccessClaims:UserAccessLevels="Level1;Level2;Level3"
-ENV AllowedHosts="*"
-ENV ENFORCE_MICROSERVICES_HTTPS_REDIRECT=false
 
 ENTRYPOINT ["dotnet", "H2020.IPMDecisions.APG.API.dll"]

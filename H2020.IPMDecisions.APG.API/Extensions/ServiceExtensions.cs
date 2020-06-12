@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -19,7 +20,7 @@ namespace H2020.IPMDecisions.APG.API.Extensions
         {
             var jwtSecretKey = config["JwtSettings:SecretKey"];
             var authorizationServerUrl = config["JwtSettings:IssuerServerUrl"];
-            var audiencesServerUrl = Audiences(config["JwtSettings:ValidAudiencesUrls"]);
+            var audiencesServerUrl = Audiences(config["JwtSettings:ValidAudiences"]);
 
             services.AddAuthentication(options =>
             {
@@ -80,15 +81,20 @@ namespace H2020.IPMDecisions.APG.API.Extensions
                 config.GetSection("Kestrel")
             );
         }
-        
-        public static void ConfigureHttps(this IServiceCollection services, IConfiguration config)
+
+        public static void ConfigureForwardedHeaders(this IServiceCollection services, IConfiguration config)
         {
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            });
 
+                options.KnownProxies.Add(IPAddress.Parse(config["ProxyIpAddress"]));
+            });
+        }
+        
+        public static void ConfigureHttps(this IServiceCollection services, IConfiguration config)
+        {
             services.AddHsts(options =>
             {
                 options.Preload = true;
