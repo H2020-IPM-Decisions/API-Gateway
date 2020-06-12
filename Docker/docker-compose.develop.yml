@@ -73,7 +73,7 @@ services:
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com
     eml.api:
-        image: ipmdecisions/emailservice:local
+        image: ipmdecisions/emailservice:develop
         container_name: eml-api
         hostname: eml.api
         restart: always
