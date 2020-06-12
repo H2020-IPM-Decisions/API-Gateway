@@ -89,7 +89,7 @@ Before starting the solution you should modify the file with your information. W
   - On the connection string, if you want to change the username and password, you will have to use change the [data loading script](MySQL_Init_Script/init.sql) line 32. Obviously, you can do this manually if you wish.
   - On the JwtSettings:SecretKey as unique string to sign the tokens e.g, `BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q`. **This key will be shared with the API Gateway as it will be needed to validate the token**.
   - On the JwtSettings:IssuerServerUrl, enter the URL of the IDP. **This URL will be shared with the API Gateway as it will be in charge to validate the token**.
-  - On the JwtSettings:ValidAudiencesUrls, a default valid client is added in the [data loading script](IDP_MySQL_Init_Script/init.sql) line 56, to allow you work with postman. Each time a new client is added into the database, you will need to reload the docker compose file. **This URL(s) will be shared with the API Gateway as it will be in charge to validate the token**.
+  - On the JwtSettings:ValidAudiences, a default valid client is added in the [data loading script](IDP_MySQL_Init_Script/init.sql) line 56, to allow you work with postman. Each time a new client is added into the database, you will need to reload the docker compose file. **This URL(s) will be shared with the API Gateway as it will be in charge to validate the token**.
 
 ### User Provision Database
 * On the `upr.db` (User Provision Database) service, change the value for the `POSTGRES_USER` and `POSTGRES_PASSWORD`
@@ -100,7 +100,7 @@ Before starting the solution you should modify the file with your information. W
   - On the connection string, if you want to change the username and password, you will have to use change the [data loading script](UPR_Postgresql_Init_Script/1.createUser.sql). Obviously, you can do this manually if you wish later.
   - On the JwtSettings:SecretKey as unique string to sign the tokens e.g, `BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q`. **This key will be shared with the API Gateway as it will be needed to validate the token**.
   - On the JwtSettings:IssuerServerUrl, enter the URL of the IDP. **This URL will be shared with the API Gateway as it will be in charge to validate the token**.
-  - On the JwtSettings:ValidAudiencesUrls, a default valid client is added in the [data loading script](IDP_MySQL_Init_Script/init.sql) line 56, to allow you work with postman. Each time a new client is added into the database, you will need to reload the docker compose file. **This URL(s) will be shared with the API Gateway as it will be in charge to validate the token**.
+  - On the JwtSettings:ValidAudiences, a default valid client is added in the [data loading script](IDP_MySQL_Init_Script/init.sql) line 56, to allow you work with postman. Each time a new client is added into the database, you will need to reload the docker compose file. **This URL(s) will be shared with the API Gateway as it will be in charge to validate the token**.
 
 ### Decision Support System API
 Not implemented yet
@@ -112,7 +112,7 @@ Not implemented yet
 * For the `apg.api` (API GateWay API) service, you must match the same values as the `idp.api` on the following parameters:
   * JwtSettings:SecretKey
   * JwtSettings:IssuerServerUrl
-  * JwtSettings:ValidAudiencesUrls
+  * JwtSettings:ValidAudiences
   * Also, you can add the type of claim values, in this case have been decide to have different `User access levels`.
 
 Once you have configure your docker compose file,run the following command from your root directory:

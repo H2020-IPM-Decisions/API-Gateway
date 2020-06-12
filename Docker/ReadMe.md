@@ -15,6 +15,6 @@ SQL scrip will add the following default data into your database. **Please modif
 You can modify any of this information changing the scripts or using the postman collection created for this purpose. 
 
 ---
-**Please note that when creating a new client, the new URL this will need to be added into the `H2020.IPMDecisions.APG.API\appsettings.json\JwtSettings\ValidAudiencesUrls` & `H2020.IPMDecisions.IDP.API\appsettings.json\JwtSettings\ValidAudiencesUrls` strings**
+**Please note that when creating a new client, the new URL this will need to be added into the `H2020.IPMDecisions.APG.API\appsettings.json\JwtSettings\ValidAudiences` & `H2020.IPMDecisions.IDP.API\appsettings.json\JwtSettings\ValidAudiences` strings**
 
 **You can use *`docker-compose up -d`* to achieve the above**

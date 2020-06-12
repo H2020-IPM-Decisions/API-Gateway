@@ -61,7 +61,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"password\" : \"Password1!\",\n\t\"email\" : \"newuser1@test.com\"\n}"
+											"raw": "{\n\t\"password\" : \"Password1!\",\n\t\"email\" : \"newuser10@test.com\"\n}"
 										},
 										"url": {
 											"raw": "{{baseUrl}}/{{idpUrl}}/authorization/register",
@@ -72,6 +72,67 @@
 												"{{idpUrl}}",
 												"authorization",
 												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Confirm Email",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"disabled": true
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"disabled": true
+											},
+											{
+												"key": "client_id",
+												"type": "text",
+												"value": "",
+												"disabled": true
+											},
+											{
+												"key": "client_secret",
+												"type": "text",
+												"value": "",
+												"disabled": true
+											},
+											{
+												"key": "grant_type",
+												"type": "text",
+												"value": "",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/{{idpUrl}}/accounts/confirmemail?token=CfDJ8DzZW5%2bCkHRNot9lShqHxqa2JBKAL49mWTquoOZcCnbnr45RQpp8ttHhohKqoynFptAAcLX4HwiKrRXeC1xYpFYyjZWEXO2tNwpaQ3q9oQkYiwnzmG0onwuvBeHhLhKsOxOg49%2bn6YzRhrdaWDy%2fZadS82DwX2ftY%2bYL4SeHu5unFA2K6%2b9vMsMQFAqvKECmA8Thnmj5o92oyY33jkQBOYVwvsmyJZr%2bHQAm%2fzVuisJsCijvP2jxfY3jDu%2ffeA1%2bGQ%3d%3d&userId=001cc66b-3673-4bc2-bf90-e05b7504f240",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"{{idpUrl}}",
+												"accounts",
+												"confirmemail"
+											],
+											"query": [
+												{
+													"key": "token",
+													"value": "CfDJ8DzZW5%2bCkHRNot9lShqHxqa2JBKAL49mWTquoOZcCnbnr45RQpp8ttHhohKqoynFptAAcLX4HwiKrRXeC1xYpFYyjZWEXO2tNwpaQ3q9oQkYiwnzmG0onwuvBeHhLhKsOxOg49%2bn6YzRhrdaWDy%2fZadS82DwX2ftY%2bYL4SeHu5unFA2K6%2b9vMsMQFAqvKECmA8Thnmj5o92oyY33jkQBOYVwvsmyJZr%2bHQAm%2fzVuisJsCijvP2jxfY3jDu%2ffeA1%2bGQ%3d%3d"
+												},
+												{
+													"key": "userId",
+													"value": "001cc66b-3673-4bc2-bf90-e05b7504f240"
+												}
 											]
 										}
 									},
@@ -265,6 +326,131 @@
 											""
 										]
 									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Accounts",
+							"item": [
+								{
+									"name": "Passwords",
+									"item": [
+										{
+											"name": "Forgot password - Sends Email",
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"email\" : \"newuser10@test.com\"\n}"
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{idpUrl}}/accounts/ForgotPassword",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{idpUrl}}",
+														"accounts",
+														"ForgotPassword"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reset password New Password",
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"email\" : \"newuser200@test.com\",\n\t\"password\" : \"Password2!\",\n\t\"token\": \"CfDJ8KhrtUCaQ3FLkHfiuN2EzJNbfXlP2djFo2YrslWodSN6bl%2fxIgklIyTvT9sMoh7s5rtCYoj7sN53z0Z%2fDmGF057zq8kz%2b0q7FSk%2b3J5oQS2vnoM2sPVFR0ZfLW%2bQaDxyeVwjhPZJ40EBVTc0OP76ZGnT9dfa9Fjk1J3S%2fCnowIKPm%2fJSCezFD03yz5vHQjZZpsPWVG2AIrGc0mVCFVTMNfbjuLhEfKpxZp4WgI%2fFutK5\"\n}"
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{idpUrl}}/accounts/ResetPassword",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{idpUrl}}",
+														"accounts",
+														"ResetPassword"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Management",
+									"item": [
+										{
+											"name": "Change Password",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"newPassword\" : \"Password2!\",\n\t\"currentPassword\": \"Password1!\"\n}"
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{idpUrl}}/accounts/001cc66b-3673-4bc2-bf90-e05b7504f240/manage/changepassword",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{idpUrl}}",
+														"accounts",
+														"001cc66b-3673-4bc2-bf90-e05b7504f240",
+														"manage",
+														"changepassword"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
 								}
 							],
 							"protocolProfileBehavior": {},
@@ -3544,17 +3730,17 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"firstName\" : \"Antonio\"\n}"
+									"raw": "{\n\t\"firstName\" : \"Antonio\",\n\t\"country\": \"Spain\"\n}"
 								},
 								"url": {
-									"raw": "{{baseUrl}}/{{uprUrl}}/users/380f0a69-a009-4c34-8496-9a43c2e069be/profiles",
+									"raw": "{{baseUrl}}/{{uprUrl}}/users/001cc66b-3673-4bc2-bf90-e05b7504f240/profiles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"{{uprUrl}}",
 										"users",
-										"380f0a69-a009-4c34-8496-9a43c2e069be",
+										"001cc66b-3673-4bc2-bf90-e05b7504f240",
 										"profiles"
 									]
 								}
@@ -3637,14 +3823,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/{{uprUrl}}/users/380f0a69-a009-4c34-8496-9a43c2e069be/profiles",
+									"raw": "{{baseUrl}}/{{uprUrl}}/users/001cc66b-3673-4bc2-bf90-e05b7504f240/profiles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"{{uprUrl}}",
 										"users",
-										"380f0a69-a009-4c34-8496-9a43c2e069be",
+										"001cc66b-3673-4bc2-bf90-e05b7504f240",
 										"profiles"
 									]
 								}
@@ -3684,17 +3870,17 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\n    {\n      \"op\": \"replace\",\n      \"path\": \"/FirstName\",\n      \"value\": \"New name\"\n    },\n    {\n      \"op\": \"replace\",\n      \"path\": \"/LastName\",\n      \"value\": \"New LastName\"\n    }\n]"
+									"raw": "[\n    {\n      \"op\": \"replace\",\n      \"path\": \"/FirstName\",\n      \"value\": \"New name\"\n    },\n    {\n      \"op\": \"replace\",\n      \"path\": \"/LastName\",\n      \"value\": \"New LastName\"\n    },\n    {\n      \"op\": \"add\",\n      \"path\": \"/Country\",\n      \"value\": \"Spain\"\n    }\n]"
 								},
 								"url": {
-									"raw": "{{baseUrl}}/{{uprUrl}}/users/380f0a69-a009-4c34-8496-9a43c2e069be/profiles",
+									"raw": "{{baseUrl}}/{{uprUrl}}/users/001cc66b-3673-4bc2-bf90-e05b7504f240/profiles",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"{{uprUrl}}",
 										"users",
-										"380f0a69-a009-4c34-8496-9a43c2e069be",
+										"001cc66b-3673-4bc2-bf90-e05b7504f240",
 										"profiles"
 									]
 								}
@@ -3841,85 +4027,6 @@
 			"name": "CMS",
 			"item": [
 				{
-					"name": "Auth User Landing Page Using APG",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{cmsUrl}}/auth/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{cmsUrl}}",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Auth User Landing Page Using Own URL",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{cmsUrlOwnServer}}/auth/login",
-							"host": [
-								"{{cmsUrlOwnServer}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Auth User Send Admin Using APG",
 					"request": {
 						"method": "POST",
@@ -3933,61 +4040,33 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Cockpit-Token",
+								"value": "3fd7616d24a0681333b1532d66bf0f",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"auth\":\n\t{\n\t\t\"user\": \"admin\", \n\t\t\"password\": \"admin\"\n\t}\n}"
+							"raw": "{\n\t\"user\": \"admin\", \n\t\"password\": \"admin\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/{{cmsUrl}}/auth/check",
+							"raw": "{{baseUrl}}/{{cmsUrl}}/cockpit/authUser",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{cmsUrl}}",
-								"auth",
-								"check"
+								"cockpit",
+								"authUser"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Auth User Send Admin Using Own URL",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"auth\":\n\t{\n\t\t\"user\": \"admin\", \n\t\t\"password\": \"admin\"\n\t}\n}"
-						},
-						"url": {
-							"raw": "{{cmsUrlOwnServer}}/auth/check",
-							"host": [
-								"{{cmsUrlOwnServer}}"
-							],
-							"path": [
-								"auth",
-								"check"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Singlentons Using APG",
+					"name": "Get List Singlentons Using APG",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -4009,7 +4088,7 @@
 							},
 							{
 								"key": "Cockpit-Token",
-								"value": "token",
+								"value": "3fd7616d24a0681333b1532d66bf0f",
 								"type": "text"
 							}
 						],
@@ -4018,20 +4097,67 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrl}}/{{cmsUrl}}/singletons",
+							"raw": "{{baseUrl}}/{{cmsUrl}}/api/singletons/listSingletons",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{cmsUrl}}",
-								"singletons"
+								"api",
+								"singletons",
+								"listSingletons"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Singlentons Using APG Using Own URL",
+					"name": "Get List Singlentons Using APG Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cockpit-Token",
+								"value": "3fd7616d24a0681333b1532d66bf0f",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{cmsUrl}}/singletons/listSingletons",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{cmsUrl}}",
+								"singletons",
+								"listSingletons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List Singlentons Using Own URL",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -4050,6 +4176,11 @@
 								"key": "Content-Type",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "Cockpit-Token",
+								"value": "3fd7616d24a0681333b1532d66bf0f",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -4057,12 +4188,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{cmsUrlOwnServer}}/singletons",
+							"raw": "{{cmsUrlOwnServer}}/api/singletons/listSingletons",
 							"host": [
 								"{{cmsUrlOwnServer}}"
 							],
 							"path": [
-								"singletons"
+								"api",
+								"singletons",
+								"listSingletons"
 							]
 						}
 					},
@@ -4109,13 +4242,18 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"value": "application/json",
+										"value": "application/vnd.h2020ipmdecisions.email+json",
+										"type": "text"
+									},
+									{
+										"key": "ipm-eml-auth",
+										"value": "1234",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"toAddress\" : \"test@emal.com\",\n\t\"emailSubject\": \"Welcome to IPM\",\n\t\"registrationToken\": \"1234567ABC\"\n}"
+									"raw": "{\n\t\"toAddress\" : \"test@email.com\",\n\t\"CallbackUrl\": \"1234567ABCddd\"\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/{{emlUrl}}/accounts/registrationemail",
@@ -4162,6 +4300,44 @@
 							],
 							"path": [
 								"{{emlUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "APG",
+			"item": [
+				{
+					"name": "Root",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api"
 							]
 						}
 					},
@@ -4234,7 +4410,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZjRmYjExNi04MDcwLTRhZTEtYmU1MS0yMjRjMTg5NjhlNmQiLCJqdGkiOiJkMDc4NWZiYS0zN2U1LTRhZjUtYjEwOS01MGIwMmYyYTRhMmUiLCJpYXQiOjE1ODg1ODQ4MjMsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiM2Y0ZmIxMTYtODA3MC00YWUxLWJlNTEtMjI0YzE4OTY4ZTZkIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Im5ld3VzZXIxQHRlc3QuY29tIiwiVXNlckFjY2Vzc1R5cGUiOiJMZXZlbDAiLCJuYmYiOjE1ODg1ODQ4MjMsImV4cCI6MTU4ODU4OTYyMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cHM6Ly90ZXN0Y2xpZW50LmNvbSJ9.sxlWHnzDjWhufEsU8E6mKLWAVnQVMMqDj-GTCOmJDic",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMDFjYzY2Yi0zNjczLTRiYzItYmY5MC1lMDViNzUwNGYyNDAiLCJqdGkiOiJkNTg4MGQ2MC0xODk3LTQ1NmEtYjI2OS1jNDdiZjk5ZTUyODgiLCJpYXQiOjE1OTE5NzEyMjEsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMDAxY2M2NmItMzY3My00YmMyLWJmOTAtZTA1Yjc1MDRmMjQwIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Im5ld3VzZXIxMEB0ZXN0LmNvbSIsIlVzZXJBY2Nlc3NUeXBlIjoiTGV2ZWwwIiwibmJmIjoxNTkxOTcxMjIxLCJleHAiOjE1OTE5NzYwMjEsImlzcyI6IklQTV9JZGVudGl0eVByb3ZpZGVyIiwiYXVkIjoiaHR0cHM6Ly90ZXN0Y2xpZW50LmNvbSJ9.XdKIe3uhDqPneZsK7YCJjMbl3fSMQGxzqmj03ugYK48",
 				"type": "string"
 			}
 		]
@@ -4263,37 +4439,37 @@
 	],
 	"variable": [
 		{
-			"id": "465b2f20-7114-4dfb-91ba-1d180aa06702",
+			"id": "0d7a03c5-b2ba-49cb-9483-94d38d8a5d99",
 			"key": "baseUrl",
 			"value": "https://localhost:5001",
 			"type": "string"
 		},
 		{
-			"id": "98e90782-22f6-4f06-8098-36539e6801f3",
+			"id": "634bca84-e551-495f-a89e-154ff497fea3",
 			"key": "idpUrl",
 			"value": "idp/api",
 			"type": "string"
 		},
 		{
-			"id": "e291ee94-cc8c-4534-99f5-244caa6e609c",
+			"id": "e5ab0914-dbd9-46e7-9626-fb34dd577bd5",
 			"key": "uprUrl",
 			"value": "upr/api",
 			"type": "string"
 		},
 		{
-			"id": "35ddb340-c686-4b56-8d41-d338ca83a2f0",
+			"id": "e9cbc1fa-1b87-4254-a91a-3203e25414fc",
 			"key": "cmsUrl",
 			"value": "cms/api",
 			"type": "string"
 		},
 		{
-			"id": "88b784c6-076d-4191-b7c9-49e992be2713",
+			"id": "e2ea9395-5cf5-43fa-b06b-f9dd49d5828d",
 			"key": "cmsUrlOwnServer",
 			"value": "http://localhost:5001",
 			"type": "string"
 		},
 		{
-			"id": "64208988-c6e2-456d-a116-ac14e7d733d1",
+			"id": "36d8b225-9a06-4b81-853a-197f872d8f42",
 			"key": "emlUrl",
 			"value": "eml/api",
 			"type": "string"
