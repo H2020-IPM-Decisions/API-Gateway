@@ -31,8 +31,8 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 
 As explained above, the following request will be preceded by `api/idp`. The Api Gateway will redirect the request to the appropriate end point on the IDP microservice.
 This microservice has two main areas **Authorization** and **Admin**.
-* Authorization: This area of the API is on charge of the authentification and authorization of the users, so `Anonymous` requests are allowed.
-* Admin: This area of the API is on charge of the administration of the IDP, so only users with `Admin` privileges will be allowed to make requests.
+* Authorization: This area of the API is in charge of the authentification and authorization of the users, so `Anonymous` requests are allowed.
+* Admin: This area of the API is in charge of the administration of the IDP, so only users with `Admin` privileges will be allowed to make requests.
 
 ## Root [/api/idp]
 
@@ -52,7 +52,7 @@ This request allows you to check if the microservice is working and some valid r
 
     + Attributes (array[LinkDto])
 
-## Authorization - Register  [/api/idp/authorization/register]
+## Registration - Register  [/api/idp/authorization/register]
 
 ### Register a New User [POST]
 
@@ -70,11 +70,107 @@ Use this request to register/create a new user into the database. This request i
 
         Succes
     
-    + Attributes (UserDto)
+    + Attributes (UserRegistrationReturnDto)
 
 + Response 400
 
         Bad Request 
+
+### Confirm Registration Email [GET /api/accounts/confirmemail{?userId,token}]
+
+Use this request to confirm user email. This request is anonymous.
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
++ Parameters
+
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+
+    + token (string, required, `abcd1234`)
+
++ Response 200
+
+        Succes
+
++ Response 400
+
+        Bad Request
+
+## Reset Passwords  [/api/accounts]
+
+### Forgot Password [POST /api/accounts/forgotpassword]
+
+Use this request to send an email to the user with a reset password token. This request is anonymous.
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
+
+    + Attributes (UserEmailDto)
+
++ Response 200
+
+        Succes
+
++ Response 400
+
+        Bad Request
+
+### Reset Password [POST /api/accounts/resetpassword]
+
+Use this request to reset the password from a user. This request is anonymous.
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
+
+    + Attributes (ResetPasswordDto)
+
++ Response 200
+
+        Succes
+
++ Response 400
+
+        Bad Request
+
+## User Account Management  [/api/accounts/{userId}/manage]
+
+### Change Password [POST /api/accounts/{userId}/manage/changepassword]
+
+Use this request to change the password from a user. The user needs JWT to do this request.
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
+    + Attributes (ChangePasswordDto)
+
++ Parameters
+
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+
++ Response 200
+
+        Succes
+
++ Response 400
+
+        Bad Request
+
++ Response 404
+
+        Not Found
             
 ## Authorization -Authenticate with password  [/api/idp/authorization/authenticate]
 
@@ -654,7 +750,7 @@ This request allows you to know if the endpoint is correct and is working.
 
 + Response 403 
 
-## Admin - User Claims [/api/idp/admin/{userid}/claims]
+## Admin - User Claims [/api/idp/admin/{userId}/claims]
 
 ### Get Claims From User [GET] 
 
@@ -666,7 +762,7 @@ This request allows you to know if the endpoint is correct and is working.
             
 + Parameters
 
-    + userid (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
 + Response 200 (application/json)
 
@@ -702,7 +798,7 @@ This request allows you to know if the endpoint is correct and is working.
             
 + Parameters
 
-    + userid (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
 + Response 200 (application/json)
 
@@ -738,7 +834,7 @@ This request allows you to know if the endpoint is correct and is working.
             
 + Parameters
 
-    + userid (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
 + Response 200 (application/json)
 
@@ -786,7 +882,7 @@ This request allows you to know what type of methods are allowed in this endpoin
 
         Forbidden
 
-## Admin - User Roles [/api/idp/admin/{userid}/roles]
+## Admin - User Roles [/api/idp/admin/{userId}/roles]
 
 ### Get Roles From User [GET] 
 
@@ -798,7 +894,7 @@ This request allows you to know what type of methods are allowed in this endpoin
             
 + Parameters
 
-    + userid (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
 + Response 200 (application/json)
 
@@ -834,7 +930,7 @@ This request allows you to know what type of methods are allowed in this endpoin
             
 + Parameters
 
-    + userid (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
 + Response 200 (application/json)
 
@@ -870,7 +966,7 @@ This request allows you to know what type of methods are allowed in this endpoin
             
 + Parameters
 
-    + userid (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
 + Response 200 (application/json)
 
@@ -1097,7 +1193,7 @@ This request allows you to check if the microservice is working and some valid r
 
 + Parameters
 
-    + userId (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
     + fields (string, optional, `id, fullname`) ... Any property from UserProfileDto.
 
@@ -1134,7 +1230,7 @@ This request allows you to check if the microservice is working and some valid r
 
 + Parameters
 
-    + userId (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
 
 + Request (application/json)
 
@@ -1175,7 +1271,7 @@ If a no existing `ID` is passed and the json-patch document has enough informati
 
 + Parameters
 
-    + userId (string, required)
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
 + Request (application/json-patch+json)
 
@@ -1589,10 +1685,70 @@ As explained above, the following request will be preceded by `api/wx`. The Api 
 
 As explained above, the following request will be preceded by `api/dss`. The Api Gateway will redirect the request to the appropriate end point on the DSS microservice.
 
-# Group EML - Email Service // ToDo
+# Group EML - Email Service
 
 As explained above, the following request will be preceded by `/api/eml`. The Api Gateway will redirect the request to the appropriate end point on the EML microservice.
+This microservice is in charge of sending emails requested by other IPM Decisions microservices and be in charge of the mailing list.
 
+All the requests of this microservice will be for internal use.
+
+To protect the missuse of the email service by external parties, the microservice will be secure by a custom header and token, setted up during the deployment, for email sending and/or a JWT authorization header. 
+
+## Root [/api/eml]
+
+### Root [GET]
+
+This request allows you to check if the microservice is working and some valid requests.
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
+
++ Response 200
+        
+        Succes
+
+    + Attributes (array[LinkDto])
+
+## Accounts [/api/eml/accounts]
+
+### RegistrationEmail [POST /api/eml/accounts/registrationemail]
+
+This request sends an email with a link to the registration page.
+
++ Request (application/vnd.h2020ipmdecisions.email+json)
+
+    + Headers
+    
+            security-header: 1234
+    
+    + Attributes(RegistrationEmailDto)
+            
++ Response 200
+
++ Response 400
+
+        message
+        
+### RegistrationEmail [POST /api/accounts/forgotpassword]
+
+This request sends an email with a link to the reset password page.
+
++ Request (application/vnd.h2020ipmdecisions.email+json)
+
+    + Headers
+    
+            security-header: 1234
+    
+    + Attributes(ForgotPasswordEmailDto)
+            
++ Response 200
+
++ Response 400
+
+        message
 
 # Data Structures
 
@@ -1653,6 +1809,11 @@ As explained above, the following request will be preceded by `/api/eml`. The Ap
 + `tokenType`: bearer(string) 
 + `refreshToken` (string)
 
+## ChangePasswordDto (object)
+### Properties
++ `currentPassword` : Password1! (string, required)
++ `newPassword` : NewPassword1! (string, required) - Min 6 characters , requires a digit, lowecase, uppercase and special character
+
 ## Claim (object)
 ### Properties
 + `issuer` (string)
@@ -1682,6 +1843,12 @@ As explained above, the following request will be preceded by `/api/eml`. The Ap
 + `content` (string)
 + `_mby` (string)
 + `_by` (string)
+
+## ForgotPasswordEmailDto (object)
+### Properties
++ `toAddress` (string, required) 
++ `callbackUrl` (string, required)
++ `token` (string)
 
 ## HomeArticle1 (object)
 ### Properties
@@ -1764,6 +1931,18 @@ As explained above, the following request will be preceded by `/api/eml`. The Ap
 + `protectedTicket` (string)
 + `expiresUtc` (string)
 
+## RegistrationEmailDto (object)
+### Properties
++ `toAddress` (string, required) 
++ `callbackUrl` (string, required)
++ `token` (string)
+
+## ResetPasswordDto (object)
+### Properties
++ `email` (string, required) 
++ `password` (string, required) 
++ `token` (string, required)
+
 ## RoleDto (object)
 ### Properties
 + `id` (string) 
@@ -1814,7 +1993,11 @@ As explained above, the following request will be preceded by `/api/eml`. The Ap
 ## UserDto (object)
 ### Properties
 + `id` (string) 
-+ `email` (string) 
++ `email` (string)
+
+## UserEmailDto (object)
+### Properties
++ `email` (string)
 
 ## UserForAuthenticationDto (object)
 ### Properties
@@ -1857,6 +2040,12 @@ As explained above, the following request will be preceded by `/api/eml`. The Ap
 + `address` (string)
 + `postcode` (string)
 + `country` (string)
+
+## UserRegistrationReturnDto (object)
+### Properties
++ `id` (string)
++ `email` (string)
++ `emailSentDuringRegistration` (boolean)
 
 ## UserWithRolesClaimsDto (object)
 ### Properties
