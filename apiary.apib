@@ -1716,13 +1716,13 @@ This request allows you to check if the microservice is working and some valid r
 
 ### RegistrationEmail [POST /api/eml/accounts/registrationemail]
 
-This request sends an email with a link to the registration page.
+This request sends an email with a link to the registration page. This call is internal, so it should be done by the Identity Provider Service.
 
 + Request (application/vnd.h2020ipmdecisions.email+json)
 
     + Headers
     
-            security-header: 1234
+            your-custom-security-header: 1234
     
     + Attributes(RegistrationEmailDto)
             
@@ -1732,15 +1732,15 @@ This request sends an email with a link to the registration page.
 
         message
         
-### RegistrationEmail [POST /api/accounts/forgotpassword]
+### RegistrationEmail [POST /api/eml/accounts/forgotpassword]
 
-This request sends an email with a link to the reset password page.
+This request sends an email with a link to the reset password page. This call is internal, so it should be done by the Identity Provider Service.
 
 + Request (application/vnd.h2020ipmdecisions.email+json)
 
     + Headers
     
-            security-header: 1234
+            your-custom-security-header: 1234
     
     + Attributes(ForgotPasswordEmailDto)
             
@@ -1847,7 +1847,7 @@ This request sends an email with a link to the reset password page.
 ## ForgotPasswordEmailDto (object)
 ### Properties
 + `toAddress` (string, required) 
-+ `callbackUrl` (string, required)
++ `callbackUrl` : https//resetPasswordUrl?email=youremail@test.com&token=abcd1234 (string, required)
 + `token` (string)
 
 ## HomeArticle1 (object)
@@ -1934,7 +1934,7 @@ This request sends an email with a link to the reset password page.
 ## RegistrationEmailDto (object)
 ### Properties
 + `toAddress` (string, required) 
-+ `callbackUrl` (string, required)
++ `callbackUrl` : https//UIConfirmEmailUrl?userId=1234&token=abcd1234 (string, required) - Should  
 + `token` (string)
 
 ## ResetPasswordDto (object)
