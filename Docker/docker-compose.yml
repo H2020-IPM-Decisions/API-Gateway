@@ -39,14 +39,14 @@ services:
             # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/YourCertificate.pfx
             - IPMEmailMicroservice:ApiGatewayAddress=http://apg.api/
             - IPMEmailMicroservice:EmailMicroservice=api/eml/
-            - IPMEmailMicroservice:ContentTypeHeader=application/vnd.h2020ipmdecisions.email+json
-            - IPMEmailMicroservice:SecurityTokenCustomHeader=uniqueHeaderSameAsEML
-            - IPMEmailMicroservice:SecurityToken=yourTokenSameAsEML
+            - IPMEmailMicroservice:ContentTypeHeader=application/vnd.h2020ipmdecisions.email+json # this value needs to be the same that the EML service
+            - IPMEmailMicroservice:SecurityTokenCustomHeader=uniqueHeaderSameAsEML # this headers needs to be the same that the EML service
+            - IPMEmailMicroservice:SecurityToken=yourTokenSameAsEML # this token needs to be the same that the EML service
             - NLog:targets:logfile:fileName=./logs/imp-decisions-IDP-$${shortdate}.log
             - NLog:rules:logfile:minLevel=Info
             - NLog:rules:logconsole:minLevel=Info
-            - UIPageAddresses:ResetPasswordFormPageAddress=http://localhost:4999/accounts/resetpassword
-            - UIPageAddresses:ConfirmUserFormPageAddress=http://localhost:4999/accounts/confirmemail
+            - UIPageAddresses:ResetPasswordFormPageAddress=http://localhost:4999/accounts/resetpassword # UI webpage
+            - UIPageAddresses:ConfirmUserFormPageAddress=http://localhost:4999/accounts/confirmemail # UI webpage
         # volumes: 
         #     - ~/.aspnet/https:/https:ro # Path certificate in Host machine
     upr.db:
@@ -146,7 +146,6 @@ services:
             - EmailSettings:FromAddress=youremail@test.com
             - EmailSettings:FromName=IPM Decisions
             - EmailSettings:EnableSsl=false
-    
     apg.api:        
         image: ipmdecisions/apigateway:latest
         links:

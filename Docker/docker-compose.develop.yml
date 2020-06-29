@@ -89,14 +89,14 @@ services:
             - IPMEmailMicroservice:ContentTypeHeader=application/vnd.h2020ipmdecisions.email+json
             - IPMEmailMicroservice:SecurityTokenCustomHeader=ipm-eml-auth 
             - IPMEmailMicroservice:SecurityToken=1234
-            - EmailSettings:SmtpServer=host.docker.internal
-            - EmailSettings:SmtpPort=2525
+            - EmailSettings:SmtpServer=smtp.sendgrid.net
+            - EmailSettings:SmtpPort=465
             - EmailSettings:UseSmtpLoginCredentials=true
-            - EmailSettings:SmtpUsername=none
-            - EmailSettings:SmtpPassword=none
-            - EmailSettings:FromAddress=youremail@test.com
+            - EmailSettings:SmtpUsername=apikey
+            - EmailSettings:SmtpPassword=YourToken- Needs to be created on SendGrid
+            - EmailSettings:FromAddress=YourEmail - Needs to be confirmed and registered on SendGrid
             - EmailSettings:FromName=IPM Decisions
-            - EmailSettings:EnableSsl=false
+            - EmailSettings:EnableSsl=true
     cms:
         image: agentejo/cockpit
         hostname: cms
