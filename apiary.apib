@@ -1714,7 +1714,7 @@ This request allows you to check if the microservice is working and some valid r
 
 ## Accounts [/api/eml/accounts]
 
-### RegistrationEmail [POST /api/eml/accounts/registrationemail]
+### Registration Email [POST /api/eml/accounts/registrationemail]
 
 This request sends an email with a link to the registration page. This call is internal, so it should be done by the Identity Provider Service.
 
@@ -1732,7 +1732,7 @@ This request sends an email with a link to the registration page. This call is i
 
         message
         
-### RegistrationEmail [POST /api/eml/accounts/forgotpassword]
+### Forgot Password Email [POST /api/eml/accounts/forgotpassword]
 
 This request sends an email with a link to the reset password page. This call is internal, so it should be done by the Identity Provider Service.
 
@@ -1745,6 +1745,77 @@ This request sends an email with a link to the reset password page. This call is
     + Attributes(ForgotPasswordEmailDto)
             
 + Response 200
+
++ Response 400
+
+        message
+
+## Mailing List Contacts [/api/mailinglist/contacts]
+
+### Add or Update Contact [PUT]
+
+Use this endpoint to update and add contacts (also know as [upsert](https://en.wiktionary.org/wiki/upsert)).
+If the contact already exists in the system, any entries you submit via this endpoint will update the existing contact in the system.
+
++ Request (application/json)
+
+    + Headers
+    
+            ipm-eml-auth: 1234
+    
+    + Attributes(EmailingListContactDto)
+            
++ Response 200
+
++ Response 400
+
+        message
+
+### Get Contact [GET /api/mailinglist/contacts/{email}]
+
+Use this endpoint to search by email and return the ContactID.
+
++ Request
+
+    + Headers
+    
+            ipm-eml-auth: 1234
+    
++ Parameters
+
+    + email (string, required)
+            
++ Response 200
+
+        Success
+    
+    + Attributes 
+
+        + id (string)
+
++ Response 400
+
+        message
+
++ Response 404
+
+        Not Found
+
+### Delete Contact [DELETE /api/mailinglist/contacts/{email}]
+
+Use this endpoint deletes a contact from the mailing list.
+
++ Request
+
+    + Headers
+    
+            ipm-eml-auth: 1234
+    
++ Parameters
+
+    + email (string, required)
+            
++ Response 204
 
 + Response 400
 
@@ -1837,6 +1908,12 @@ This request sends an email with a link to the reset password page. This call is
 ### Properties
 + `type` (string, required, nullable) 
 + `value` (string, required, nullable)
+
+#EmailingListContactDto
+### Properties
++ `email` (string, required) 
++ `firstName` (string)
++ `lastName` (string)
 
 ## Footer (object)
 ### Properties
