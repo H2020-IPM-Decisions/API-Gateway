@@ -141,11 +141,12 @@ services:
             - EmailSettings:SmtpServer=yourHost
             - EmailSettings:SmtpPort=2525
             - EmailSettings:UseSmtpLoginCredentials=true
-            - EmailSettings:SmtpUsername=none
-            - EmailSettings:SmtpPassword=none
+            - EmailSettings:SmtpUsername=YourUser
+            - EmailSettings:SmtpPassword=YourToken
             - EmailSettings:FromAddress=youremail@test.com
             - EmailSettings:FromName=IPM Decisions
             - EmailSettings:EnableSsl=false
+            - MailingListSetting:IPMDecisionsListId=theMailingListIdOnYourSystem
     apg.api:        
         image: ipmdecisions/apigateway:latest
         links:

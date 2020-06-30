@@ -93,10 +93,11 @@ services:
             - EmailSettings:SmtpPort=465
             - EmailSettings:UseSmtpLoginCredentials=true
             - EmailSettings:SmtpUsername=apikey
-            - EmailSettings:SmtpPassword=YourToken- Needs to be created on SendGrid
+            - EmailSettings:SmtpPassword=YourToken - Needs to be created on SendGrid
             - EmailSettings:FromAddress=YourEmail - Needs to be confirmed and registered on SendGrid
             - EmailSettings:FromName=IPM Decisions
             - EmailSettings:EnableSsl=true
+            - MailingListSetting:IPMDecisionsListId=TheListIdOnSendGrid - Needs to be created on SendGrid
     cms:
         image: agentejo/cockpit
         hostname: cms
@@ -144,6 +145,18 @@ services:
         ports:
         - "4999:80"
         - "444:443"
+    adminer:
+        image: adminer
+        container_name: adminer
+        restart: always
+        ports:
+            - 8080:8080
+        links:
+            - idp.db
+            - upr.db
+        depends_on:
+            - idp.db
+            - upr.db
 volumes:
     idp_msql_dbdata:
     upr_postgres_volume:
