@@ -111,6 +111,20 @@ services:
         environment:
             APP_NAME: H2020.IPMDecisions.CMS
             COCKPIT_SESSION_NAME: cockpit
+    dss.api:
+        image: ipmdecisions/dss_api:testing
+        hostname: dss.api
+        container_name: dss-api
+        restart: always
+        ports:
+            - "8080"
+    wx.api:
+        image: ipmdecisions/weather_api:testing
+        hostname: wx.api
+        container_name: wx-api
+        restart: always
+        ports:
+            - "8080"
     apg.api:        
         image: ipmdecisions/apigateway:develop
         links:
@@ -118,11 +132,15 @@ services:
             - upr.api
             - cms
             - eml.api
+            - dss.api
+            - wx.api
         depends_on:
             - idp.api
             - upr.api
             - cms
             - eml.api
+            - dss.api
+            - wx.api
         container_name: apg-api
         restart: always
         ports:
