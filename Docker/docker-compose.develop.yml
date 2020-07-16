@@ -106,8 +106,8 @@ services:
         ports:
             - "5001:80"
         volumes:
-        - ./CMS/storage :/var/www/html/storage
-        - ./CMS/config :/var/www/html/config
+        - ./CMS/storage:/var/www/html/storage
+        - ./CMS/config:/var/www/html/config
         environment:
             APP_NAME: H2020.IPMDecisions.CMS
             COCKPIT_SESSION_NAME: cockpit
