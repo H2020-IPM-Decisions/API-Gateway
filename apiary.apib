@@ -74,8 +74,6 @@ Use this request to register/create a new user into the database. This request i
 
 + Response 400
 
-        Bad Request 
-
 ### Confirm Registration Email [GET /api/accounts/confirmemail{?userId,token}]
 
 Use this request to confirm user email. This request is anonymous.
@@ -87,17 +85,12 @@ Use this request to confirm user email. This request is anonymous.
             Accept: application/json
 + Parameters
 
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
 
     + token (string, required, `abcd1234`)
 
 + Response 200
-
-        Succes
-
 + Response 400
-
-        Bad Request
 
 ## Reset Passwords  [/api/accounts]
 
@@ -114,12 +107,7 @@ Use this request to send an email to the user with a reset password token. This 
     + Attributes (UserEmailDto)
 
 + Response 200
-
-        Succes
-
 + Response 400
-
-        Bad Request
 
 ### Reset Password [POST /api/accounts/resetpassword]
 
@@ -134,12 +122,7 @@ Use this request to reset the password from a user. This request is anonymous.
     + Attributes (ResetPasswordDto)
 
 + Response 200
-
-        Succes
-
 + Response 400
-
-        Bad Request
 
 ## User Account Management  [/api/accounts/{userId}/manage]
 
@@ -158,20 +141,12 @@ Use this request to change the password from a user. The user needs JWT to do th
 
 + Parameters
 
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
 
 + Response 200
-
-        Succes
-
 + Response 400
-
-        Bad Request
-
 + Response 404
 
-        Not Found
-            
 ## Authorization -Authenticate with password  [/api/idp/authorization/authenticate]
 
 An existing user can authenticate and get a token that will be used to access the rest of the API.
@@ -231,8 +206,6 @@ An existing user can authenticate using a refresh token and get a new token to k
 
 + Response 400
 
-        Bad Request
-
 ## Admin - ApplicationClients [/api/idp/admin/applicationclients]
 
 Application clients are APIs, JavaScript Clients, etc., that are allowed to use this API.
@@ -272,21 +245,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Attributes (ShapedDataWithLinksApplicationClients)
                 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-        
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Get Application Client By Id [GET /api/idp/admin/applicationclients/{id}{?fields}] 
 
 + Request (application/json)
@@ -309,20 +271,9 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Attributes (ApplicationClientDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 401
++ Response 403
 + Response 404
-
-        Not Found
 
 ### Create Application Client [POST]
 
@@ -335,9 +286,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
             Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
             Authorization: Bearer JWT
 
-+ Response 200 (application/json)
-
-        Success
++ Response 201 (application/json)
 
     + Attributes (ApplicationClientDto)
     
@@ -346,17 +295,9 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
             Location: http://theurl/api/idp/admin/applicationclients/{userId}
 
 + Response 400 (application/json)
-
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-
++ Response 401
 + Response 403 
 
-        Forbidden
-        
 ### Partial Update Application Client [PATCH /api/idp/admin/applicationclients/{id}]
 
 Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
@@ -370,6 +311,7 @@ If a no existing `ID` is passed and the json-patch document has enough informati
 + Request (application/json-patch+json)
 
     + Attributes (ApplicationClientDto)
+    
     + Headers
     
             Authorization: Bearer JWT
@@ -377,24 +319,16 @@ If a no existing `ID` is passed and the json-patch document has enough informati
 + Response 201 
 
     + Attributes (array[JsonPatchOperation])
+    
     + Headers
     
             Location: http://theurl/api/idp/admin/applicationclients/{userId}
 
 + Response 204
-
 + Response 400 (application/json)
-
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-        
++ Response 401
 + Response 403 
 
-        Forbidden
-        
 ### Delete Application Client [DELETE /api/idp/admin/applicationclients/{id}]
 
 + Parameters
@@ -407,16 +341,10 @@ If a no existing `ID` is passed and the json-patch document has enough informati
     
             Authorization: Bearer JWT
 
-+ Response 204 
-
-+ Response 401 
-
-        Unauthorized
-
++ Response 204
++ Response 401
 + Response 403 
 
-        Forbidden
-        
 ### Options [OPTIONS]
 
 This request allows you to know what type of methods are allowed in this endpoint
@@ -433,14 +361,9 @@ This request allows you to know what type of methods are allowed in this endpoin
     
             Allow: OPTIONS, POST, GET, DELETE, PATCH
 
-+ Response 401 
++ Response 401
++ Response 403
 
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
 ### Head [HEAD]
 
 This request allows you to know if the endpoint is correct and is working.
@@ -452,9 +375,7 @@ This request allows you to know if the endpoint is correct and is working.
             Authorization: Bearer JWT
 
 + Response 200
-
 + Response 401
-
 + Response 403 
 
 ## Admin - RefeshTokens [/api/idp/admin/refreshtokens]
@@ -489,21 +410,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Attributes (ShapedDataWithLinksRefreshTokens)
                 
 + Response 400 (application/json)
-
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 401
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Get Refresh Token By Id [GET /api/idp/admin/refreshtokens/{id}{?fields}] 
 
 + Request (application/json)
@@ -526,20 +436,9 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Attributes (RefreshTokenDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 401
++ Response 403
 + Response 404
-
-        Not Found
 
 ### Delete Refresh Token [DELETE /api/idp/admin/refreshtokens/{id}]
 
@@ -554,15 +453,9 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
             Authorization: Bearer JWT
 
 + Response 204 
++ Response 401
++ Response 403
 
-+ Response 401 
-
-        Unauthorized
-        
-+ Response 403 
-
-        Forbidden
-        
 ### Head [HEAD]
 
 This request allows you to know if the endpoint is correct and is working.
@@ -574,9 +467,7 @@ This request allows you to know if the endpoint is correct and is working.
             Authorization: Bearer JWT
 
 + Response 200
-
 + Response 401 
-
 + Response 403 
 
 ## Admin - Roles [/api/idp/admin/roles]
@@ -603,21 +494,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Attributes (ShapedDataWithLinksRoles)
                 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Get Role By Id [GET /api/idp/admin/roles/{id}{?fields}] 
 
 + Request (application/json)
@@ -640,21 +520,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Attributes (RoleDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Create Role [POST]
 
 + Request (application/json)
@@ -666,7 +535,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
             Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
             Authorization: Bearer JWT
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
 
         Success
 
@@ -677,16 +546,8 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
             Location: http://theurl/api/idp/admin/roles/{userId}
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
++ Response 403
 
 ### Delete Role [DELETE /api/idp/admin/roles/{id}]
 
@@ -700,16 +561,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     
             Authorization: Bearer JWT
 
-+ Response 204 
-
++ Response 204
 + Response 401 
++ Response 403
 
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
 ### Options [OPTIONS]
 
 This request allows you to know what type of methods are allowed in this endpoint
@@ -725,15 +580,10 @@ This request allows you to know what type of methods are allowed in this endpoin
     + Headers
     
             Allow: OPTIONS, POST, GET, DELETE
-
+            
 + Response 401 
++ Response 403
 
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
 ### Head [HEAD]
 
 This request allows you to know if the endpoint is correct and is working.
@@ -745,9 +595,7 @@ This request allows you to know if the endpoint is correct and is working.
             Authorization: Bearer JWT
 
 + Response 200
-
-+ Response 401 
-
++ Response 401
 + Response 403 
 
 ## Admin - User Claims [/api/idp/admin/{userId}/claims]
@@ -762,7 +610,7 @@ This request allows you to know if the endpoint is correct and is working.
             
 + Parameters
 
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
     
 + Response 200 (application/json)
 
@@ -771,21 +619,10 @@ This request allows you to know if the endpoint is correct and is working.
     + Attributes (array[Claim])
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Add Claims To User [POST] 
 
 + Request (application/json)
@@ -798,7 +635,7 @@ This request allows you to know if the endpoint is correct and is working.
             
 + Parameters
 
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
     
 + Response 200 (application/json)
 
@@ -807,21 +644,10 @@ This request allows you to know if the endpoint is correct and is working.
     + Attributes (UserDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Remove Claims From User [DELETE] 
 
 + Request (application/json)
@@ -834,7 +660,7 @@ This request allows you to know if the endpoint is correct and is working.
             
 + Parameters
 
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
     
 + Response 200 (application/json)
 
@@ -843,20 +669,9 @@ This request allows you to know if the endpoint is correct and is working.
     + Attributes (UserDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
-
-        Not Found
 
 ### Options [OPTIONS]
 
@@ -875,12 +690,7 @@ This request allows you to know what type of methods are allowed in this endpoin
             Allow: OPTIONS, POST, GET, DELETE
 
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
++ Response 403
 
 ## Admin - User Roles [/api/idp/admin/{userId}/roles]
 
@@ -894,7 +704,7 @@ This request allows you to know what type of methods are allowed in this endpoin
             
 + Parameters
 
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
     
 + Response 200 (application/json)
 
@@ -903,21 +713,10 @@ This request allows you to know what type of methods are allowed in this endpoin
     + Attributes (array[RoleDto])
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Add Roles To User [POST] 
 
 + Request (application/json)
@@ -930,7 +729,7 @@ This request allows you to know what type of methods are allowed in this endpoin
             
 + Parameters
 
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
     
 + Response 200 (application/json)
 
@@ -939,21 +738,10 @@ This request allows you to know what type of methods are allowed in this endpoin
     + Attributes (UserDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Remove Roles From User [DELETE] 
 
 + Request (application/json)
@@ -966,7 +754,7 @@ This request allows you to know what type of methods are allowed in this endpoin
             
 + Parameters
 
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
+    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
     
 + Response 200 (application/json)
 
@@ -975,20 +763,9 @@ This request allows you to know what type of methods are allowed in this endpoin
     + Attributes (UserDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
-
-        Not Found
 
 ### Options [OPTIONS]
 
@@ -1007,12 +784,7 @@ This request allows you to know what type of methods are allowed in this endpoin
             Allow: OPTIONS, POST, GET, DELETE
 
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
++ Response 403
 
 ## Admin - Users [/api/idp/admin/users]
 
@@ -1049,21 +821,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Attributes (ShapedDataWithLinksUsers)
                 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-        
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Get User By Id [GET /api/idp/admin/users/{id}{?fields}] 
 
 + Parameters
@@ -1086,21 +847,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     + Attributes (UserWithRolesClaimsDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Delete User [DELETE /api/idp/admin/users/{id}]
 
 + Parameters
@@ -1113,16 +863,10 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
     
             Authorization: Bearer JWT
 
-+ Response 204 
-
++ Response 204
 + Response 401 
++ Response 403
 
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
 ### Options [OPTIONS]
 
 This request allows you to know what type of methods are allowed in this endpoint
@@ -1139,14 +883,9 @@ This request allows you to know what type of methods are allowed in this endpoin
     
             Allow: OPTIONS, POST, GET, DELETE
 
-+ Response 401 
++ Response 401
++ Response 403
 
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
 ### Head [HEAD]
 
 This request allows you to know if the endpoint is correct and is working.
@@ -1158,11 +897,8 @@ This request allows you to know if the endpoint is correct and is working.
             Authorization: Bearer JWT
 
 + Response 200
-
 + Response 401
-
 + Response 403 
-
 
 # Group UPR - User Provision Service
 
@@ -1187,13 +923,13 @@ This request allows you to check if the microservice is working and some valid r
     + Attributes (array[LinkDto])
 
 
-## User Profiles [/api/upr/users/{userId}/profiles]
+## User Profiles [/api/upr/users/profiles]
 
-### Get User Profile [GET /api/upr/users/{userId}/profiles{?fields}] 
+The user will be identified using the **UserId** on the authentification JWT
+
+### Get User Profile [GET /api/upr/users/profiles{?fields}] 
 
 + Parameters
-
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
     + fields (string, optional, `id, fullname`) ... Any property from UserProfileDto.
 
@@ -1211,26 +947,11 @@ This request allows you to check if the microservice is working and some valid r
     + Attributes (UserProfileDto)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ### Create User Profile [POST]
-
-+ Parameters
-
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
 
 + Request (application/json)
 
@@ -1241,37 +962,23 @@ This request allows you to check if the microservice is working and some valid r
             Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
             Authorization: Bearer JWT
 
-+ Response 200 (application/json)
-
-        Success
++ Response 201 (application/json)
 
     + Attributes (UserProfileDto)
     
     + Headers
     
-            Location: http://theurl/api/idp/admin/applicationclients/{userId}
+            Location: http://theurl/api/upr/user/{userId}/profiles
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
++ Response 403
 
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
 ### Partial Update User Profile [PATCH]
 
 Learn more about patch operation using [json-patch+json object](http://jsonpatch.com/).
 
 If a no existing `ID` is passed and the json-patch document has enough information for creating a UserProfile (see UserProfileForCreationDto), a new UserProfile will be created.
-
-+ Parameters
-
-    + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User ID
     
 + Request (application/json-patch+json)
 
@@ -1287,27 +994,14 @@ If a no existing `ID` is passed and the json-patch document has enough informati
     
     + Headers
     
-            Location: http://theurl/api/upr/user/{userId}/profiles
+            Location: http://theurl/api/upr/user/profiles
 
 + Response 204
-
 + Response 400 (application/json)
++ Response 401
++ Response 403
 
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-        
-+ Response 403 
-
-        Forbidden
-        
 ### Delete User Profile [DELETE]
-
-+ Parameters
-
-    + userId (string, required)
 
 + Request (application/json)
 
@@ -1316,15 +1010,9 @@ If a no existing `ID` is passed and the json-patch document has enough informati
             Authorization: Bearer JWT
 
 + Response 204
-
 + Response 401 
++ Response 403
 
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
 ### Options [OPTIONS]
 
 This request allows you to know what type of methods are allowed in this endpoint
@@ -1342,13 +1030,8 @@ This request allows you to know what type of methods are allowed in this endpoin
             Allow: OPTIONS, POST, GET, DELETE
 
 + Response 401 
-
-        Unauthorized
-
 + Response 403 
 
-        Forbidden
-        
 ### Head [HEAD]
 
 This request allows you to know if the endpoint is correct and is working.
@@ -1360,11 +1043,980 @@ This request allows you to know if the endpoint is correct and is working.
             Authorization: Bearer JWT
 
 + Response 200
-
 + Response 401
-
 + Response 403
+
+## Farms [/api/upr/farms]
+
+The farms edited on this endpoint will be associated to a **user**. The user will be identified using the **UserId** on the authentification JWT.
+
+### Create Farm [POST]
+
+Use this end point to add a new farm to the user. The UserId used for requesting the farm will be on the authentification JWT.
+
+Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of the new Farm object
+
++ Request (application/json)
+
+    + Attributes (FarmForCreationDto)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 (application/json)
+
+    + Attributes (ShapedDataWithLinksFarm)
+    
+    + Headers
+    
+            Location: http://theurl/api/upr/farms/{farmId}
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Get Farms [GET /api/upr/farms{?pageSize,orderBy,searchQuery,pageNumber,fields}]
+
+Use this endpoint to get the farms that are associated with an user.
+
+Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of the each Farm object
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+            
++ Parameters
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+    + orderBy (string, optional, `name desc`) ... name or url - add `desc` at the end for descending order
+    + searchQuery (string, optional, `test`) ... Search against name and url properties
+    + pageNumber (number, optional, `1`)
+    + fields (string, optional, `id, name`) ... Any property from FarmDto and `id` is required.
+
++ Response 200 (application/json)
+
+    + Headers
         
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (ShapedDataWithLinksFarms)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get Farms and Associated Data[GET /api/upr/farms{?pageNumber,pageSize,orderBy,searchQuery,pageNumber,fields,childrenPageSize,childrenPageNumber}]
+
+Use this endpoint to get the farms that are associated with an user.
+
+Use the **Accept** header `application/vnd.h2020ipmdecisions.farm.withchildren.hateoas+json` to return HATEOAS links of the each Farm object and its children
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/vnd.h2020ipmdecisions.farm.withchildren+json; application/vnd.h2020ipmdecisions.farm.withchildren.hateoas+json
+            Authorization: Bearer JWT
+            
++ Parameters
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+    + orderBy (string, optional, `name desc`) ... name or url - add `desc` at the end for descending order 
+    + searchQuery (string, optional, `test`) ... Search against name and url properties
+    + pageNumber (number, optional, `1`)
+    + fields (string, optional, `id, name`) ... Any property from FarmDto and `id` is required.
+    + childrenPageSize (number, optional, `5`) ... Default 5; Maximun 10
+    + childrenPageNumber (number, optional, `5`) ... Default 1
+
++ Response 200 (application/json)
+
+    + Attributes (ShapedDataWithLinksFarmWithShapedChildren)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get Farm By Id [GET /api/upr/farms/{farmId}]
+
+Use this endpoint to get an unique farm that is associated with an user.
+
+Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of the Farm object
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (ShapedDataWithLinksFarm)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get Farm By Id With HATEOAS [GET /api/upr/farms/{farmId}{?pageSize,pageNumber}]
+
+Use this endpoint to get an unique farm that is associated with an user.
+
+Use the **Accept** header `application/vnd.h2020ipmdecisions.farm.withchildren.hateoas+json` to return HATEOAS links of the Farm object
+
++ Parameters
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + pageSize (number, optional, `5`) ... Default 5; Maximun 10
+    + pageNumber (number, optional, `1`)
+
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/vnd.h2020ipmdecisions.farm.withchildren+json application/vnd.h2020ipmdecisions.farm.withchildren.hateoas+json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (ShapedDataWithLinksFarmWithShapedChildren)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Partial Update of Farm By Id [PATCH /api/upr/farms/{farmId}]
+
+Use this endpoint to update a user farm.
+
+If a no existing `farmId` is passed and the json-patch document has enough information for creating a Farm (see UserFarmForCreationDto), a new User Farm will be created.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+
++ Request (application/json)
+    
+    + Attributes (array[JsonPatchOperation])
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 
+
+    + Attributes (FarmDto)
+    + Headers
+    
+            Location: http://theurl/api/upr/farms/{farmId}
+            
++ Response 204
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Delete Farm By Id [DELETE /api/upr/farms/{farmId}]
+
+Use this endpoint to remove a farm that is associated with an user using its id. 
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 204
++ Response 401
++ Response 403
+
+## Fields [/api/upr/farms/{farmId}/fields]
+
+Fields needs to be associate to a farm. FarmId must be associated to the UserId of the Authorization JWT.
+
+### Create Field [POST]
+
+Use this end point to add a new field to a farm.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+
++ Request (application/json)
+
+    + Attributes (FieldForCreationDto)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 (application/json)
+
+    + Attributes (FieldDto)
+    
+    + Headers
+    
+            Location: http://theurl/api/upr/farms/{farmId}/fields/{fieldId}
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Get Fields From Farm [GET /api/upr/farms/{farmId}/fields{?pageSize,pageNumber}]
+
+Use this endpoint to get the fields that are associated with a farm.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+     
+    + pageNumber (number, optional, `1`)
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[FieldDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get a Field By Id [GET /api/upr/farms/{farmId}/fields/{fieldId}]
+
+Use this endpoint to get an unique farm that is associated with an user.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (FieldDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Partial Update of a Field By Id [PATCH /api/upr/farms/{farmId}/fields/{fieldId}]
+
+Use this endpoint to update a user farm.
+
+If a no existing `farmId` is passed and the json-patch document has enough information for creating a Farm (see UserFarmForCreationDto), a new User Farm will be created.
+
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+
++ Request (application/json)
+    
+    + Attributes (array[JsonPatchOperation])
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 
+
+    + Attributes (FieldDto)
+    + Headers
+    
+            Location: http://theurl/api/upr/farms/{farmId}/fields/{fieldId}
+            
++ Response 204
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Delete Field By Id [DELETE /api/upr/farms/{farmId}/fields/{fieldId}]
+
+Use this endpoint to remove a farm that is associated with an user using its id. 
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 204
++ Response 401
++ Response 403
+
+## Alert Subscriptions [/api/upr/farms/{farmId}/alerts]
+
+Subscription to alerts are at farm level. FarmId must be associated to the UserId of the Authorization JWT.
+
+### Create Alert [POST]
+
+Use this end point to create/suscribe to a new alert.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+
++ Request (application/json)
+
+    + Attributes (AlertSubscriptionForCreationDto)
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 (application/json)
+
+    + Attributes (AlertSubscriptionDto)
+    
+    + Headers
+    
+            Location: http://theurl/api/upr/farms/{farmId}/alerts/{fieldId}
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Get Alerts From Farm [GET]
+
+Use this endpoint to get the fields that are associated with a farm.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Attributes (array[AlertSubscriptionDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get an Alert By Id [GET /api/upr/farms/{farmId}/alerts/{alertId}]
+
+Use this endpoint to get an specific alert that is associated with a farm.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + alertId (guid, required, `d747c07d-5d37-4c13-9026-b2db528156a7`) ... Unique Alert Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (AlertSubscriptionDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Delete Alert By Id [DELETE /api/upr/farms/{farmId}/alerts/{alertId}]
+
+Use this endpoint to remove an alert from a farm.. 
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + alertId (guid, required, `d747c07d-5d37-4c13-9026-b2db528156a7`) ... Unique Alert Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 204
++ Response 401
++ Response 403
+
+
+## Alert Notifications [/api/upr/farms/{farmId}/notifications]
+
+Notifications will be produced at farm level. FarmId must be associated to the UserId of the Authorization JWT.
+
+### Get Notifictions From Farm [GET /api/upr/farms/{farmId}/notifications]{?onlyUnread,pageSize,pageNumber}]
+
+Use this endpoint to get the fields that are associated with a farm.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    
+    + onlyUnread (boolean, optional, `true`) ... Filter to bring only unread notifications
+    
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+     
+    + pageNumber (number, optional, `1`)
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[AlertSubscriptionDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get a Notification By Id [GET /api/upr/farms/{farmId}/notifications/{notificationId}]
+
+Use this endpoint to get an specific notification that is associated with a farm.
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + notificationId (guid, required, `c30c7e54-f4f0-4416-ad3e-ca8f50a08968`) ... Unique Notification Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (AlertSubscriptionDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Partial Update of a Notification By Id [PATCH /api/upr/farms/{farmId}/notifications/{notificationId}]
+
+Use this endpoint to mark a notification as read..
+
++ Parameters
+
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + notificationId (guid, required, `c30c7e54-f4f0-4416-ad3e-ca8f50a08968`) ... Unique Notification Id
+
++ Request (application/json)
+    
+    + Attributes (AlertResultNotificationForUpdateDto)
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+            
++ Response 204
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+## Observations [/api/upr/fields/{fieldId}/observations]
+
+Observations needs to be associate to a field. FieldId must be associated to the UserId of the Authorization JWT.
+
+### Add Observation [POST]
+
+Use this end point to add a new observation to the field.
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+
++ Request (application/json)
+
+    + Attributes (FieldObservationForCreationDto)
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 (application/json)
+
+    + Attributes (FieldObservationDto)
+    + Headers
+    
+            Location: http://theurl/api/upr/farms/{farmId}/alerts/{fieldId}
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Get Observations From Field [GET /api/upr/fields/{fieldId}/observations{?pageSize,pageNumber}]
+
+Use this endpoint to get the oberservations that are associated with a field.
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+     
+    + pageNumber (number, optional, `1`)
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[FieldObservationDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get a Observation By Id [GET /api/upr/fields/{fieldId}/observations/{observationId}]
+
+Use this endpoint to get an observation from a field.
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + observationId (guid, required, `21f2a563-a604-46f5-a572-6ac733566307`) ... Unique Field Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (FieldObservationDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Delete Observation By Id [DELETE /api/upr/fields/{fieldId}/observations/{observationId}]
+
+Use this endpoint to remove an observation that is associated with the field. 
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + observationId (guid, required, `21f2a563-a604-46f5-a572-6ac733566307`) ... Unique Field Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 204
++ Response 401
++ Response 403
+
+
+## Field Crop Decision Combinations  [/api/upr/fields/{fieldId}/cropdecisions]
+
+Use these end points for adding Crop, Pest Dss combination to a selected field.
+
+### Associate a Crop Decisions To a Field [POST /api/upr/fields/{fieldId}/cropdecisions]
+
+Use this endpoint to get the crop decision combinations that are associated for the field. The Crop Decisions Ids are obtained using the following end point ``
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+    
+    + Attributes
+        
+        + CropDecisionCombinatioId : d8b4e603-c714-4df4-bc1a-6e706aff9a1c (string, required) ... Unique Crop Decisions Combination Id
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (CropCombinationDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get Crop Decisions From Field [GET /api/upr/fields/{fieldId}/cropdecisions{?pageSize,pageNumber}]
+
+Use this endpoint to get the crop decision combinations that are associated for the field.
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+     
+    + pageNumber (number, optional, `1`)
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[CropCombinationDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+
+## Crops [/api/upr/data/crops]
+
+Standard users can only `GET` crops. To modify the information you must have the adequate permisions. Crops can't be delete, they should be mark as `deprecated`.
+
+### Get Crops [GET /api/upr/data/crops{?pageSize,pageNumber,includeDeprecated}]
+
+Use this endpoint to get the list of crops.
+
++ Parameters
+    
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+     
+    + pageNumber (number, optional, `1`)
+    
+    + includeDeprecated (boolean, optional, `false`) ... Return crops no longer available - deprecated. Default is false
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[CropDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get Crop by Id [GET /api/upr/data/crops/{cropId}]
+
+Use this endpoint to get a crop by Id.
+
++ Parameters
+    
+    + cropId (guid, required, `fa7f6d53-3c10-47a9-9adb-7eaa2ab1a308`) ... Unique Crop Id
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Attributes (CropDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Create Crop - Restricted Access [POST]
+
+Use this end point to create a new crop.
+
++ Request (application/json)
+
+    + Attributes (CropForModificationDto)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 (application/json)
+
+    + Attributes (CropDto)
+    
+    + Headers
+    
+            Location: http://theurl/api/upr/dara/crops/{cropId}
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Partial Update of a Crop By Id - Restricted Access [PATCH /api/upr/data/crops/{cropId}]
+
+Use this endpoint to update a crop.
+
++ Parameters
+
+    + cropId (guid, required, `fa7f6d53-3c10-47a9-9adb-7eaa2ab1a308`) ... Unique Crop Id
+
++ Request (application/json)
+    
+    + Attributes (CropForModificationDto)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+            
++ Response 204
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+## Pests [/api/upr/data/pests]
+
+Standard users can only `GET` crops. To modify the information you must have the adequate permisions. Pest can't be delete, they should be mark as `deprecated`.
+
+### Get Pests [GET /api/upr/data/pests{?pageSize,pageNumber,includeDeprecated}]
+
+Use this endpoint to get the list of pests.
+
++ Parameters
+    
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+     
+    + pageNumber (number, optional, `1`)
+    
+    + includeDeprecated (boolean, optional, `false`) ... Return pests no longer available - deprecated. Default is false
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[PestDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get Pest by Id [GET /api/upr/data/pests/{pestId}]
+
+Use this endpoint to get a pest by Id.
+
++ Parameters
+    
+    + pestId (guid, required, `8ecedd0d-6c63-47a4-b4a7-fac34a71c60c`) ... Unique Pest Id
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Attributes (PestDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Create Pest - Restricted Access [POST]
+
+Use this end point to create a new pest.
+
++ Request (application/json)
+
+    + Attributes (PestForModificationDto)
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 (application/json)
+
+    + Attributes (PestDto)
+    
+    + Headers
+    
+            Location: http://theurl/api/upr/data/pests/{pestId}
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Partial Update of a Pest By Id - Restricted Access [PATCH /api/upr/data/pests/{pestId}]
+
+Use this endpoint to update a pest.
+
++ Parameters
+
+    + pestId (guid, required, `8ecedd0d-6c63-47a4-b4a7-fac34a71c60c`) ... Unique Pest Id
+
++ Request (application/json)
+    
+    + Attributes (PestForModificationDto)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+            
++ Response 204
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+
+## Crop Decisions [/api/upr/cropdecisions]
+
+These end points hold the different crop, pest, DSS combinations. The combinations are created internally, so the main functionality is `GET` information.
+
+### Get Crop Decisions [GET /api/upr/cropdecisions{?pageSize,pageNumber}]
+
+Use this endpoint to get the list of combinations available.
+
++ Parameters
+    
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+     
+    + pageNumber (number, optional, `1`)
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[CropCombinationDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+
 # Group CMS - Content Management System Service
 
 As explained above, the following request will be preceded by `api/cms`. The Api Gateway will redirect the request to the appropriate end point on the CMS microservice.
@@ -1394,20 +2046,9 @@ List of all avaibable assets in CMS with details about them.
         + total (number)
         
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
-
-        Not Found
 
 ## Resources [/api/cms/singletons/get]
 
@@ -1430,21 +2071,10 @@ Footer in HTML format
      + Attributes (Footer)
      
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
 + Response 403 
-
-        Forbidden
-        
 + Response 404
 
-        Not Found
-        
 ## Banner [/api/cms/singletons/get/banner]
 
 Website Logo
@@ -1463,21 +2093,10 @@ Website Logo
      + Attributes (Image)
 
 + Response 400 (application/json)
-
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 401
++ Response 403
 + Response 404
 
-        Not Found
-        
 ## Home Slideshow [/api/cms/singletons/get/slideshow]
 
 Slideshow pictures on Landing Page
@@ -1496,21 +2115,10 @@ Slideshow pictures on Landing Page
      + Attributes (Slideshow)
 
 + Response 400 (application/json)
-
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 401
++ Response 403
 + Response 404
 
-        Not Found
-        
 ## Home Article 1 [/api/cms/singletons/get/homearticle1]
 
 First article on Landing Page
@@ -1529,21 +2137,10 @@ First article on Landing Page
      + Attributes (HomeArticle1)
         
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
 
-        Not Found
-        
 ## Home Article 2 [/api/cms/singletons/get/homearticle2]
 
 First article on Landing Page
@@ -1562,21 +2159,10 @@ First article on Landing Page
      + Attributes (HomeArticle1)
         
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
 + Response 403 
-
-        Forbidden
-        
 + Response 404
 
-        Not Found
-        
 ## Home Grid [/api/cms/singletons/get/homegrid]
 
 Home Grid on Landing Page
@@ -1595,21 +2181,10 @@ Home Grid on Landing Page
      + Attributes (HomeGrid)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
 + Response 403 
-
-        Forbidden
-        
 + Response 404
 
-        Not Found
-        
 ## News [/api/cms/singletons/get/news]
 
 News on Landing Page
@@ -1628,21 +2203,9 @@ News on Landing Page
      + Attributes (News)
 
 + Response 400 (application/json)
-
-        Bad Request
-
 + Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 403
 + Response 404
-
-        Not Found
-        
 
 ## Terms and conditions [/api/cms/singletons/get/termsnconditions]
 
@@ -1662,21 +2225,10 @@ Application Terms and conditions
      + Attributes ()
 
 + Response 400 (application/json)
-
-        Bad Request
-
-+ Response 401 
-
-        Unauthorized
-
-+ Response 403 
-
-        Forbidden
-        
++ Response 401
++ Response 403
 + Response 404
 
-        Not Found
-        
 # Group WX - Weather Service // ToDo
 
 As explained above, the following request will be preceded by `api/wx`. The Api Gateway will redirect the request to the appropriate end point on the WX microservice.
@@ -1727,10 +2279,7 @@ This request sends an email with a link to the registration page. This call is i
     + Attributes(RegistrationEmailDto)
             
 + Response 200
-
 + Response 400
-
-        message
         
 ### Forgot Password Email [POST /api/eml/accounts/forgotpassword]
 
@@ -1745,10 +2294,7 @@ This request sends an email with a link to the reset password page. This call is
     + Attributes(ForgotPasswordEmailDto)
             
 + Response 200
-
 + Response 400
-
-        message
 
 ## Mailing List Contacts [/api/mailinglist/contacts]
 
@@ -1766,14 +2312,11 @@ If the contact already exists in the system, any entries you submit via this end
     + Attributes(EmailingListContactDto)
             
 + Response 200
-
-+ Response 400
-
-        message
++ Response 400 (application/json)
 
 ### Get Contact [GET /api/mailinglist/contacts/{email}]
 
-Use this endpoint to search by email and return the ContactID.
+Use this endpoint to search by email and return the ContactId.
 
 + Request
 
@@ -1786,20 +2329,13 @@ Use this endpoint to search by email and return the ContactID.
     + email (string, required)
             
 + Response 200
-
-        Success
     
     + Attributes 
 
         + id (string)
 
-+ Response 400
-
-        message
-
++ Response 400 (application/json)
 + Response 404
-
-        Not Found
 
 ### Delete Contact [DELETE /api/mailinglist/contacts/{email}]
 
@@ -1816,12 +2352,27 @@ Use this endpoint deletes a contact from the mailing list.
     + email (string, required)
             
 + Response 204
-
-+ Response 400
-
-        message
++ Response 400 (application/json)
 
 # Data Structures
+
+## AlertResultNotificationDto (object)
+### Properties
++ `alertId` (string)
++ `isRead` (boolean)
+
+## AlertResultNotificationForUpdateDto (object)
+### Properties
++ `isRead` (boolean, required)
+
+## AlertSubscriptionDto (object)
+### Properties
++ `alertId` (string)
++ `isActive` (boolean)
+
+## AlertSubscriptionForCreationDto (object)
+### Properties
++ `alertId` : cd8d0905-b438-422f-b031-12f75e3f8992  (string, required)
 
 ## Asset (object)
 ### Properties
@@ -1909,11 +2460,95 @@ Use this endpoint deletes a contact from the mailing list.
 + `type` (string, required, nullable) 
 + `value` (string, required, nullable)
 
-#EmailingListContactDto
+## Coordinates
+### Properties
++ `x` : 52.6 (number) - East/West longitude coordinates 
++ `y` : 2.12 (number) - North/South latitude coordinates
++ `srid` : 4326 (number) - Spatial reference identifier associated with the coordinate system.
+
+## CropCombinationDto
+### Properties
++ `id` (string)
++ `Crop` (CropDto)
++ `PestId` (PestDto)
++ `Dss` (string)
+
+## CropDto
+### Properties
++ `id` (string)
++ `inf1` (string)
++ `inf2` (string)
++ `deprecated` (boolean)
+
+## CropForModificationDto
+### Properties
++ `inf1` (string, required)
++ `inf2` (string)
++ `deprecated` (boolean)
+
+## EmailingListContactDto
 ### Properties
 + `email` (string, required) 
 + `firstName` (string)
 + `lastName` (string)
+
+## FarmDto (object)
+### Properties
++ `id` (string)
++ `name` (string)
++ `inf1` (string)
++ `inf2` (string)
++ `location` (Coordinates)
+
+## FarmForCreationDto (object)
+### Properties
++ `name`: myNewFarm (string, required)
++ `inf1` (string)
++ `inf2` (string)
++ `location` (Coordinates, required)
+
+## FarmWithShapedChildrenDto
+### Properties
++ `id` (string)
++ `name` (string)
++ `inf1` (string)
++ `inf2` (string)
++ `location` (Coordinates)
++ `fields` (array[FieldDto])
++ `alertsSubscriptions` (array[AlertSubscriptionDto])
++ `alertsNotifications` (array[AlertResultNotificationDto])
+
+## FieldForCreationDto (object)
+### Properties
++ `name`: myNewField (string, required)
++ `inf1` (string)
++ `inf2` (string)
++ `location` (Coordinates, required)
+
+## FieldDto (object)
+### Properties
++ `id` (string)
++ `name` (string)
++ `inf1` (string)
++ `inf2` (string)
++ `location` (Coordinates)
++ `cropPestDss` (array[string])
++ `observations` (array[string])
+
+## FieldObservationDto
+### Properties
++ `id` (string) 
++ `location` (Coordinates)
++ `time` (string)
++ `pestEppoCode` (string) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
++ `cropEppoCode` (string) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
+
+## FieldObservationForCreationDto
+### Properties
++ `location` (Coordinates, required)
++ `time` (string, required)
++ `pestEppoCode` (string, required) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
++ `cropEppoCode` (string, required) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
 
 ## Footer (object)
 ### Properties
@@ -2000,10 +2635,23 @@ Use this endpoint deletes a contact from the mailing list.
     + `name` (string)
 + `value` (string)
 
+## PestDto
+### Properties
++ `id` (string)
++ `inf1` (string)
++ `inf2` (string)
++ `deprecated` (boolean)
+
+## PestForModificationDto
+### Properties
++ `inf1` (string)
++ `inf2` (string)
++ `deprecated` (boolean)
+
 ## RefreshTokenDto (object)
 ### Properties
 + `id` (string) 
-+ `userID` (string) 
++ `userId` (string) 
 + `applicationClientId` (string)
 + `protectedTicket` (string)
 + `expiresUtc` (string)
@@ -2011,7 +2659,7 @@ Use this endpoint deletes a contact from the mailing list.
 ## RegistrationEmailDto (object)
 ### Properties
 + `toAddress` (string, required) 
-+ `callbackUrl` : https//UIConfirmEmailUrl?userId=1234&token=abcd1234 (string, required) - Should  
++ `callbackUrl` : https//UIConfirmEmailUrl?userId=1234&token=abcd1234 (string, required) 
 + `token` (string)
 
 ## ResetPasswordDto (object)
@@ -2034,6 +2682,41 @@ Use this endpoint deletes a contact from the mailing list.
 ### Properties
 + `value` (array[ApplicationClientDto])
     Returns a list of application clients 
++ `links` (array[LinkDto])
+    Returns a list of links
+    
+## ShapedDataWithLinksFarm (object)
+### Properties
++ `value` (FarmDto)
+    Return a farm
++ `links` (array[LinkDto])
+    Returns a list of links
+
+## ShapedDataWithLinksFarms (object)
+### Properties
++ `value` (array[FarmDto])
+    Returns a list of farms
++ `links` (array[LinkDto])
+    Returns a list of links
+    
+## ShapedDataWithLinksFarmWithShapedChildren (object)
+### Properties
++ `value` (FarmWithShapedChildrenDto)
+    Return a farm
++ `links` (array[LinkDto])
+    Returns a list of links
+
+## ShapedDataWithLinksFarmsWithShapedChildren (object)
+### Properties
++ `value` (array[FarmWithShapedChildrenDto])
+    Returns a list of farms
++ `links` (array[LinkDto])
+    Returns a list of links
+
+## ShapedDataWithLinksFields (object)
+### Properties
++ `value` (array[FieldDto])
+    Returns a list of fields
 + `links` (array[LinkDto])
     Returns a list of links
 
@@ -2094,9 +2777,7 @@ Use this endpoint deletes a contact from the mailing list.
 + `fullName` (string)
 + `phoneNumber` (string)
 + `mobileNumber` (string)
-+ `address` (string)
-+ `postcode` (string)
-+ `country` (string)
++ `fullAddress` (string)
 
 ## UserProfileForCreationDto (object)
 ### Properties
@@ -2104,7 +2785,8 @@ Use this endpoint deletes a contact from the mailing list.
 + `lastName` (string)
 + `phoneNumber` (string)
 + `mobileNumber` (string)
-+ `address` (string)
++ `street` (string)
++ `city` (string)
 + `postcode` (string)
 + `country` (string)
 
@@ -2114,7 +2796,8 @@ Use this endpoint deletes a contact from the mailing list.
 + `lastName` (string)
 + `phoneNumber` (string)
 + `mobileNumber` (string)
-+ `address` (string)
++ `street` (string)
++ `city` (string)
 + `postcode` (string)
 + `country` (string)
 
