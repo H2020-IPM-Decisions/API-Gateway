@@ -50,7 +50,7 @@ services:
         # volumes: 
         #     - ~/.aspnet/https:/https:ro # Path certificate in Host machine
     upr.db:
-        image: postgres:12.2
+        image: postgis/postgis:12-master
         container_name: upr-postgres
         environment:            
             # change default username/password 
@@ -65,8 +65,8 @@ services:
         volumes: 
             - upr_postgres_volume:/var/lib/postgresql/data
             # Change username and password before loading the data
-            - ./UPR/Postgresql_Init_Script/1.createUser.sql :/docker-entrypoint-initdb.d/1.createUser.sql
-            - ./UPR/Postgresql_Init_Script/2.dbBackup.sql :/docker-entrypoint-initdb.d/2.dbBackup.sql
+            - ./UPR/Postgresql_Init_Script/1.createUser.sql:/docker-entrypoint-initdb.d/1.createUser.sql
+            - ./UPR/Postgresql_Init_Script/2.dbBackup.sql:/docker-entrypoint-initdb.d/2.dbBackup.sql
     upr.api:
         depends_on:
             - upr.db
