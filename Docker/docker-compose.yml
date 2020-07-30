@@ -85,6 +85,9 @@ services:
         - JwtSettings:IssuerServerUrl=IDPServerURL
         # The following Audience URL is in line 56 in the IDP_MySQL_Init_Script/init.sql
         - JwtSettings:ValidAudiences=https://testclient.com
+        - NLog:targets:logfile:fileName=./logs/imp-decisions-IDP-$${shortdate}.log
+        - NLog:rules:logfile:minLevel=Info
+        - NLog:rules:logconsole:minLevel=Info
         - AllowedHosts=*
         - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
         # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate

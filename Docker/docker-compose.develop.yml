@@ -72,6 +72,9 @@ services:
             - JwtSettings:SecretKey=BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com
+            - NLog:targets:logfile:fileName=./logs/imp-decisions-IDP-$${shortdate}.log
+            - NLog:rules:logfile:minLevel=Info
+            - NLog:rules:logconsole:minLevel=Info
     eml.api:
         image: ipmdecisions/emailservice:develop
         container_name: eml-api
