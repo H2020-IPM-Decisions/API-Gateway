@@ -56,7 +56,7 @@ This request allows you to check if the microservice is working and some valid r
 
 ### Register a New User [POST]
 
-Use this request to register/create a new user into the database. This request is anonymous. If `User Type` is ommited, a default value defined on the configuration file will be added.
+Use this request to register/create a new user into the database. This request is anonymous.
 
 + Request (application/json)
 
@@ -74,7 +74,7 @@ Use this request to register/create a new user into the database. This request i
 
 + Response 400
 
-### Confirm Registration Email [GET /api/accounts/confirmemail{?userId,token}]
+### Confirm Registration Email [GET /api/idp/accounts/confirmemail{?userId,token}]
 
 Use this request to confirm user email. This request is anonymous.
 
@@ -83,6 +83,7 @@ Use this request to confirm user email. This request is anonymous.
     + Headers
     
             Accept: application/json
+    
 + Parameters
 
     + userId (guid, required, `08ff7052-2e95-11e3-a1fc-000c294eede0`) ... Unique User Id
@@ -92,11 +93,27 @@ Use this request to confirm user email. This request is anonymous.
 + Response 200
 + Response 400
 
+### Confirm Registration Email [POST /api/idp/accounts/resendConfirmationEmail]
+
+Use this request to confirm user email. This request is anonymous.
+
++ Request (application/json)
+
+    + Headers
+    
+            Accept: application/json
+
++ Attributes (UserEmailDto)
+
++ Response 200
++ Response 400
+
+
 ## Reset Passwords  [/api/accounts]
 
 ### Forgot Password [POST /api/accounts/forgotpassword]
 
-Use this request to send an email to the user with a reset password token. This request is anonymous.
+Use this request to send an email to the user to confirm email.
 
 + Request (application/json)
 
@@ -109,7 +126,7 @@ Use this request to send an email to the user with a reset password token. This 
 + Response 200
 + Response 400
 
-### Reset Password [POST /api/accounts/resetpassword]
+### Reset Password [POST /api/idp/accounts/resetpassword]
 
 Use this request to reset the password from a user. This request is anonymous.
 
@@ -124,9 +141,9 @@ Use this request to reset the password from a user. This request is anonymous.
 + Response 200
 + Response 400
 
-## User Account Management  [/api/accounts/{userId}/manage]
+## User Account Management  [/api/idp/accounts/{userId}/manage]
 
-### Change Password [POST /api/accounts/{userId}/manage/changepassword]
+### Change Password [POST /api/idp/accounts/{userId}/manage/changepassword]
 
 Use this request to change the password from a user. The user needs JWT to do this request.
 
@@ -2766,7 +2783,7 @@ Use this endpoint deletes a contact from the mailing list.
 
 ## UserForRegistrationDto (object)
 ### Properties
-+ `userType` (string, optional, nullable) 
++ `userType`: farmer (string, required) - valid values: farmer, advisor or developer
 + `email`: myemail@test.com (string, required) 
 + `password`: Password1! (string, required) - Min 6 characters , requires a digit, lowecase, uppercase and special character
 
