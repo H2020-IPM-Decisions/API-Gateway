@@ -12,7 +12,23 @@
             "UpstreamPathTemplate": "/api/eml/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {},
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "Priority": 0
+        },
+        {
+            "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5500
+                }
+            ],
+            "UpstreamPathTemplate": "/api/eml/internal/{catchAll}",
+            "UpstreamScheme": "http",
+            "AuthenticationOptions": {},
+            "RouteClaimsRequirement": {},
+            "Priority": 1
         }
     ]
 }
