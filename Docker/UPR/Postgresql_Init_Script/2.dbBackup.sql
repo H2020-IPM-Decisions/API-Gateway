@@ -5,7 +5,7 @@
 -- Dumped from database version 12.3 (Debian 12.3-1.pgdg100+1)
 -- Dumped by pg_dump version 12.3 (Debian 12.3-1.pgdg100+1)
 
--- Started on 2020-07-28 10:20:16 UTC
+-- Started on 2020-08-06 14:30:42 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,57 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 13 (class 2615 OID 19141)
--- Name: tiger; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA IF NOT EXISTS tiger;
-
-
---
--- TOC entry 14 (class 2615 OID 19411)
--- Name: tiger_data; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA IF NOT EXISTS tiger_data;
-
-
---
--- TOC entry 10 (class 2615 OID 18986)
--- Name: topology; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA IF NOT EXISTS topology;
-
-
---
--- TOC entry 4449 (class 0 OID 0)
--- Dependencies: 10
--- Name: SCHEMA topology; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA topology IS 'PostGIS Topology schema';
-
-
---
--- TOC entry 4 (class 3079 OID 19130)
--- Name: fuzzystrmatch; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS fuzzystrmatch WITH SCHEMA public;
-
-
---
--- TOC entry 4450 (class 0 OID 0)
--- Dependencies: 4
--- Name: EXTENSION fuzzystrmatch; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION fuzzystrmatch IS 'determine similarities and distance between strings';
-
-
---
--- TOC entry 5 (class 3079 OID 17978)
+-- TOC entry 2 (class 3079 OID 24642)
 -- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -77,52 +27,18 @@ CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
 
 
 --
--- TOC entry 4451 (class 0 OID 0)
--- Dependencies: 5
+-- TOC entry 3926 (class 0 OID 0)
+-- Dependencies: 2
 -- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial types and functions';
-
-
---
--- TOC entry 3 (class 3079 OID 19142)
--- Name: postgis_tiger_geocoder; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS postgis_tiger_geocoder WITH SCHEMA tiger;
-
-
---
--- TOC entry 4452 (class 0 OID 0)
--- Dependencies: 3
--- Name: EXTENSION postgis_tiger_geocoder; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION postgis_tiger_geocoder IS 'PostGIS tiger geocoder and reverse geocoder';
-
-
---
--- TOC entry 2 (class 3079 OID 18987)
--- Name: postgis_topology; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS postgis_topology WITH SCHEMA topology;
-
-
---
--- TOC entry 4453 (class 0 OID 0)
--- Dependencies: 2
--- Name: EXTENSION postgis_topology; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION postgis_topology IS 'PostGIS topology spatial types and functions';
+COMMENT ON EXTENSION postgis IS 'PostGIS geometry and geography spatial types and functions';
 
 
 SET default_table_access_method = heap;
 
 --
--- TOC entry 277 (class 1259 OID 19683)
+-- TOC entry 215 (class 1259 OID 25710)
 -- Name: Crop; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -133,7 +49,7 @@ CREATE TABLE public."Crop" (
 
 
 --
--- TOC entry 280 (class 1259 OID 19707)
+-- TOC entry 218 (class 1259 OID 25734)
 -- Name: CropDecisionCombination; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -147,7 +63,31 @@ CREATE TABLE public."CropDecisionCombination" (
 
 
 --
--- TOC entry 278 (class 1259 OID 19691)
+-- TOC entry 222 (class 1259 OID 25815)
+-- Name: DataSharingRequest; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."DataSharingRequest" (
+    "Id" uuid NOT NULL,
+    "RequesteeId" uuid NOT NULL,
+    "RequesterId" uuid NOT NULL,
+    "RequestStatusDescription" text NOT NULL
+);
+
+
+--
+-- TOC entry 221 (class 1259 OID 25805)
+-- Name: DataSharingRequestStatus; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."DataSharingRequestStatus" (
+    "Id" integer NOT NULL,
+    "Description" text NOT NULL
+);
+
+
+--
+-- TOC entry 216 (class 1259 OID 25718)
 -- Name: Dss; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -158,7 +98,7 @@ CREATE TABLE public."Dss" (
 
 
 --
--- TOC entry 273 (class 1259 OID 19630)
+-- TOC entry 211 (class 1259 OID 25657)
 -- Name: Farm; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -172,7 +112,7 @@ CREATE TABLE public."Farm" (
 
 
 --
--- TOC entry 275 (class 1259 OID 19655)
+-- TOC entry 213 (class 1259 OID 25682)
 -- Name: Field; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -186,7 +126,7 @@ CREATE TABLE public."Field" (
 
 
 --
--- TOC entry 281 (class 1259 OID 19737)
+-- TOC entry 219 (class 1259 OID 25764)
 -- Name: FieldCropDecisionCombination; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -197,7 +137,7 @@ CREATE TABLE public."FieldCropDecisionCombination" (
 
 
 --
--- TOC entry 276 (class 1259 OID 19669)
+-- TOC entry 214 (class 1259 OID 25696)
 -- Name: FieldObservation; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -212,7 +152,7 @@ CREATE TABLE public."FieldObservation" (
 
 
 --
--- TOC entry 279 (class 1259 OID 19699)
+-- TOC entry 217 (class 1259 OID 25726)
 -- Name: Pest; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -223,7 +163,7 @@ CREATE TABLE public."Pest" (
 
 
 --
--- TOC entry 272 (class 1259 OID 19609)
+-- TOC entry 205 (class 1259 OID 24628)
 -- Name: UserAddress; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -237,23 +177,34 @@ CREATE TABLE public."UserAddress" (
 
 
 --
--- TOC entry 274 (class 1259 OID 19638)
+-- TOC entry 212 (class 1259 OID 25665)
 -- Name: UserFarm; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public."UserFarm" (
     "UserId" uuid NOT NULL,
-    "FarmId" uuid NOT NULL
+    "FarmId" uuid NOT NULL,
+    "Authorised" boolean DEFAULT false NOT NULL,
+    "UserFarmTypeDescription" text DEFAULT ''::text NOT NULL
 );
 
 
 --
--- TOC entry 270 (class 1259 OID 19572)
+-- TOC entry 220 (class 1259 OID 25788)
+-- Name: UserFarmType; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."UserFarmType" (
+    "Id" integer NOT NULL,
+    "Description" text NOT NULL
+);
+
+--
+-- TOC entry 204 (class 1259 OID 24618)
 -- Name: UserProfile; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public."UserProfile" (
-    "Id" uuid NOT NULL,
     "FirstName" character varying(80) NOT NULL,
     "LastName" text,
     "PhoneNumber" text,
@@ -264,7 +215,7 @@ CREATE TABLE public."UserProfile" (
 
 
 --
--- TOC entry 271 (class 1259 OID 19579)
+-- TOC entry 203 (class 1259 OID 24613)
 -- Name: __EFMigrationsHistory; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -275,16 +226,25 @@ CREATE TABLE public."__EFMigrationsHistory" (
 
 
 --
--- TOC entry 4255 (class 2606 OID 19629)
--- Name: UserProfile AK_UserProfile_UserId; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 3752 (class 2606 OID 25814)
+-- Name: DataSharingRequestStatus AK_DataSharingRequestStatus_Description; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."UserProfile"
-    ADD CONSTRAINT "AK_UserProfile_UserId" UNIQUE ("UserId");
+ALTER TABLE ONLY public."DataSharingRequestStatus"
+    ADD CONSTRAINT "AK_DataSharingRequestStatus_Description" UNIQUE ("Description");
 
 
 --
--- TOC entry 4277 (class 2606 OID 19690)
+-- TOC entry 3747 (class 2606 OID 25797)
+-- Name: UserFarmType AK_UserFarmType_Description; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."UserFarmType"
+    ADD CONSTRAINT "AK_UserFarmType_Description" UNIQUE ("Description");
+
+
+--
+-- TOC entry 3732 (class 2606 OID 25717)
 -- Name: Crop PK_Crop; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -293,7 +253,7 @@ ALTER TABLE ONLY public."Crop"
 
 
 --
--- TOC entry 4287 (class 2606 OID 19735)
+-- TOC entry 3742 (class 2606 OID 25762)
 -- Name: CropDecisionCombination PK_CropDecisionCombination; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -302,7 +262,25 @@ ALTER TABLE ONLY public."CropDecisionCombination"
 
 
 --
--- TOC entry 4279 (class 2606 OID 19698)
+-- TOC entry 3760 (class 2606 OID 25923)
+-- Name: DataSharingRequest PK_DataSharingRequest; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."DataSharingRequest"
+    ADD CONSTRAINT "PK_DataSharingRequest" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 3755 (class 2606 OID 25812)
+-- Name: DataSharingRequestStatus PK_DataSharingRequestStatus; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."DataSharingRequestStatus"
+    ADD CONSTRAINT "PK_DataSharingRequestStatus" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 3734 (class 2606 OID 25725)
 -- Name: Dss PK_Dss; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -311,7 +289,7 @@ ALTER TABLE ONLY public."Dss"
 
 
 --
--- TOC entry 4266 (class 2606 OID 19637)
+-- TOC entry 3720 (class 2606 OID 25664)
 -- Name: Farm PK_Farm; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -320,7 +298,7 @@ ALTER TABLE ONLY public."Farm"
 
 
 --
--- TOC entry 4272 (class 2606 OID 19662)
+-- TOC entry 3727 (class 2606 OID 25689)
 -- Name: Field PK_Field; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -329,7 +307,7 @@ ALTER TABLE ONLY public."Field"
 
 
 --
--- TOC entry 4290 (class 2606 OID 19741)
+-- TOC entry 3745 (class 2606 OID 25768)
 -- Name: FieldCropDecisionCombination PK_FieldCropDecisionCombination; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -338,7 +316,7 @@ ALTER TABLE ONLY public."FieldCropDecisionCombination"
 
 
 --
--- TOC entry 4275 (class 2606 OID 19676)
+-- TOC entry 3730 (class 2606 OID 25703)
 -- Name: FieldObservation PK_FieldObservation; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -347,7 +325,7 @@ ALTER TABLE ONLY public."FieldObservation"
 
 
 --
--- TOC entry 4281 (class 2606 OID 19706)
+-- TOC entry 3736 (class 2606 OID 25733)
 -- Name: Pest PK_Pest; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -356,7 +334,7 @@ ALTER TABLE ONLY public."Pest"
 
 
 --
--- TOC entry 4263 (class 2606 OID 19616)
+-- TOC entry 3715 (class 2606 OID 24635)
 -- Name: UserAddress PK_UserAddress; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -365,7 +343,7 @@ ALTER TABLE ONLY public."UserAddress"
 
 
 --
--- TOC entry 4269 (class 2606 OID 19642)
+-- TOC entry 3724 (class 2606 OID 25879)
 -- Name: UserFarm PK_UserFarm; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -374,16 +352,25 @@ ALTER TABLE ONLY public."UserFarm"
 
 
 --
--- TOC entry 4259 (class 2606 OID 19583)
+-- TOC entry 3750 (class 2606 OID 25795)
+-- Name: UserFarmType PK_UserFarmType; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."UserFarmType"
+    ADD CONSTRAINT "PK_UserFarmType" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 3713 (class 2606 OID 25877)
 -- Name: UserProfile PK_UserProfile; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."UserProfile"
-    ADD CONSTRAINT "PK_UserProfile" PRIMARY KEY ("Id");
+    ADD CONSTRAINT "PK_UserProfile" PRIMARY KEY ("UserId");
 
 
 --
--- TOC entry 4261 (class 2606 OID 19585)
+-- TOC entry 3710 (class 2606 OID 24617)
 -- Name: __EFMigrationsHistory PK___EFMigrationsHistory; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -392,7 +379,7 @@ ALTER TABLE ONLY public."__EFMigrationsHistory"
 
 
 --
--- TOC entry 4282 (class 1259 OID 19730)
+-- TOC entry 3737 (class 1259 OID 25757)
 -- Name: IX_CropDecisionCombination_CropId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -400,7 +387,7 @@ CREATE INDEX "IX_CropDecisionCombination_CropId" ON public."CropDecisionCombinat
 
 
 --
--- TOC entry 4283 (class 1259 OID 19736)
+-- TOC entry 3738 (class 1259 OID 25763)
 -- Name: IX_CropDecisionCombination_CropId_DssId_PestId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -408,7 +395,7 @@ CREATE INDEX "IX_CropDecisionCombination_CropId_DssId_PestId" ON public."CropDec
 
 
 --
--- TOC entry 4284 (class 1259 OID 19731)
+-- TOC entry 3739 (class 1259 OID 25758)
 -- Name: IX_CropDecisionCombination_DssId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -416,7 +403,7 @@ CREATE INDEX "IX_CropDecisionCombination_DssId" ON public."CropDecisionCombinati
 
 
 --
--- TOC entry 4285 (class 1259 OID 19732)
+-- TOC entry 3740 (class 1259 OID 25759)
 -- Name: IX_CropDecisionCombination_PestId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -424,7 +411,39 @@ CREATE INDEX "IX_CropDecisionCombination_PestId" ON public."CropDecisionCombinat
 
 
 --
--- TOC entry 4264 (class 1259 OID 19653)
+-- TOC entry 3753 (class 1259 OID 25841)
+-- Name: IX_DataSharingRequestStatus_Description; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX "IX_DataSharingRequestStatus_Description" ON public."DataSharingRequestStatus" USING btree ("Description");
+
+
+--
+-- TOC entry 3756 (class 1259 OID 25838)
+-- Name: IX_DataSharingRequest_RequestStatusDescription; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "IX_DataSharingRequest_RequestStatusDescription" ON public."DataSharingRequest" USING btree ("RequestStatusDescription");
+
+
+--
+-- TOC entry 3757 (class 1259 OID 25924)
+-- Name: IX_DataSharingRequest_RequesteeId_RequesterId; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX "IX_DataSharingRequest_RequesteeId_RequesterId" ON public."DataSharingRequest" USING btree ("RequesteeId", "RequesterId");
+
+
+--
+-- TOC entry 3758 (class 1259 OID 25840)
+-- Name: IX_DataSharingRequest_RequesterId; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "IX_DataSharingRequest_RequesterId" ON public."DataSharingRequest" USING btree ("RequesterId");
+
+
+--
+-- TOC entry 3718 (class 1259 OID 25680)
 -- Name: IX_Farm_Location; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -432,7 +451,7 @@ CREATE UNIQUE INDEX "IX_Farm_Location" ON public."Farm" USING btree ("Location")
 
 
 --
--- TOC entry 4288 (class 1259 OID 19752)
+-- TOC entry 3743 (class 1259 OID 25779)
 -- Name: IX_FieldCropDecisionCombination_CropDecisionCombinationId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -440,7 +459,7 @@ CREATE INDEX "IX_FieldCropDecisionCombination_CropDecisionCombinationId" ON publ
 
 
 --
--- TOC entry 4273 (class 1259 OID 19682)
+-- TOC entry 3728 (class 1259 OID 25709)
 -- Name: IX_FieldObservation_FieldId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -448,7 +467,7 @@ CREATE INDEX "IX_FieldObservation_FieldId" ON public."FieldObservation" USING bt
 
 
 --
--- TOC entry 4270 (class 1259 OID 19668)
+-- TOC entry 3725 (class 1259 OID 25695)
 -- Name: IX_Field_FarmId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -456,7 +475,15 @@ CREATE INDEX "IX_Field_FarmId" ON public."Field" USING btree ("FarmId");
 
 
 --
--- TOC entry 4267 (class 1259 OID 19654)
+-- TOC entry 3748 (class 1259 OID 25799)
+-- Name: IX_UserFarmType_Description; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX "IX_UserFarmType_Description" ON public."UserFarmType" USING btree ("Description");
+
+
+--
+-- TOC entry 3721 (class 1259 OID 25681)
 -- Name: IX_UserFarm_FarmId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -464,7 +491,15 @@ CREATE INDEX "IX_UserFarm_FarmId" ON public."UserFarm" USING btree ("FarmId");
 
 
 --
--- TOC entry 4256 (class 1259 OID 19617)
+-- TOC entry 3722 (class 1259 OID 25798)
+-- Name: IX_UserFarm_UserFarmTypeDescription; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "IX_UserFarm_UserFarmTypeDescription" ON public."UserFarm" USING btree ("UserFarmTypeDescription");
+
+
+--
+-- TOC entry 3711 (class 1259 OID 24636)
 -- Name: IX_UserProfile_UserAddressId; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -472,15 +507,7 @@ CREATE INDEX "IX_UserProfile_UserAddressId" ON public."UserProfile" USING btree 
 
 
 --
--- TOC entry 4257 (class 1259 OID 19586)
--- Name: IX_UserProfile_UserId; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX "IX_UserProfile_UserId" ON public."UserProfile" USING btree ("UserId");
-
-
---
--- TOC entry 4296 (class 2606 OID 19715)
+-- TOC entry 3767 (class 2606 OID 25742)
 -- Name: CropDecisionCombination FK_CropCombination_Crop; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -489,7 +516,7 @@ ALTER TABLE ONLY public."CropDecisionCombination"
 
 
 --
--- TOC entry 4297 (class 2606 OID 19720)
+-- TOC entry 3768 (class 2606 OID 25747)
 -- Name: CropDecisionCombination FK_CropCombination_Dss; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -498,7 +525,7 @@ ALTER TABLE ONLY public."CropDecisionCombination"
 
 
 --
--- TOC entry 4298 (class 2606 OID 19725)
+-- TOC entry 3769 (class 2606 OID 25752)
 -- Name: CropDecisionCombination FK_CropCombination_Pest; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -507,7 +534,34 @@ ALTER TABLE ONLY public."CropDecisionCombination"
 
 
 --
--- TOC entry 4299 (class 2606 OID 19742)
+-- TOC entry 3772 (class 2606 OID 25823)
+-- Name: DataSharingRequest FK_DataSharingRequest_RequestStatus_RequestDescription; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."DataSharingRequest"
+    ADD CONSTRAINT "FK_DataSharingRequest_RequestStatus_RequestDescription" FOREIGN KEY ("RequestStatusDescription") REFERENCES public."DataSharingRequestStatus"("Description");
+
+
+--
+-- TOC entry 3773 (class 2606 OID 25880)
+-- Name: DataSharingRequest FK_DataSharingRequest_UserProfile_RequesteeId; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."DataSharingRequest"
+    ADD CONSTRAINT "FK_DataSharingRequest_UserProfile_RequesteeId" FOREIGN KEY ("RequesteeId") REFERENCES public."UserProfile"("UserId") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3774 (class 2606 OID 25885)
+-- Name: DataSharingRequest FK_DataSharingRequest_UserProfile_RequesterId; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."DataSharingRequest"
+    ADD CONSTRAINT "FK_DataSharingRequest_UserProfile_RequesterId" FOREIGN KEY ("RequesterId") REFERENCES public."UserProfile"("UserId") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3770 (class 2606 OID 25769)
 -- Name: FieldCropDecisionCombination FK_FieldCropDecision_CropDecision; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -516,7 +570,7 @@ ALTER TABLE ONLY public."FieldCropDecisionCombination"
 
 
 --
--- TOC entry 4300 (class 2606 OID 19747)
+-- TOC entry 3771 (class 2606 OID 25774)
 -- Name: FieldCropDecisionCombination FK_FieldCropDecision_Field; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -525,7 +579,7 @@ ALTER TABLE ONLY public."FieldCropDecisionCombination"
 
 
 --
--- TOC entry 4294 (class 2606 OID 19663)
+-- TOC entry 3765 (class 2606 OID 25690)
 -- Name: Field FK_Field_Farm; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -534,7 +588,7 @@ ALTER TABLE ONLY public."Field"
 
 
 --
--- TOC entry 4295 (class 2606 OID 19677)
+-- TOC entry 3766 (class 2606 OID 25704)
 -- Name: FieldObservation FK_Observation_Field; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -543,7 +597,7 @@ ALTER TABLE ONLY public."FieldObservation"
 
 
 --
--- TOC entry 4292 (class 2606 OID 19643)
+-- TOC entry 3763 (class 2606 OID 25895)
 -- Name: UserFarm FK_UserFarm_Farm; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -552,7 +606,7 @@ ALTER TABLE ONLY public."UserFarm"
 
 
 --
--- TOC entry 4293 (class 2606 OID 19648)
+-- TOC entry 3764 (class 2606 OID 25900)
 -- Name: UserFarm FK_UserFarm_User; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -561,7 +615,16 @@ ALTER TABLE ONLY public."UserFarm"
 
 
 --
--- TOC entry 4291 (class 2606 OID 19623)
+-- TOC entry 3762 (class 2606 OID 25800)
+-- Name: UserFarm FK_UserFarm_UserFarmType_UserFarmTypeDescription; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."UserFarm"
+    ADD CONSTRAINT "FK_UserFarm_UserFarmType_UserFarmTypeDescription" FOREIGN KEY ("UserFarmTypeDescription") REFERENCES public."UserFarmType"("Description");
+
+
+--
+-- TOC entry 3761 (class 2606 OID 25650)
 -- Name: UserProfile FK_User_UserAddress; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -569,8 +632,26 @@ ALTER TABLE ONLY public."UserProfile"
     ADD CONSTRAINT "FK_User_UserAddress" FOREIGN KEY ("UserAddressId") REFERENCES public."UserAddress"("Id") ON DELETE CASCADE;
 
 
--- Completed on 2020-07-28 10:20:16 UTC
+--
+-- INSERT DATA
+--
+
+
+INSERT INTO public."UserFarmType" ("Id", "Description") VALUES
+    (0,	'Unknown'),
+    (1,	'Owner'),
+    (3,	'Advisor');
+
+
+INSERT INTO public."DataSharingRequestStatus" ("Id", "Description") VALUES
+    (0,	'Pending'),
+    (1,	'Accepted'),
+    (3,	'Declined');
+
+
+-- Completed on 2020-08-06 14:30:43 UTC
 
 --
 -- PostgreSQL database dump complete
 --
+

@@ -2,7 +2,7 @@
     "ReRoutes": [
         {
             "DownstreamPathTemplate": "/api/{catchAll}",
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "UpstreamPathTemplate": "/api/idp/admin/{catchAll}",
             "UpstreamHttpMethod": [
                 "Get",

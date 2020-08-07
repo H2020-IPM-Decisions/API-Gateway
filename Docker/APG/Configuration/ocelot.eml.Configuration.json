@@ -17,7 +17,7 @@
         },
         {
             "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
-            "DownstreamScheme": "https",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "eml.api",
