@@ -52,12 +52,14 @@ namespace H2020.IPMDecisions.APG.API.Extensions
 
             services.AddAuthorization(options =>
             {
-                accessLevels.ToList().ForEach(
-                    (level => 
-                    {
-                        options.AddPolicy(level.ToLower(), policy => policy.RequireClaim(claimType.ToLower(), level.ToLower()));                    
-                    }
-                ));
+                accessLevels.ToList().ForEach(level =>
+                {
+                    options.AddPolicy(level,
+                        policy =>
+                        {
+                            policy.RequireClaim(claimType, level.ToLower());
+                        });
+                });
             });
         }
 
