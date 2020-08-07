@@ -89,6 +89,12 @@ services:
         - NLog:rules:logfile:minLevel=Info
         - NLog:rules:logconsole:minLevel=Info
         - AllowedHosts=*
+        - MicroserviceInternalCommunication:ApiGatewayAddress=http://apg.api/
+        - MicroserviceInternalCommunication:IdentityProviderMicroservice=api/idp/
+        - MicroserviceInternalCommunication:EmailMicroservice=api/eml/
+        - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json # this value needs to be the same that the EML service
+        - MicroserviceInternalCommunication:SecurityTokenCustomHeader=uniqueHeaderSameAsEML # this headers needs to be the same that the EML service
+        - MicroserviceInternalCommunication:SecurityToken=yourTokenSameAsEML # this token needs to be the same that the EML service
         - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
         # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate
         # - ASPNETCORE_URLS=https://+:443;http://+:80 # Important: The port must match the one added into the Ocelot configuration (80/443)
@@ -182,8 +188,8 @@ services:
             # The following Audience URL is in line 56 in the MySQL_Init_Script/init.sql
             - JwtSettings:ValidAudiences=https://testclient.com
             - AllowedHosts=*
-            - AccessClaims:ClaimTypeName="UserAccessType"
-            - AccessClaims:UserAccessLevels="Level1;Level2;Level3"
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=Farmer;Advisor;Developer
             - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
         # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate
         # - ASPNETCORE_URLS=https://+:443;http://+:80 # Important: The port must match the one added into the Ocelot configuration (80/443)

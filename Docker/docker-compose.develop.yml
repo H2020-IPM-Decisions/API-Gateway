@@ -28,13 +28,16 @@ services:
             - JwtSettings:SecretKey=BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com;DssOwner
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=Farmer;Advisor;Developer
+            - AccessClaims:DefaultUserAccessLevel=Farmer
             - AllowedHosts=*
             - MicroserviceInternalCommunication:ApiGatewayAddress=http://apg.api/
             - MicroserviceInternalCommunication:EmailMicroservice=api/eml/
             - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json
-            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=ipm-internal-auth 
+            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=ipm-internal-auth
             - MicroserviceInternalCommunication:SecurityToken=1234
-            - NLog:targets:logfile:fileName=./logs/imp-decisions-IDP-$${shortdate}.log
+            - NLog:targets:logfile:fileName=./logs/ipm-decisions-IDP-$${shortdate}.log
             - NLog:rules:logfile:minLevel=Info
             - NLog:rules:logconsole:minLevel=Info
             - UIPageAddresses:ResetPasswordFormPageAddress=http://localhost:4999/accounts/resetpassword
@@ -72,7 +75,15 @@ services:
             - JwtSettings:SecretKey=BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com
-            - NLog:targets:logfile:fileName=./logs/imp-decisions-IDP-$${shortdate}.log
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=Farmer;Advisor;Developer
+            - MicroserviceInternalCommunication:ApiGatewayAddress=http://apg.api/
+            - MicroserviceInternalCommunication:IdentityProviderMicroservice=api/idp/
+            - MicroserviceInternalCommunication:EmailMicroservice=api/eml/
+            - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json
+            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=ipm-internal-auth
+            - MicroserviceInternalCommunication:SecurityToken=1234
+            - NLog:targets:logfile:fileName=./logs/ipm-decisions-IDP-$${shortdate}.log
             - NLog:rules:logfile:minLevel=Info
             - NLog:rules:logconsole:minLevel=Info
     eml.api:
@@ -90,7 +101,7 @@ services:
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com
             - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json
-            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=ipm-internal-auth 
+            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=ipm-internal-auth
             - MicroserviceInternalCommunication:SecurityToken=1234
             - EmailSettings:SmtpServer=smtp.sendgrid.net
             - EmailSettings:SmtpPort=465
@@ -155,8 +166,8 @@ services:
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com
             - AllowedHosts=*
-            - AccessClaims:ClaimTypeName="UserAccessType"
-            - AccessClaims:UserAccessLevels="Level1;Level2;Level3"
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=Farmer;Advisor;Developer
         volumes:
             - ./APG/Configuration:/app/Configuration
     web:
