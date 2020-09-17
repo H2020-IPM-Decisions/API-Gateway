@@ -47,6 +47,7 @@ services:
             - NLog:rules:logconsole:minLevel=Info
             - UIPageAddresses:ResetPasswordFormPageAddress=http://localhost:4999/accounts/resetpassword # UI webpage
             - UIPageAddresses:ConfirmUserFormPageAddress=http://localhost:4999/accounts/confirmemail # UI webpage
+            - EmailConfirmationAllowanceHours=24 # Hours until user needs to validate email
         # volumes: 
         #     - ~/.aspnet/https:/https:ro # Path certificate in Host machine
     upr.db:
