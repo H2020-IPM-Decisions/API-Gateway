@@ -28,6 +28,9 @@ services:
             - JwtSettings:TokenLifetimeMinutes=80
             - JwtSettings:SecretKey=YourSecretSameInAllServer
             - JwtSettings:IssuerServerUrl=IDPServerURL
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=farmer;advisor;developer
+            - AccessClaims:DefaultUserAccessLevel=farmer
             # The following Audience URL is in line 56 in the MySQL_Init_Script/init.sql
             - JwtSettings:ValidAudiences=https://testclient.com
             - AllowedHosts=*
@@ -37,20 +40,21 @@ services:
             # - ASPNETCORE_HTTPS_PORT=443
             # - ASPNETCORE_Kestrel__Certificates__Default__Password=YourCertificatePassword
             # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/YourCertificate.pfx
-            - IPMEmailMicroservice:ApiGatewayAddress=http://apg.api/
-            - IPMEmailMicroservice:EmailMicroservice=api/eml/
-            - IPMEmailMicroservice:ContentTypeHeader=application/vnd.h2020ipmdecisions.email+json
-            - IPMEmailMicroservice:SecurityTokenCustomHeader=uniqueHeaderSameAsEML
-            - IPMEmailMicroservice:SecurityToken=yourTokenSameAsEML
+            - MicroserviceInternalCommunication:ApiGatewayAddress=http://apg.api/
+            - MicroserviceInternalCommunication:EmailMicroservice=api/eml/
+            - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json # this value needs to be the same that the EML service
+            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=uniqueHeaderSameAsEML # this headers needs to be the same that the EML service
+            - MicroserviceInternalCommunication:SecurityToken=yourTokenSameAsEML # this token needs to be the same that the EML service
             - NLog:targets:logfile:fileName=./logs/imp-decisions-IDP-$${shortdate}.log
             - NLog:rules:logfile:minLevel=Info
             - NLog:rules:logconsole:minLevel=Info
-            - UIPageAddresses:ResetPasswordFormPageAddress=http://localhost:4999/accounts/resetpassword
-            - UIPageAddresses:ConfirmUserFormPageAddress=http://localhost:4999/accounts/confirmemail
+            - UIPageAddresses:ResetPasswordFormPageAddress=http://localhost:4999/accounts/resetpassword # UI webpage
+            - UIPageAddresses:ConfirmUserFormPageAddress=http://localhost:4999/accounts/confirmemail # UI webpage
+            - EmailConfirmationAllowanceHours=24 # Hours until user needs to validate email
         # volumes: 
         #     - ~/.aspnet/https:/https:ro # Path certificate in Host machine
     upr.db:
-        image: postgres:12.2
+        image: postgis/postgis:12-master
         container_name: upr-postgres
         environment:            
             # change default username/password 
@@ -65,8 +69,9 @@ services:
         volumes: 
             - upr_postgres_volume:/var/lib/postgresql/data
             # Change username and password before loading the data
-            - ./UPR/Postgresql_Init_Script/1.createUser.sql :/docker-entrypoint-initdb.d/1.createUser.sql
-            - ./UPR/Postgresql_Init_Script/2.dbBackup.sql :/docker-entrypoint-initdb.d/2.dbBackup.sql
+            - ./UPR/Postgresql_Init_Script/1.createUser.sql:/docker-entrypoint-initdb.d/1.createUser.sql
+            - ./UPR/Postgresql_Init_Script/2.dbBackup.sql:/docker-entrypoint-initdb.d/2.dbBackup.sql
+            - ./UPR/Postgresql_Init_Script/3.defaultData.sql:/docker-entrypoint-initdb.d/2.defaultData.sql
     upr.api:
         depends_on:
             - upr.db
@@ -85,7 +90,16 @@ services:
         - JwtSettings:IssuerServerUrl=IDPServerURL
         # The following Audience URL is in line 56 in the IDP_MySQL_Init_Script/init.sql
         - JwtSettings:ValidAudiences=https://testclient.com
+        - NLog:targets:logfile:fileName=./logs/imp-decisions-IDP-$${shortdate}.log
+        - NLog:rules:logfile:minLevel=Info
+        - NLog:rules:logconsole:minLevel=Info
         - AllowedHosts=*
+        - MicroserviceInternalCommunication:ApiGatewayAddress=http://apg.api/
+        - MicroserviceInternalCommunication:IdentityProviderMicroservice=api/idp/
+        - MicroserviceInternalCommunication:EmailMicroservice=api/eml/
+        - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json # this value needs to be the same that the EML service
+        - MicroserviceInternalCommunication:SecurityTokenCustomHeader=uniqueHeaderSameAsEML # this headers needs to be the same that the EML service
+        - MicroserviceInternalCommunication:SecurityToken=yourTokenSameAsEML # this token needs to be the same that the EML service
         - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
         # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate
         # - ASPNETCORE_URLS=https://+:443;http://+:80 # Important: The port must match the one added into the Ocelot configuration (80/443)
@@ -104,23 +118,27 @@ services:
         volumes:
             - ./CMS/storage:/var/www/html/storage
             - ./CMS/config:/var/www/html/config
-            - ./CMS/defines.php :/var/www/html/defines.php
+            - ./CMS/defines.php:/var/www/html/defines.php
         environment:
             APP_NAME: H2020.IPMDecisions.CMS
             COCKPIT_SESSION_NAME: cockpit
             BASE_ROUTE: theURLWithTheAPI
-    # dss.api:
-    #     image: 
-    #     hostname: dss.api # Important: The hostname must match the one added into the Ocelot configuration (dss.api).
-    #     ports:
-    #     - "5004:80" # Important: In a production environment remove the external port (5004) - kept here for microservice debugging purposes.
-    #                 # The API Gateway redirects and access through the internal port (80).
-    # wx.api:
-    #     image: 
-    #     hostname: wx.api # Important: The hostname must match the one added into the Ocelot configuration (wx.apii).
-    #     ports:
-    #     - "5005:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
-    #                 # The API Gateway redirects and access through the internal port (80).
+    dss.api:
+        image: ipmdecisions/dss_api:testing
+        hostname: dss.api # Important: The hostname must match the one added into the Ocelot configuration (dss.api).
+        container_name: dss-api
+        restart: always  
+        ports:
+          - "5004:8080" # Important: In a production environment remove the external port (5004) - kept here for microservice debugging purposes.
+                    # The API Gateway redirects and access through the internal port (80).
+    wx.api:
+        image: ipmdecisions/weather_api:testing
+        hostname: wx.api # Important: The hostname must match the one added into the Ocelot configuration (wx.apii).
+        container_name: wx-api
+        restart: always
+        ports:
+            - "5005:80" # Important: In a production environment remove the external port (5005) - kept here for microservice debugging purposes.
+                    # The API Gateway redirects and access through the internal port (80).
     eml.api:
         image: ipmdecisions/emailservice:local
         container_name: eml-api
@@ -135,18 +153,18 @@ services:
             - JwtSettings:SecretKey=YourSecretSameInAllServer
             - JwtSettings:IssuerServerUrl=IDPServerURL
             - JwtSettings:ValidAudiences=https://testclient.com
-            - IPMEmailMicroservice:ContentTypeHeader=application/vnd.h2020ipmdecisions.email+json
-            - IPMEmailMicroservice:SecurityTokenCustomHeader=uniqueHeaderShareWithOtherServices
-            - IPMEmailMicroservice:SecurityToken=yourTokenShareWithOtherServices
+            - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json
+            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=uniqueHeaderShareWithOtherServices
+            - MicroserviceInternalCommunication:SecurityToken=yourTokenShareWithOtherServices
             - EmailSettings:SmtpServer=yourHost
             - EmailSettings:SmtpPort=2525
             - EmailSettings:UseSmtpLoginCredentials=true
-            - EmailSettings:SmtpUsername=none
-            - EmailSettings:SmtpPassword=none
+            - EmailSettings:SmtpUsername=YourUser
+            - EmailSettings:SmtpPassword=YourToken
             - EmailSettings:FromAddress=youremail@test.com
             - EmailSettings:FromName=IPM Decisions
             - EmailSettings:EnableSsl=false
-    
+            - MailingListSetting:IPMDecisionsListId=theMailingListIdOnYourSystem
     apg.api:        
         image: ipmdecisions/apigateway:latest
         links:
@@ -154,15 +172,15 @@ services:
             - upr.api
             - cms
             - eml.api
-            # - dss.api
-            # - wx.api
+            - dss.api
+            - wx.api
         depends_on:
             - idp.api
             - upr.api
             - cms
             - eml.api
-            # - dss.api
-            # - wx.api
+            - dss.api
+            - wx.api
         container_name: apg-api
         restart: always
         ports:
@@ -175,8 +193,8 @@ services:
             # The following Audience URL is in line 56 in the MySQL_Init_Script/init.sql
             - JwtSettings:ValidAudiences=https://testclient.com
             - AllowedHosts=*
-            - AccessClaims:ClaimTypeName="UserAccessType"
-            - AccessClaims:UserAccessLevels="Level1;Level2;Level3"
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=farmer;advisor;developer
             - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
         # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate
         # - ASPNETCORE_URLS=https://+:443;http://+:80 # Important: The port must match the one added into the Ocelot configuration (80/443)

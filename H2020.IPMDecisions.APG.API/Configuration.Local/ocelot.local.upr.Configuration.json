@@ -5,8 +5,8 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "upr.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5006
                 }
             ],
             "UpstreamPathTemplate": "/api/upr/{catchAll}",
@@ -25,8 +25,8 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "upr.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5006
                 }
             ],
             "UpstreamPathTemplate": "/api/upr/internal/{catchAll}",

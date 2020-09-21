@@ -28,19 +28,23 @@ services:
             - JwtSettings:SecretKey=BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com;DssOwner
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=Farmer;Advisor;Developer
+            - AccessClaims:DefaultUserAccessLevel=Farmer
             - AllowedHosts=*
-            - IPMEmailMicroservice:ApiGatewayAddress=http://apg.api/
-            - IPMEmailMicroservice:EmailMicroservice=api/eml/
-            - IPMEmailMicroservice:ContentTypeHeader=application/vnd.h2020ipmdecisions.email+json
-            - IPMEmailMicroservice:SecurityTokenCustomHeader=ipm-eml-auth 
-            - IPMEmailMicroservice:SecurityToken=1234
-            - NLog:targets:logfile:fileName=./logs/imp-decisions-IDP-$${shortdate}.log
+            - MicroserviceInternalCommunication:ApiGatewayAddress=http://apg.api/
+            - MicroserviceInternalCommunication:EmailMicroservice=api/eml/
+            - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json
+            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=ipm-internal-auth
+            - MicroserviceInternalCommunication:SecurityToken=1234
+            - NLog:targets:logfile:fileName=./logs/ipm-decisions-IDP-$${shortdate}.log
             - NLog:rules:logfile:minLevel=Info
             - NLog:rules:logconsole:minLevel=Info
             - UIPageAddresses:ResetPasswordFormPageAddress=http://localhost:4999/accounts/resetpassword
             - UIPageAddresses:ConfirmUserFormPageAddress=http://localhost:4999/accounts/confirmemail
+            - EmailConfirmationAllowanceHours=24 
     upr.db:
-        image: postgres:12.2
+        image: postgis/postgis:12-master
         container_name: upr-postgres
         environment:
             POSTGRES_USER: admin
@@ -72,6 +76,17 @@ services:
             - JwtSettings:SecretKey=BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=Farmer;Advisor;Developer
+            - MicroserviceInternalCommunication:ApiGatewayAddress=http://apg.api/
+            - MicroserviceInternalCommunication:IdentityProviderMicroservice=api/idp/
+            - MicroserviceInternalCommunication:EmailMicroservice=api/eml/
+            - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json
+            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=ipm-internal-auth
+            - MicroserviceInternalCommunication:SecurityToken=1234
+            - NLog:targets:logfile:fileName=./logs/ipm-decisions-IDP-$${shortdate}.log
+            - NLog:rules:logfile:minLevel=Info
+            - NLog:rules:logconsole:minLevel=Info
     eml.api:
         image: ipmdecisions/emailservice:develop
         container_name: eml-api
@@ -86,17 +101,18 @@ services:
             - JwtSettings:SecretKey=BFCVbbtvC1QoutaBujROE3cD_sRE3n16ohmM4sUQC0Q
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com
-            - IPMEmailMicroservice:ContentTypeHeader=application/vnd.h2020ipmdecisions.email+json
-            - IPMEmailMicroservice:SecurityTokenCustomHeader=ipm-eml-auth 
-            - IPMEmailMicroservice:SecurityToken=1234
-            - EmailSettings:SmtpServer=host.docker.internal
-            - EmailSettings:SmtpPort=2525
+            - MicroserviceInternalCommunication:ContentTypeHeader=application/vnd.h2020ipmdecisions.internal+json
+            - MicroserviceInternalCommunication:SecurityTokenCustomHeader=ipm-internal-auth
+            - MicroserviceInternalCommunication:SecurityToken=1234
+            - EmailSettings:SmtpServer=smtp.sendgrid.net
+            - EmailSettings:SmtpPort=465
             - EmailSettings:UseSmtpLoginCredentials=true
-            - EmailSettings:SmtpUsername=none
-            - EmailSettings:SmtpPassword=none
-            - EmailSettings:FromAddress=youremail@test.com
+            - EmailSettings:SmtpUsername=apikey
+            - EmailSettings:SmtpPassword=YourToken - Needs to be created on SendGrid
+            - EmailSettings:FromAddress=YourEmail - Needs to be confirmed and registered on SendGrid
             - EmailSettings:FromName=IPM Decisions
-            - EmailSettings:EnableSsl=false
+            - EmailSettings:EnableSsl=true
+            - MailingListSetting:IPMDecisionsListId=TheListIdOnSendGrid - Needs to be created on SendGrid
     cms:
         image: agentejo/cockpit
         hostname: cms
@@ -105,11 +121,25 @@ services:
         ports:
             - "5001:80"
         volumes:
-        - ./CMS/storage :/var/www/html/storage
-        - ./CMS/config :/var/www/html/config
+        - ./CMS/storage:/var/www/html/storage
+        - ./CMS/config:/var/www/html/config
         environment:
             APP_NAME: H2020.IPMDecisions.CMS
             COCKPIT_SESSION_NAME: cockpit
+    dss.api:
+        image: ipmdecisions/dss_api:testing
+        hostname: dss.api
+        container_name: dss-api
+        restart: always
+        ports:
+            - "8080"
+    wx.api:
+        image: ipmdecisions/weather_api:testing
+        hostname: wx.api
+        container_name: wx-api
+        restart: always
+        ports:
+            - "8080"
     apg.api:        
         image: ipmdecisions/apigateway:develop
         links:
@@ -117,11 +147,15 @@ services:
             - upr.api
             - cms
             - eml.api
+            - dss.api
+            - wx.api
         depends_on:
             - idp.api
             - upr.api
             - cms
             - eml.api
+            - dss.api
+            - wx.api
         container_name: apg-api
         restart: always
         ports:
@@ -133,8 +167,8 @@ services:
             - JwtSettings:IssuerServerUrl=IPM_IdentityProvider
             - JwtSettings:ValidAudiences=https://testclient.com
             - AllowedHosts=*
-            - AccessClaims:ClaimTypeName="UserAccessType"
-            - AccessClaims:UserAccessLevels="Level1;Level2;Level3"
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=Farmer;Advisor;Developer
         volumes:
             - ./APG/Configuration:/app/Configuration
     web:
@@ -144,6 +178,18 @@ services:
         ports:
         - "4999:80"
         - "444:443"
+    adminer:
+        image: adminer
+        container_name: adminer
+        restart: always
+        ports:
+            - 8080:8080
+        links:
+            - idp.db
+            - upr.db
+        depends_on:
+            - idp.db
+            - upr.db
 volumes:
     idp_msql_dbdata:
     upr_postgres_volume:

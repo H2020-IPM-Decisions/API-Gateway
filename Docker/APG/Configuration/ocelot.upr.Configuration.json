@@ -18,6 +18,23 @@
                 "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/upr"
             },
             "RouteClaimsRequirement": {}
+            ,
+            "Priority": 0
+        },
+        {
+            "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/upr/internal/{catchAll}",
+            "UpstreamScheme": "https",
+            "AuthenticationOptions": {},
+            "RouteClaimsRequirement": {},
+            "Priority": 1
         }
     ]
 }

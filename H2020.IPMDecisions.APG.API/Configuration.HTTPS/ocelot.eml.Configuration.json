@@ -2,11 +2,11 @@
     "ReRoutes": [
         {
             "DownstreamPathTemplate": "/api/{catchAll}",
-            "DownstreamScheme": "http",
+            "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
-                    "Port": 5500
+                    "Host": "eml.api",
+                    "Port": 443
                 }
             ],
             "UpstreamPathTemplate": "/api/eml/{catchAll}",
@@ -17,11 +17,11 @@
         },
         {
             "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
-            "DownstreamScheme": "http",
+            "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
-                    "Port": 5500
+                    "Host": "eml.api",
+                    "Port": 443
                 }
             ],
             "UpstreamPathTemplate": "/api/eml/internal/{catchAll}",

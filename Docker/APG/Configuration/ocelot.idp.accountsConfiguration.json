@@ -30,6 +30,20 @@
             },
             "Priority": 1,
             "RouteClaimsRequirement": {}
+        },
+        {
+            "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/idp/internal/{catchAll}",
+            "UpstreamScheme": "http",
+            "AuthenticationOptions": {},
+            "RouteClaimsRequirement": {}
         }
     ]
 }
