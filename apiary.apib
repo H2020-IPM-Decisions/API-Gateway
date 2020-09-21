@@ -24,8 +24,12 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 ## License
 * [Use under GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.txt)
 
-## API Version
-* Version: v1
+## API Documentation Version
+The documentation below should match the following product versions:
+* APG Version: v0.1.1
+* IDP Version: v0.1.1
+* UPR Version: v0.1.1
+* EML Version: v0.1.3
 
 # Group IDP - Identity Provider Service
 
@@ -38,7 +42,7 @@ This microservice has two main areas **Authorization** and **Admin**.
 
 ### Root [GET]
 
-This request allows you to check if the microservice is working and some valid requests.
+This request allows you to check if the microservice is working and return some valid requests.
 
 + Request (application/json)
 
@@ -76,7 +80,9 @@ Use this request to register/create a new user into the database. This request i
 
 ### Confirm Registration Email [GET /api/idp/accounts/confirmemail{?userId,token}]
 
-Use this request to confirm user email. This request is anonymous.
+Use this request to confirm the user email. This request is anonymous. The token and the userId are generated during the registration process. 
+
+The token generated during the registration has a 24h life span.
 
 + Request (application/json)
 
@@ -93,9 +99,9 @@ Use this request to confirm user email. This request is anonymous.
 + Response 200
 + Response 400
 
-### Confirm Registration Email [POST /api/idp/accounts/resendConfirmationEmail]
+### Resend Registration Confirmation Email [POST /api/idp/accounts/resendConfirmationEmail]
 
-Use this request to confirm user email. This request is anonymous.
+Use this request to re-generate the token to confirm the email. 
 
 + Request (application/json)
 
@@ -113,7 +119,7 @@ Use this request to confirm user email. This request is anonymous.
 
 ### Forgot Password [POST /api/accounts/forgotpassword]
 
-Use this request to send an email to the user to confirm email.
+Use this request to send an email to the user to reset the password.
 
 + Request (application/json)
 
@@ -129,6 +135,7 @@ Use this request to send an email to the user to confirm email.
 ### Reset Password [POST /api/idp/accounts/resetpassword]
 
 Use this request to reset the password from a user. This request is anonymous.
+The token is generated on the `Forgot Password` call.
 
 + Request (application/json)
 
@@ -145,7 +152,7 @@ Use this request to reset the password from a user. This request is anonymous.
 
 ### Change Password [POST /api/idp/accounts/{userId}/manage/changepassword]
 
-Use this request to change the password from a user. The user needs JWT to do this request.
+Use this request to change the password from a user. The call needs JWT on the header to do this request.
 
 + Request (application/json)
 
@@ -915,11 +922,37 @@ This request allows you to know if the endpoint is correct and is working.
 
 + Response 200
 + Response 401
-+ Response 403 
++ Response 403
+
+## Internal Calls [/api/idp/internal]
+
+The following requests are internal and are called by other microservices.
+
+### Get User Id [POST /api/idp/internal/getuserid]
+
+This request returns the UserId based on the user email.
+
++ Request (application/vnd.h2020ipmdecisions.internal+json)
+
+    + Headers
+    
+            your-custom-security-header: 1234
+    
+    + Attributes(UserEmailDto)
+            
++ Response 200
+
+    + Attributes (string)
+ 
++ Response 400
 
 # Group UPR - User Provision Service
 
 As explained above, the following request will be preceded by `api/upr`. The Api Gateway will redirect the request to the appropriate end point on the UPR microservice.
+
+The user will be identified using the **UserId** on the authentification JWT.
+
+As all the data from the UPR are linked to a User Prfile, before using any End Point in the microservice, please ensure that the user has a `User Profile`.
 
 ## Root [/api/upr]
 
@@ -942,9 +975,11 @@ This request allows you to check if the microservice is working and some valid r
 
 ## User Profiles [/api/upr/users/profiles]
 
-The user will be identified using the **UserId** on the authentification JWT
+The user will be identified using the **UserId** on the authorization header with the JWT.
 
 ### Get User Profile [GET /api/upr/users/profiles{?fields}] 
+
+Get the user profile. Use the different `Accept` headers to bring the data in a friendly format or with all the properties.
 
 + Parameters
     
@@ -954,7 +989,7 @@ The user will be identified using the **UserId** on the authentification JWT
 
     + Headers
             
-            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json
+            Accept: application/json; application/vnd.h2020ipmdecisions.hateoas+json,application/vnd.h2020ipmdecisions.profile.full+json,application/vnd.h2020ipmdecisions.profile.full.hateoas+json,application/vnd.h2020ipmdecisions.profile.friendly.hateoas+json
             Authorization: Bearer JWT
 
 + Response 200 (application/json)
@@ -969,6 +1004,8 @@ The user will be identified using the **UserId** on the authentification JWT
 + Response 404
 
 ### Create User Profile [POST]
+
+Use thi request to create a User Profile. This call
 
 + Request (application/json)
 
@@ -1065,7 +1102,7 @@ This request allows you to know if the endpoint is correct and is working.
 
 ## Farms [/api/upr/farms]
 
-The farms edited on this endpoint will be associated to a **user**. The user will be identified using the **UserId** on the authentification JWT.
+The farms edited on this endpoint will be associated to a **user**. The user will be identified using the **UserId** on the authorization header JWT.
 
 ### Create Farm [POST]
 
@@ -1131,7 +1168,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 
 Use this endpoint to get the farms that are associated with an user.
 
-Use the **Accept** header `application/vnd.h2020ipmdecisions.farm.withchildren.hateoas+json` to return HATEOAS links of the each Farm object and its children
+Use the **Accept** headers `application/vnd.h2020ipmdecisions.farm.withchildren+json` or `application/vnd.h2020ipmdecisions.farm.withchildren.hateoas+json` to return HATEOAS links of the each Farm object and its children
 
 + Request (application/json)
     
@@ -1158,15 +1195,15 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.farm.withchildren.h
 + Response 403
 + Response 404
 
-### Get Farm By Id [GET /api/upr/farms/{farmId}]
+### Get Farm By Id [GET /api/upr/farms/{farmId}{?fields}]
 
 Use this endpoint to get an unique farm that is associated with an user.
 
-Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of the Farm object
+Use the **Accept** header `application/vnd.h2020ipmdecisions.farm.withchildren+json` or `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of the Farm object
 
 + Parameters
-
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + fields (string, optional, `id, name`) ... Any property from FarmDto.
 
 + Request (application/json)
     
@@ -1186,7 +1223,7 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to re
 + Response 403
 + Response 404
 
-### Get Farm By Id With HATEOAS [GET /api/upr/farms/{farmId}{?pageSize,pageNumber}]
+### Get Farm By Id and Associated Data [GET /api/upr/farms/{farmId}{?fields,childPageSize,childPageNumber}]
 
 Use this endpoint to get an unique farm that is associated with an user.
 
@@ -1194,9 +1231,9 @@ Use the **Accept** header `application/vnd.h2020ipmdecisions.farm.withchildren.h
 
 + Parameters
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-    + pageSize (number, optional, `5`) ... Default 5; Maximun 10
-    + pageNumber (number, optional, `1`)
-
+    + fields (string, optional, `id, name`) ... Any property from FarmDto.
+    + childPageSize (number, optional, `5`) ... Default 5; Maximun 10
+    + childPageNumber (number, optional, `1`)
 
 + Request (application/json)
     
@@ -1252,11 +1289,10 @@ If a no existing `farmId` is passed and the json-patch document has enough infor
 Use this endpoint to remove a farm that is associated with an user using its id. 
 
 + Parameters
-
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
 
 + Request (application/json)
-    
+
     + Headers
     
             Accept: application/json
@@ -1275,13 +1311,10 @@ Fields needs to be associate to a farm. FarmId must be associated to the UserId 
 Use this end point to add a new field to a farm.
 
 + Parameters
-
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
 
 + Request (application/json)
-
     + Attributes (FieldForCreationDto)
-    
     + Headers
     
             Accept: application/json
@@ -1299,18 +1332,19 @@ Use this end point to add a new field to a farm.
 + Response 401
 + Response 403
 
-### Get Fields From Farm [GET /api/upr/farms/{farmId}/fields{?pageSize,pageNumber}]
+### Get Fields From Farm [GET /api/upr/farms/{farmId}/fields{?fields,pageSize,pageNumber,orderBy}]
 
 Use this endpoint to get the fields that are associated with a farm.
 
-+ Parameters
+Use the **Accept** header `application/vnd.h2020ipmdecisions.hateoas+json` to return HATEOAS links of the each Field object
 
++ Parameters
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-    
+    + fields (string, optional, `id, name`) ... Any property from FieldDto.
     + pageSize (number, optional, `5`) ... Default 10; Maximun 20
-     
     + pageNumber (number, optional, `1`)
-     
+    + orderBy (string, optional, `name desc`) ... name or url - add `desc` at the end for descending order 
+    
 + Request (application/json)
     
     + Headers
@@ -1331,14 +1365,79 @@ Use this endpoint to get the fields that are associated with a farm.
 + Response 403
 + Response 404
 
-### Get a Field By Id [GET /api/upr/farms/{farmId}/fields/{fieldId}]
+### Get Fields From Farm and Associated Data[GET /api/upr/farms/{farmId}/fields{?pageNumber,pageSize,orderBy,searchQuery,pageNumber,fields,childrenPageSize,childrenPageNumber}]
+
+Use this endpoint to get the fields that are associated with a farm.
+
+Use the **Accept** header `application/vnd.h2020ipmdecisions.field.withchildren.hateoas+json` to return HATEOAS links of the each Field object
+
++ Parameters
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+    + orderBy (string, optional, `name desc`) ... name or url - add `desc` at the end for descending order 
+    + searchQuery (string, optional, `test`) ... Search against name and url properties
+    + pageNumber (number, optional, `1`)
+    + fields (string, optional, `id, name`) ... Any property from FarmDto and `id` is required.
+    + childrenPageSize (number, optional, `5`) ... Default 5; Maximun 10
+    + childrenPageNumber (number, optional, `5`) ... Default 1
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/vnd.h2020ipmdecisions.field.withchildren+json; application/vnd.h2020ipmdecisions.field.withchildren.hateoas+json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[FieldWithShapedChildrenDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get a Field By Id [GET /api/upr/farms/{farmId}/fields/{fieldId}{?fields}]
 
 Use this endpoint to get an unique farm that is associated with an user.
 
 + Parameters
-
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
     + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + fields (string, optional, `id, name`) ... Any property from FieldDto
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (FieldDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get a Field By Id and Associated Data[GET /api/upr/farms/{farmId}/fields/{fieldId}{?fields,childrenPageSize,childrenPageNumber}]
+
+Use this endpoint to get an unique farm that is associated with an user.
+
++ Parameters
+    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + fields (string, optional, `id, name`) ... Any property from FieldDto
+    + childrenPageSize (number, optional, `5`) ... Default 5; Maximun 10
+    + childrenPageNumber (number, optional, `5`) ... Default 1
 
 + Request (application/json)
     
@@ -1366,7 +1465,6 @@ If a no existing `farmId` is passed and the json-patch document has enough infor
 
 
 + Parameters
-
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
     + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
 
@@ -1396,7 +1494,6 @@ If a no existing `farmId` is passed and the json-patch document has enough infor
 Use this endpoint to remove a farm that is associated with an user using its id. 
 
 + Parameters
-
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
     + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
 
@@ -2034,6 +2131,102 @@ Use this endpoint to get the list of combinations available.
 + Response 404
 
 
+## Data Share [/api/upr/datashare]
+
+These end points allows users to manage the data shared with other users.
+
+The user will be identified using the **UserId** on the authentification JWT
+
+### Request Share Data - Advisors [POST]
+
+This end point sends a share data request to another user.
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+            
+    + Attributes
+        + email: user@test.com (string, required)
+
++ Response 200 (application/json)
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Reply Share Data Request - Farmers [POST /datashare/reply]
+
+This end point, accepts or declines the data share request.
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+            
+    + Attributes
+        + Attributes (DataShareRequestReplyDto)
+
++ Response 200 (application/json)
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Update Share Data Request - Farmers [POST /datashare/update]
+
+This end point, will update the status (accepted or declined) from a data share request.
+If status changes to `Declined`, the advisor won't have access to any of the farms.
+If status changes or keeps the `Accepted` status, the user have the option to select which farms are accesible by the other user.
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+            
+    + Attributes
+        + Attributes (DataShareRequestUpdateDto)
+
++ Response 200 (application/json)
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Get Share Data Status - Advisor & Farmers [GET /datashare{?pageSize,pageNumber,orderby,requestStatus}]
+
+This end point brings the users pending data share requests.
+
++ Parameters
+    
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+    + pageNumber (number, optional, `1`)
+    + orderby (string, optional, `requesteeName`)
+    + requestStatus (string, optional, `Accepted`) ... Accepted, Declined or Pending
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (ShapedDataWithLinksDataRequest)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
 # Group CMS - Content Management System Service
 
 As explained above, the following request will be preceded by `api/cms`. The Api Gateway will redirect the request to the appropriate end point on the CMS microservice.
@@ -2281,13 +2474,15 @@ This request allows you to check if the microservice is working and some valid r
 
     + Attributes (array[LinkDto])
 
-## Accounts [/api/eml/accounts]
+## Internal Calls [/api/eml/internal]
 
-### Registration Email [POST /api/eml/accounts/registrationemail]
+The following requests are internal and are called by other microservices.
 
-This request sends an email with a link to the registration page. This call is internal, so it should be done by the Identity Provider Service.
+### Registration Email [POST /api/eml/internal/registrationemail]
 
-+ Request (application/vnd.h2020ipmdecisions.email+json)
+This request sends an email with a link to the confirm email page. This call is internal, so it should be done by the Identity Provider Service.
+
++ Request (application/vnd.h2020ipmdecisions.internal+json)
 
     + Headers
     
@@ -2298,11 +2493,26 @@ This request sends an email with a link to the registration page. This call is i
 + Response 200
 + Response 400
         
-### Forgot Password Email [POST /api/eml/accounts/forgotpassword]
+### Resend Registration Email [POST /api/eml/internal/reconfirmemail]
+
+This request sends an email with a link to the confirm email page. This call is internal, so it should be done by the Identity Provider Service.
+
++ Request (application/vnd.h2020ipmdecisions.internal+json)
+
+    + Headers
+    
+            your-custom-security-header: 1234
+    
+    + Attributes(RegistrationEmailDto)
+            
++ Response 200
++ Response 400
+
+### Forgot Password Email [POST /api/eml/internal/forgotpassword]
 
 This request sends an email with a link to the reset password page. This call is internal, so it should be done by the Identity Provider Service.
 
-+ Request (application/vnd.h2020ipmdecisions.email+json)
++ Request (application/vnd.h2020ipmdecisions.internal+json)
 
     + Headers
     
@@ -2420,10 +2630,8 @@ Use this endpoint deletes a contact from the mailing list.
 + `base64Secret` (string) 
 + `name` (string) 
 + `applicationClientType` (enum[number]) 
-    + `0` 
-    Public - Doesn't need client secret to log in
-    + `1`
-    Confidential - Needs client secret to log in
+    + `0` - Public - Doesn't need client secret to log in
+    + `1` - Confidential - Needs client secret to log in
 + `enabled` (boolean) 
 + `refreshTokenLifeTime` (number) 
 + `url` (string) 
@@ -2477,33 +2685,62 @@ Use this endpoint deletes a contact from the mailing list.
 + `type` (string, required, nullable) 
 + `value` (string, required, nullable)
 
-## Coordinates
+## Coordinates (object)
 ### Properties
 + `x` : 52.6 (number) - East/West longitude coordinates 
 + `y` : 2.12 (number) - North/South latitude coordinates
 + `srid` : 4326 (number) - Spatial reference identifier associated with the coordinate system.
 
-## CropCombinationDto
+## CropCombinationDto (object)
 ### Properties
 + `id` (string)
 + `Crop` (CropDto)
 + `PestId` (PestDto)
 + `Dss` (string)
 
-## CropDto
+## CropDto (object)
 ### Properties
 + `id` (string)
 + `inf1` (string)
 + `inf2` (string)
 + `deprecated` (boolean)
 
-## CropForModificationDto
+## CropForModificationDto(object)
 ### Properties
 + `inf1` (string, required)
 + `inf2` (string)
 + `deprecated` (boolean)
 
-## EmailingListContactDto
+## CropPestDto (object)
+### Properties
++ `cropEppoCode` (string, required)
++ `pestEppoCode` (string, required)
+
+## DataShareRequestDto(object)
+### Properties
++ `RequesteeId` (string)
++ `RequesteeName` (string)
++ `RequesterId` (string)
++ `RequesterName` (string)
++ `RequestStatus` (string)
+
+## DataShareRequestReplyDto
+### Properties
++ `RequesterId` (string, required)
++ `Farms` (array[string], required) - List with FarmsIds
++ `Reply` (enum[string], required) 
+    + `Accepted`
+    + `Declined`
+
+## DataShareRequestUpdateDto
+### Properties
++ `RequesterId` (string, required)
++ `Farms` (array[UserFarmAuthorizationDto], optional) - Needed when Reply is `Accepted`
++ `Reply` (enum[string], required) 
+    + `Accepted`
+    + `Declined`
+
+## EmailingListContactDto (object)
 ### Properties
 + `email` (string, required) 
 + `firstName` (string)
@@ -2537,10 +2774,11 @@ Use this endpoint deletes a contact from the mailing list.
 
 ## FieldForCreationDto (object)
 ### Properties
-+ `name`: myNewField (string, required)
++ `name`:myNewField (string, required)
 + `inf1` (string)
 + `inf2` (string)
 + `location` (Coordinates, required)
++ `cropPests` (array[CropPestDto])
 
 ## FieldDto (object)
 ### Properties
@@ -2549,8 +2787,10 @@ Use this endpoint deletes a contact from the mailing list.
 + `inf1` (string)
 + `inf2` (string)
 + `location` (Coordinates)
-+ `cropPestDss` (array[string])
-+ `observations` (array[string])
+
+## FieldCropPestDto (object)
+### Properties
++ `cropPestDto` (CropPestDto)
 
 ## FieldObservationDto
 ### Properties
@@ -2566,6 +2806,16 @@ Use this endpoint deletes a contact from the mailing list.
 + `time` (string, required)
 + `pestEppoCode` (string, required) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
 + `cropEppoCode` (string, required) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
+
+## FieldWithShapedChildrenDto
+### Properties
++ `id` (string)
++ `name` (string)
++ `inf1` (string)
++ `inf2` (string)
++ `location` (Coordinates)
++ `fieldCropPest` (array[FieldCropPestDto])
++ `fieldObservations` (array[FieldObservationDto])
 
 ## Footer (object)
 ### Properties
@@ -2701,7 +2951,14 @@ Use this endpoint deletes a contact from the mailing list.
     Returns a list of application clients 
 + `links` (array[LinkDto])
     Returns a list of links
-    
+
+## ShapedDataWithLinksDataRequest (object)
+### Properties
++ `value` (array[DataShareRequestDto])
+    Returns a list of data requests 
++ `links` (array[LinkDto])
+    Returns a list of links
+
 ## ShapedDataWithLinksFarm (object)
 ### Properties
 + `value` (FarmDto)
@@ -2715,7 +2972,7 @@ Use this endpoint deletes a contact from the mailing list.
     Returns a list of farms
 + `links` (array[LinkDto])
     Returns a list of links
-    
+
 ## ShapedDataWithLinksFarmWithShapedChildren (object)
 ### Properties
 + `value` (FarmWithShapedChildrenDto)
@@ -2734,6 +2991,20 @@ Use this endpoint deletes a contact from the mailing list.
 ### Properties
 + `value` (array[FieldDto])
     Returns a list of fields
++ `links` (array[LinkDto])
+    Returns a list of links
+
+## ShapedDataWithLinksFieldObservations (object)
+### Properties
++ `value` (array[FieldObservationDto])
+    Returns a list of field observations
++ `links` (array[LinkDto])
+    Returns a list of links
+
+## ShapedDataWithLinksFieldCropPests (object)
+### Properties
++ `value` (array[FieldCropPestDto])
+    Returns a list of field crop pests
 + `links` (array[LinkDto])
     Returns a list of links
 
@@ -2776,16 +3047,21 @@ Use this endpoint deletes a contact from the mailing list.
 ### Properties
 + `email` (string)
 
+## UserFarmAuthorizationDto(object)
+### Properties
++ `FarmId` (string, required)
++ `Authorize` (boolean, required)
+
 ## UserForAuthenticationDto (object)
 ### Properties
-+ `email`: myemail@test.com (string, required) 
-+ `password`: Password1! (string, required)
++ `email`:myemail@test.com (string, required)
++ `password`:Password1! (string, required)
 
 ## UserForRegistrationDto (object)
 ### Properties
-+ `userType`: farmer (string, required) - valid values: farmer, advisor or developer
-+ `email`: myemail@test.com (string, required) 
-+ `password`: Password1! (string, required) - Min 6 characters , requires a digit, lowecase, uppercase and special character
++ `userType`:farmer (string, required) - valid values: farmer, advisor or developer
++ `email`:myemail@test.com (string, required) 
++ `password`:Password1! (string, required) - Min 6 characters , requires a digit, lowecase, uppercase and special character
 
 ## UserProfileDto (object)
 ### Properties
@@ -2823,6 +3099,7 @@ Use this endpoint deletes a contact from the mailing list.
 + `id` (string)
 + `email` (string)
 + `emailSentDuringRegistration` (boolean)
++ `profileCreatedDuringRegistration` (boolean)
 
 ## UserWithRolesClaimsDto (object)
 ### Properties
