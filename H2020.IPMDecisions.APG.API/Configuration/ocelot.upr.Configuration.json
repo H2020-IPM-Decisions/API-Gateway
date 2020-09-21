@@ -17,7 +17,8 @@
             "DownstreamHeaderTransform": {
                 "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/upr"
             },
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "Priority": 0
         },
         {
             "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
@@ -32,7 +33,7 @@
             "UpstreamScheme": "http",
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {},
-            "Priority": 0
+            "Priority": 1
         }
     ]
 }

@@ -18,6 +18,8 @@
                 "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/upr"
             },
             "RouteClaimsRequirement": {}
+            ,
+            "Priority": 0
         },
         {
             "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
@@ -32,7 +34,7 @@
             "UpstreamScheme": "https",
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {},
-            "Priority": 0
+            "Priority": 1
         }
     ]
 }

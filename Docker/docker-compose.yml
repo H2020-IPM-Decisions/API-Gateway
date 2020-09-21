@@ -28,6 +28,9 @@ services:
             - JwtSettings:TokenLifetimeMinutes=80
             - JwtSettings:SecretKey=YourSecretSameInAllServer
             - JwtSettings:IssuerServerUrl=IDPServerURL
+            - AccessClaims:ClaimTypeName=UserAccessType
+            - AccessClaims:UserAccessLevels=farmer;advisor;developer
+            - AccessClaims:DefaultUserAccessLevel=farmer
             # The following Audience URL is in line 56 in the MySQL_Init_Script/init.sql
             - JwtSettings:ValidAudiences=https://testclient.com
             - AllowedHosts=*
@@ -68,6 +71,7 @@ services:
             # Change username and password before loading the data
             - ./UPR/Postgresql_Init_Script/1.createUser.sql:/docker-entrypoint-initdb.d/1.createUser.sql
             - ./UPR/Postgresql_Init_Script/2.dbBackup.sql:/docker-entrypoint-initdb.d/2.dbBackup.sql
+            - ./UPR/Postgresql_Init_Script/3.defaultData.sql:/docker-entrypoint-initdb.d/2.defaultData.sql
     upr.api:
         depends_on:
             - upr.db
@@ -190,7 +194,7 @@ services:
             - JwtSettings:ValidAudiences=https://testclient.com
             - AllowedHosts=*
             - AccessClaims:ClaimTypeName=UserAccessType
-            - AccessClaims:UserAccessLevels=Farmer;Advisor;Developer
+            - AccessClaims:UserAccessLevels=farmer;advisor;developer
             - ASPNETCORE_URLS=http://+:80 # Important: The port must match the one added into the Ocelot configuration (80).
         # Comment line above and uncomment the following 4 lines and volumes once you have a valid certificate
         # - ASPNETCORE_URLS=https://+:443;http://+:80 # Important: The port must match the one added into the Ocelot configuration (80/443)
