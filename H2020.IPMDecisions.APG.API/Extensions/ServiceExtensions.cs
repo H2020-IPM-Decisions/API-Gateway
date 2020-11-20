@@ -72,6 +72,7 @@ namespace H2020.IPMDecisions.APG.API.Extensions
                 {
                     builder
                     .WithOrigins(allowedHosts)
+                    .AllowAnyMethod()
                     .AllowAnyHeader();
                 });
             });

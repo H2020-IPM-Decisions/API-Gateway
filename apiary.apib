@@ -26,7 +26,7 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 
 ## API Documentation Version
 The documentation below should match the following product versions:
-* APG Version: v0.1.1
+* APG Version: v0.1.1.1
 * IDP Version: v0.1.1
 * UPR Version: v0.1.1
 * EML Version: v0.1.3
@@ -1263,7 +1263,7 @@ If a no existing `farmId` is passed and the json-patch document has enough infor
 
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
 
-+ Request (application/json)
++ Request (application/json-patch+json)
     
     + Attributes (array[JsonPatchOperation])
     + Headers
@@ -1468,7 +1468,7 @@ If a no existing `farmId` is passed and the json-patch document has enough infor
     + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
     + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
 
-+ Request (application/json)
++ Request (application/json-patch+json)
     
     + Attributes (array[JsonPatchOperation])
     + Headers
@@ -1508,199 +1508,8 @@ Use this endpoint to remove a farm that is associated with an user using its id.
 + Response 401
 + Response 403
 
-## Alert Subscriptions [/api/upr/farms/{farmId}/alerts]
 
-Subscription to alerts are at farm level. FarmId must be associated to the UserId of the Authorization JWT.
-
-### Create Alert [POST]
-
-Use this end point to create/suscribe to a new alert.
-
-+ Parameters
-
-    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-
-+ Request (application/json)
-
-    + Attributes (AlertSubscriptionForCreationDto)
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 201 (application/json)
-
-    + Attributes (AlertSubscriptionDto)
-    
-    + Headers
-    
-            Location: http://theurl/api/upr/farms/{farmId}/alerts/{fieldId}
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-
-### Get Alerts From Farm [GET]
-
-Use this endpoint to get the fields that are associated with a farm.
-
-+ Parameters
-
-    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-     
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-    + Attributes (array[AlertSubscriptionDto])
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-### Get an Alert By Id [GET /api/upr/farms/{farmId}/alerts/{alertId}]
-
-Use this endpoint to get an specific alert that is associated with a farm.
-
-+ Parameters
-
-    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-    + alertId (guid, required, `d747c07d-5d37-4c13-9026-b2db528156a7`) ... Unique Alert Id
-
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-        Success
-
-    + Attributes (AlertSubscriptionDto)
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-### Delete Alert By Id [DELETE /api/upr/farms/{farmId}/alerts/{alertId}]
-
-Use this endpoint to remove an alert from a farm.. 
-
-+ Parameters
-
-    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-    + alertId (guid, required, `d747c07d-5d37-4c13-9026-b2db528156a7`) ... Unique Alert Id
-
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 204
-+ Response 401
-+ Response 403
-
-
-## Alert Notifications [/api/upr/farms/{farmId}/notifications]
-
-Notifications will be produced at farm level. FarmId must be associated to the UserId of the Authorization JWT.
-
-### Get Notifictions From Farm [GET /api/upr/farms/{farmId}/notifications]{?onlyUnread,pageSize,pageNumber}]
-
-Use this endpoint to get the fields that are associated with a farm.
-
-+ Parameters
-
-    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-    
-    + onlyUnread (boolean, optional, `true`) ... Filter to bring only unread notifications
-    
-    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
-     
-    + pageNumber (number, optional, `1`)
-     
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-    + Headers
-        
-            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
-
-    + Attributes (array[AlertSubscriptionDto])
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-### Get a Notification By Id [GET /api/upr/farms/{farmId}/notifications/{notificationId}]
-
-Use this endpoint to get an specific notification that is associated with a farm.
-
-+ Parameters
-
-    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-    + notificationId (guid, required, `c30c7e54-f4f0-4416-ad3e-ca8f50a08968`) ... Unique Notification Id
-
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-        Success
-
-    + Attributes (AlertSubscriptionDto)
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-### Partial Update of a Notification By Id [PATCH /api/upr/farms/{farmId}/notifications/{notificationId}]
-
-Use this endpoint to mark a notification as read..
-
-+ Parameters
-
-    + farmId (guid, required, `cebda65f-807d-4d07-b550-b067b533a8a0`) ... Unique Farm Id
-    + notificationId (guid, required, `c30c7e54-f4f0-4416-ad3e-ca8f50a08968`) ... Unique Notification Id
-
-+ Request (application/json)
-    
-    + Attributes (AlertResultNotificationForUpdateDto)
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-            
-+ Response 204
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-## Observations [/api/upr/fields/{fieldId}/observations]
+## Field Observations [/api/upr/fields/{fieldId}/observations]
 
 Observations needs to be associate to a field. FieldId must be associated to the UserId of the Authorization JWT.
 
@@ -1810,10 +1619,92 @@ Use this endpoint to remove an observation that is associated with the field.
 + Response 401
 + Response 403
 
+## Field Crop Pest Combinations [/api/upr/fields/{fieldId}/croppests]
 
-## Field Crop Decision Combinations  [/api/upr/fields/{fieldId}/cropdecisions]
+Use these end points for manage the Crop-Pest combinations of a field.
 
-Use these end points for adding Crop, Pest Dss combination to a selected field.
+**FieldId must be associated to the UserId of the Authorization JWT.**
+
+### Add Crop-Pest From Field [POST]
+
+Use this endpoint to get the crop-pest combinations that are associated for the field.
+
++ Parameters
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+    
+    + Attributes (CropPestForCreationDto)
+
++ Response 201 (application/json)
+
+    + Attributes (CropPestDto)
+    + Headers
+    
+            Location: http://theurl/api/upr/fields/{fieldId}/croppest{cropPestId}
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get Crop-Pest From Field [GET /api/upr/fields/{fieldId}/croppests{?pageSize,pageNumber}]
+
+Use this endpoint to get the crop-pest combinations that are associated for the field.
+
++ Parameters
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+    + pageNumber (number, optional, `1`)
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[CropPestDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Delete Crop Pest By Id [DELETE /api/upr/fields/{fieldId}/croppests/{cropPestId}]
+
+Use this endpoint to remove a croppest that is associated with the field. 
+
++ Parameters
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + cropPestId (guid, required, `21f2a563-a604-46f5-a572-6ac733566307`) ... Unique Field Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 204
++ Response 401
++ Response 403
+
+
+## Field Crop Decision Combinations [/api/upr/fields/{fieldId}/cropdecisions]
+
+Use these end points for manage a DSS to a selected field and a Crop/Pest combinationa.
 
 ### Associate a Crop Decisions To a Field [POST /api/upr/fields/{fieldId}/cropdecisions]
 
@@ -1852,11 +1743,8 @@ Use this endpoint to get the crop decision combinations that are associated for 
 Use this endpoint to get the crop decision combinations that are associated for the field.
 
 + Parameters
-
     + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
-    
     + pageSize (number, optional, `5`) ... Default 10; Maximun 20
-     
     + pageNumber (number, optional, `1`)
      
 + Request (application/json)
@@ -1878,223 +1766,6 @@ Use this endpoint to get the crop decision combinations that are associated for 
 + Response 401
 + Response 403
 + Response 404
-
-
-## Crops [/api/upr/data/crops]
-
-Standard users can only `GET` crops. To modify the information you must have the adequate permisions. Crops can't be delete, they should be mark as `deprecated`.
-
-### Get Crops [GET /api/upr/data/crops{?pageSize,pageNumber,includeDeprecated}]
-
-Use this endpoint to get the list of crops.
-
-+ Parameters
-    
-    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
-     
-    + pageNumber (number, optional, `1`)
-    
-    + includeDeprecated (boolean, optional, `false`) ... Return crops no longer available - deprecated. Default is false
-     
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-    + Headers
-        
-            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
-
-    + Attributes (array[CropDto])
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-### Get Crop by Id [GET /api/upr/data/crops/{cropId}]
-
-Use this endpoint to get a crop by Id.
-
-+ Parameters
-    
-    + cropId (guid, required, `fa7f6d53-3c10-47a9-9adb-7eaa2ab1a308`) ... Unique Crop Id
-     
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-    + Attributes (CropDto)
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-### Create Crop - Restricted Access [POST]
-
-Use this end point to create a new crop.
-
-+ Request (application/json)
-
-    + Attributes (CropForModificationDto)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 201 (application/json)
-
-    + Attributes (CropDto)
-    
-    + Headers
-    
-            Location: http://theurl/api/upr/dara/crops/{cropId}
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-
-### Partial Update of a Crop By Id - Restricted Access [PATCH /api/upr/data/crops/{cropId}]
-
-Use this endpoint to update a crop.
-
-+ Parameters
-
-    + cropId (guid, required, `fa7f6d53-3c10-47a9-9adb-7eaa2ab1a308`) ... Unique Crop Id
-
-+ Request (application/json)
-    
-    + Attributes (CropForModificationDto)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-            
-+ Response 204
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-## Pests [/api/upr/data/pests]
-
-Standard users can only `GET` crops. To modify the information you must have the adequate permisions. Pest can't be delete, they should be mark as `deprecated`.
-
-### Get Pests [GET /api/upr/data/pests{?pageSize,pageNumber,includeDeprecated}]
-
-Use this endpoint to get the list of pests.
-
-+ Parameters
-    
-    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
-     
-    + pageNumber (number, optional, `1`)
-    
-    + includeDeprecated (boolean, optional, `false`) ... Return pests no longer available - deprecated. Default is false
-     
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-    + Headers
-        
-            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
-
-    + Attributes (array[PestDto])
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-### Get Pest by Id [GET /api/upr/data/pests/{pestId}]
-
-Use this endpoint to get a pest by Id.
-
-+ Parameters
-    
-    + pestId (guid, required, `8ecedd0d-6c63-47a4-b4a7-fac34a71c60c`) ... Unique Pest Id
-     
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-    + Attributes (PestDto)
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
-### Create Pest - Restricted Access [POST]
-
-Use this end point to create a new pest.
-
-+ Request (application/json)
-
-    + Attributes (PestForModificationDto)
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 201 (application/json)
-
-    + Attributes (PestDto)
-    
-    + Headers
-    
-            Location: http://theurl/api/upr/data/pests/{pestId}
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-
-### Partial Update of a Pest By Id - Restricted Access [PATCH /api/upr/data/pests/{pestId}]
-
-Use this endpoint to update a pest.
-
-+ Parameters
-
-    + pestId (guid, required, `8ecedd0d-6c63-47a4-b4a7-fac34a71c60c`) ... Unique Pest Id
-
-+ Request (application/json)
-    
-    + Attributes (PestForModificationDto)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-            
-+ Response 204
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
 
 ## Crop Decisions [/api/upr/cropdecisions]
 
@@ -2713,6 +2384,12 @@ Use this endpoint deletes a contact from the mailing list.
 
 ## CropPestDto (object)
 ### Properties
++ `id` (string)
++ `cropEppoCode` (string, required)
++ `pestEppoCode` (string, required)
+
+## CropPestForCreationDto (object)
+### Properties
 + `cropEppoCode` (string, required)
 + `pestEppoCode` (string, required)
 
@@ -2756,7 +2433,7 @@ Use this endpoint deletes a contact from the mailing list.
 
 ## FarmForCreationDto (object)
 ### Properties
-+ `name`: myNewFarm (string, required)
++ `name`:myNewFarm (string, required)
 + `inf1` (string)
 + `inf2` (string)
 + `location` (Coordinates, required)
@@ -2778,7 +2455,7 @@ Use this endpoint deletes a contact from the mailing list.
 + `inf1` (string)
 + `inf2` (string)
 + `location` (Coordinates, required)
-+ `cropPests` (array[CropPestDto])
++ `cropPests` (array[CropPestForCreationDto])
 
 ## FieldDto (object)
 ### Properties
