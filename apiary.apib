@@ -28,8 +28,8 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 The documentation below should match the following product versions:
 * APG Version: v0.1.1.1
 * IDP Version: v0.1.1
-* UPR Version: v0.1.1
-* EML Version: v0.1.3
+* UPR Version: v0.1.2
+* EML Version: v0.1.1.1
 
 # Group IDP - Identity Provider Service
 
@@ -2404,10 +2404,11 @@ Use this endpoint deletes a contact from the mailing list.
 ## DataShareRequestReplyDto
 ### Properties
 + `RequesterId` (string, required)
-+ `Farms` (array[string], required) - List with FarmsIds
++ `Farms` (array[string]) - List with FarmsIds
 + `Reply` (enum[string], required) 
     + `Accepted`
     + `Declined`
++ `AllowAllFarms`: false(boolean)
 
 ## DataShareRequestUpdateDto
 ### Properties
@@ -2430,6 +2431,29 @@ Use this endpoint deletes a contact from the mailing list.
 + `inf1` (string)
 + `inf2` (string)
 + `location` (Coordinates)
++ `weatherDataSourceDto` (WeatherDataSourceDto)
++ `weatherStationDto` (WeatherStationDto)
+
+## FarmDssDto (object)
+### Properties
++ `id` (string)
++ `name` (string)
++ `inf1` (string)
++ `inf2` (string)
++ `location` (Coordinates)
++ `weatherDataSourceDto` (WeatherDataSourceDto)
++ `weatherStationDto` (WeatherStationDto)
++ `fieldId` (string)
++ `fieldName` (string)
++ `dssId` (string)
++ `cropPestForCreationDto` (CropPestForCreationDto)
+
+## FarmDssForCreationDto (object)
+### Properties
++ `fieldId` (string, optional)
++ `fieldName` (string, optional)
++ `dssId` (string)
++ `cropPestForCreationDto` (CropPestForCreationDto)
 
 ## FarmForCreationDto (object)
 ### Properties
@@ -2437,6 +2461,8 @@ Use this endpoint deletes a contact from the mailing list.
 + `inf1` (string)
 + `inf2` (string)
 + `location` (Coordinates, required)
++ `weatherDataSourceDto` (WeatherDataSourceDto, required)
++ `weatherStationDto` (WeatherStationDto, required)
 
 ## FarmWithShapedChildrenDto
 ### Properties
@@ -2454,7 +2480,6 @@ Use this endpoint deletes a contact from the mailing list.
 + `name`:myNewField (string, required)
 + `inf1` (string)
 + `inf2` (string)
-+ `location` (Coordinates, required)
 + `cropPests` (array[CropPestForCreationDto])
 
 ## FieldDto (object)
@@ -2463,7 +2488,6 @@ Use this endpoint deletes a contact from the mailing list.
 + `name` (string)
 + `inf1` (string)
 + `inf2` (string)
-+ `location` (Coordinates)
 
 ## FieldCropPestDto (object)
 ### Properties
@@ -2490,7 +2514,6 @@ Use this endpoint deletes a contact from the mailing list.
 + `name` (string)
 + `inf1` (string)
 + `inf2` (string)
-+ `location` (Coordinates)
 + `fieldCropPest` (array[FieldCropPestDto])
 + `fieldObservations` (array[FieldObservationDto])
 
@@ -2784,3 +2807,13 @@ Use this endpoint deletes a contact from the mailing list.
 + `email` (string) 
 + `roles` (array[RoleDto]) - List of roles
 + `claims` (array[Claim]) - List of claims applied to the user
+
+# WeatherDataSourceDto (object)
+### Properties
++ `id` (string, required)
++ `name` (string)
+
+# WeatherStationDto (object)
+### Properties
++ `id` (string, required)
++ `name` (string)

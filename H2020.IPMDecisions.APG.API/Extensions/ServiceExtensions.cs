@@ -66,12 +66,14 @@ namespace H2020.IPMDecisions.APG.API.Extensions
         public static void ConfigureCors(this IServiceCollection services, IConfiguration config)
         {
             var allowedHosts = config["AllowedHosts"];
+            var allowedHeaders =  config["AllowedHeaders"];
             services.AddCors(options =>
             {
                 options.AddPolicy("ApiGatewayCORS", builder =>
                 {
                     builder
                     .WithOrigins(allowedHosts)
+                    .WithExposedHeaders(allowedHeaders)
                     .AllowAnyMethod()
                     .AllowAnyHeader();
                 });
