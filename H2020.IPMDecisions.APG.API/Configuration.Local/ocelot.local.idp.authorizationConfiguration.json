@@ -6,7 +6,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5000
+                    "Port": 5002
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/authorization/{catchAll}",
@@ -19,7 +19,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5000
+                    "Port": 5002
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/authorization/",
