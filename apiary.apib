@@ -28,7 +28,7 @@ Below is a list of each microservice and the path for accessing them, e.g, `http
 The documentation below should match the following product versions:
 * APG Version: v0.1.1.1
 * IDP Version: v0.1.1
-* UPR Version: v0.1.2
+* UPR Version: v0.1.3
 * EML Version: v0.1.1.1
 
 # Group IDP - Identity Provider Service
@@ -1531,10 +1531,10 @@ Use this end point to add a new observation to the field.
 
 + Response 201 (application/json)
 
-    + Attributes (FieldObservationDto)
+    + Attributes (FieldSprayDto)
     + Headers
     
-            Location: http://theurl/api/upr/farms/{farmId}/alerts/{fieldId}
+            Location: http://theurl/api/upr/fields/{fieldId}/observations/{observationsId}
 
 + Response 400 (application/json)
 + Response 401
@@ -1607,6 +1607,115 @@ Use this endpoint to remove an observation that is associated with the field.
 
     + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
     + observationId (guid, required, `21f2a563-a604-46f5-a572-6ac733566307`) ... Unique Field Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 204
++ Response 401
++ Response 403
+
+## Field Spray Applications [/api/upr/fields/{fieldId}/sprayapplications]
+
+Spray applications needs to be associate to a field crop pest. FieldId must be associated to the UserId of the Authorization JWT.
+
+### Add Spray Application [POST]
+
+Use this end point to add a new spray application to the field.
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+
++ Request (application/json)
+
+    + Attributes (FieldSprayForCreationDto)
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 201 (application/json)
+
+    + Attributes (FieldSprayDto)
+    + Headers
+    
+            Location: http://theurl/api/upr/fields/{fieldId}/sprayapplications/{sprayId}
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
+
+### Get Spray Applications From Field [GET /api/upr/fields/{fieldId}/sprayapplications{?fieldCropPestId,pageSize,pageNumber}]
+
+Use this endpoint to get the spray applications that are associated with a field crop pest.
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + fieldCropPestId  (guid, required, `21f2a563-a604-46f5-a572-6ac733566307`) ... Unique Field Crop Pest Id
+    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
+    + pageNumber (number, optional, `1`)
+     
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
+
+    + Attributes (array[FieldSprayDto])
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Get a Spray Application By Id [GET /api/upr/fields/{fieldId}/sprayapplications/{sprayId}]
+
+Use this endpoint to get an spray application from a field.
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + sprayId (guid, required, `21f2a563-a604-46f5-a572-6ac733566307`) ... Unique Spray Id
+
++ Request (application/json)
+    
+    + Headers
+    
+            Accept: application/json
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (FieldSprayDto)
+
++ Response 400 (application/json)
++ Response 401
++ Response 403
++ Response 404
+
+### Delete Spray Application By Id [DELETE /api/upr/fields/{fieldId}/sprayapplications/{sprayId}]
+
+Use this endpoint to remove an spray application that is associated with the field. 
+
++ Parameters
+
+    + fieldId (guid, required, `ae9f3e9b-2b6b-48db-a97b-d0abac696553`) ... Unique Field Id
+    + sprayId (guid, required, `21f2a563-a604-46f5-a572-6ac733566307`) ... Unique Spray Id
 
 + Request (application/json)
     
@@ -1721,9 +1830,7 @@ Use this endpoint to get the crop decision combinations that are associated for 
             Accept: application/json
             Authorization: Bearer JWT
     
-    + Attributes
-        
-        + CropDecisionCombinatioId : d8b4e603-c714-4df4-bc1a-6e706aff9a1c (string, required) ... Unique Crop Decisions Combination Id
+    + Attributes (CropPestDssForCreationDto)
 
 + Response 200 (application/json)
 
@@ -1731,7 +1838,7 @@ Use this endpoint to get the crop decision combinations that are associated for 
         
             X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
 
-    + Attributes (CropCombinationDto)
+    + Attributes (FieldCropPestDssDto)
 
 + Response 400 (application/json)
 + Response 401
@@ -1760,47 +1867,12 @@ Use this endpoint to get the crop decision combinations that are associated for 
         
             X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
 
-    + Attributes (array[CropCombinationDto])
+    + Attributes (array[FieldCropPestDssDto])
 
 + Response 400 (application/json)
 + Response 401
 + Response 403
 + Response 404
-
-## Crop Decisions [/api/upr/cropdecisions]
-
-These end points hold the different crop, pest, DSS combinations. The combinations are created internally, so the main functionality is `GET` information.
-
-### Get Crop Decisions [GET /api/upr/cropdecisions{?pageSize,pageNumber}]
-
-Use this endpoint to get the list of combinations available.
-
-+ Parameters
-    
-    + pageSize (number, optional, `5`) ... Default 10; Maximun 20
-     
-    + pageNumber (number, optional, `1`)
-     
-+ Request (application/json)
-    
-    + Headers
-    
-            Accept: application/json
-            Authorization: Bearer JWT
-
-+ Response 200 (application/json)
-
-    + Headers
-        
-            X-Pagination: {`TotalCount`(number),`PageSize`(number),`CurrentPage`(number),`TotalPages`(number)}
-
-    + Attributes (array[CropCombinationDto])
-
-+ Response 400 (application/json)
-+ Response 401
-+ Response 403
-+ Response 404
-
 
 ## Data Share [/api/upr/datashare]
 
@@ -2362,12 +2434,20 @@ Use this endpoint deletes a contact from the mailing list.
 + `y` : 2.12 (number) - North/South latitude coordinates
 + `srid` : 4326 (number) - Spatial reference identifier associated with the coordinate system.
 
-## CropCombinationDto (object)
+## FieldCropPestDssDto (object)
 ### Properties
 + `id` (string)
-+ `Crop` (CropDto)
-+ `PestId` (PestDto)
-+ `Dss` (string)
++ `fieldCropPestId` (string)
++ `fieldCropPestDto` (string)
++ `cropPestDssId` (string)
++ `CropPestDssDto` (string)
++ `DssParameters` (string)
+
+## CropPestDssForCreationDto (object)
+### Properties
++ `fieldCropPestId` (string, required)
++ `dssId` (string, required)
++ `dssParameters` (string)
 
 ## CropDto (object)
 ### Properties
@@ -2491,6 +2571,7 @@ Use this endpoint deletes a contact from the mailing list.
 
 ## FieldCropPestDto (object)
 ### Properties
++ `id`:`e030ba02-dbaf-4ed7-bfe7-559db3e68e7b`(string)
 + `cropPestDto` (CropPestDto)
 
 ## FieldObservationDto
@@ -2498,15 +2579,30 @@ Use this endpoint deletes a contact from the mailing list.
 + `id` (string) 
 + `location` (Coordinates)
 + `time` (string)
-+ `pestEppoCode` (string) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
-+ `cropEppoCode` (string) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
++ `fieldCropPest` (FieldCropPestDto)
++ `severity` (string)
 
 ## FieldObservationForCreationDto
 ### Properties
 + `location` (Coordinates, required)
 + `time` (string, required)
-+ `pestEppoCode` (string, required) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
-+ `cropEppoCode` (string, required) - https://www.eppo.int/RESOURCES/eppo_databases/eppo_codes
++ `fieldCropPestId`:`e030ba02-dbaf-4ed7-bfe7-559db3e68e7b`(string, required)
++ `severity` (string)
+
+## FieldSprayDto
+### Properties
++ `id` (string) 
++ `name` (string, required)
++ `time` (string, required)
++ `fieldCropPestId`:`e030ba02-dbaf-4ed7-bfe7-559db3e68e7b`(string, required)
++ `rate` (number, required)
+
+## FieldSprayForCreationDto
+### Properties
++ `name` (string, required)
++ `time` (string, required)
++ `fieldCropPestId`:`e030ba02-dbaf-4ed7-bfe7-559db3e68e7b`(string, required)
++ `rate` (number, required)
 
 ## FieldWithShapedChildrenDto
 ### Properties
