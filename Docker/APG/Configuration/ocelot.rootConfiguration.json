@@ -10,7 +10,10 @@
                 }
             ],
             "UpstreamPathTemplate": "/api/idp",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -22,7 +25,10 @@
                 }
             ],
             "UpstreamPathTemplate": "/api/upr",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -34,7 +40,10 @@
                 }
             ],
             "UpstreamPathTemplate": "/api/eml",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
         }
     ]
 }
