@@ -1,7 +1,7 @@
 {
     "ReRoutes": [
         {
-            "DownstreamPathTemplate": "/api",
+            "DownstreamPathTemplate": "/api/idp/swagger/{all}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -9,14 +9,12 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/api/idp",
+            "UpstreamPathTemplate": "/api/idp/swagger/{all}",
             "UpstreamScheme": "https",
-            "UpstreamHttpMethod": [
-                "Get"
-            ]
+            "UpstreamHttpMethod": [ "Get" ]
         },
         {
-            "DownstreamPathTemplate": "/api",
+            "DownstreamPathTemplate": "/api/upr/swagger/{all}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -24,14 +22,14 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/api/upr",
+            "UpstreamPathTemplate": "/api/upr/swagger/{all}",
             "UpstreamScheme": "https",
             "UpstreamHttpMethod": [
                 "Get"
             ]
         },
         {
-            "DownstreamPathTemplate": "/api",
+            "DownstreamPathTemplate": "/api/eml/swagger/{all}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -39,7 +37,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/api/eml",
+            "UpstreamPathTemplate": "/api/eml/swagger/{all}",
             "UpstreamScheme": "https",
             "UpstreamHttpMethod": [
                 "Get"
