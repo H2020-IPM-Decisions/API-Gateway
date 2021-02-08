@@ -1,6 +1,6 @@
 {
     "GlobalConfiguration": {
         "BaseUrl": "https://impdecisions.com",
-        "RequestIdKey": null
+        "DownstreamHttpVersion": "1.0"
     }
 }

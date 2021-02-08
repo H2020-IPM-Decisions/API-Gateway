@@ -15,9 +15,13 @@
                 "AuthenticationProviderKey": "Bearer"
             },
             "DownstreamHeaderTransform": {
-                "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/idp/admin"
+                "Location": "{DownstreamBaseUrl}, {BaseUrl}/api/idp/admin"
             },
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         }
     ]
 }

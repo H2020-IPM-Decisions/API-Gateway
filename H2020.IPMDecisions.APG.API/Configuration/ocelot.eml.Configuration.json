@@ -13,7 +13,11 @@
             "UpstreamScheme": "http",
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {},
-            "Priority": 0
+            "Priority": 0,
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
