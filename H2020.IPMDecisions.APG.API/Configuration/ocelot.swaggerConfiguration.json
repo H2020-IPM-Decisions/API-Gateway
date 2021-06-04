@@ -14,6 +14,18 @@
             "UpstreamHttpMethod": [ "Get" ]
         },
         {
+            "DownstreamPathTemplate": "/api/idp/dashboard/{all}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/idp/dashboard/{all}",
+            "UpstreamScheme": "https"
+        },
+        {
             "DownstreamPathTemplate": "/api/upr/swagger/{all}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
@@ -27,6 +39,18 @@
             "UpstreamHttpMethod": [
                 "Get"
             ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/upr/dashboard/{all}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/upr/dashboard/{all}",
+            "UpstreamScheme": "https"
         },
         {
             "DownstreamPathTemplate": "/api/eml/swagger/{all}",
