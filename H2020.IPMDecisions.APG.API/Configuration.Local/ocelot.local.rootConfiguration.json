@@ -11,7 +11,11 @@
             ],
             "UpstreamPathTemplate": "/api/idp",
             "UpstreamScheme": "http",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -26,7 +30,11 @@
             "UpstreamScheme": "http",
             "UpstreamHttpMethod": [
                 "Get"
-            ]
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -41,7 +49,11 @@
             "UpstreamScheme": "http",
             "UpstreamHttpMethod": [
                 "Get"
-            ]
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         }
     ]
 }

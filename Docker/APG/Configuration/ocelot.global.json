@@ -1,6 +1,6 @@
 {
     "GlobalConfiguration": {
-        "BaseUrl": "ipmdecisions.com",
+        "BaseUrl": "https://ipmdecisions.com",
         "RequestIdKey": null,
         "DangerousAcceptAnyServerCertificateValidator": false
     }

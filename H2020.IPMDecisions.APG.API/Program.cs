@@ -24,12 +24,12 @@ namespace H2020.IPMDecisions.APG.API
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                         .AddJsonFile("appsettings.json")
                         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json")
-                        .AddEnvironmentVariables()
 #if DEBUG
                         .AddOcelot("Configuration.Local", hostingContext.HostingEnvironment)
 #else
                         .AddOcelot("Configuration", hostingContext.HostingEnvironment)
 #endif
+                        .AddEnvironmentVariables()
                         .Build();                    
                 });
 

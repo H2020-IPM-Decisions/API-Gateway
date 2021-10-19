@@ -15,11 +15,15 @@
                 "AuthenticationProviderKey": "Bearer"
             },
             "DownstreamHeaderTransform": {
-                "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/upr"
+                "Location": "{DownstreamBaseUrl}, {BaseUrl}/api/upr"
             },
             "RouteClaimsRequirement": {}
             ,
-            "Priority": 0
+            "Priority": 0,
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api/internalcall/{catchAll}",

@@ -13,7 +13,11 @@
             "UpstreamScheme": "https",
             "UpstreamHttpMethod": [
                 "Get"
-            ]
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -28,7 +32,11 @@
             "UpstreamScheme": "https",
             "UpstreamHttpMethod": [
                 "Get"
-            ]
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -43,7 +51,11 @@
             "UpstreamScheme": "https",
             "UpstreamHttpMethod": [
                 "Get"
-            ]
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         }
     ]
 }

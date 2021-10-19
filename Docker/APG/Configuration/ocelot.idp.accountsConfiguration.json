@@ -12,7 +12,11 @@
             "UpstreamPathTemplate": "/api/idp/accounts/{catchAll}",
             "UpstreamScheme": "https",
             "Priority": 0,
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api/users/{userId}/accounts/{catchAll}",
@@ -29,7 +33,11 @@
                 "AuthenticationProviderKey": "Bearer"
             },
             "Priority": 1,
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api/internalcall/{catchAll}",

@@ -11,7 +11,11 @@
             ],
             "UpstreamPathTemplate": "/api/idp/authorization/{catchAll}",
             "UpstreamScheme": "https",
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api/accounts/",
@@ -27,7 +31,11 @@
             "UpstreamHttpMethod": [
                 "Options"
             ],
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         }
     ]
 }
