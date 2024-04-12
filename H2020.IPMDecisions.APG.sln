@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H2020.IPMDecisions.APG.API", "H2020.IPMDecisions.APG.API\H2020.IPMDecisions.APG.API.csproj", "{98B4C062-3501-4515-8665-108370DFEF59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H2020.IPMDecisions.APG.API", "H2020.IPMDecisions.APG.API\H2020.IPMDecisions.APG.API.csproj", "{98B4C062-3501-4515-8665-108370DFEF59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H2020.IPMDecisions.APG.Core", "H2020.IPMDecisions.APG.Core\H2020.IPMDecisions.APG.Core.csproj", "{B4C00CC4-6872-4EFD-B87D-539F5E7591EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H2020.IPMDecisions.APG.Core", "H2020.IPMDecisions.APG.Core\H2020.IPMDecisions.APG.Core.csproj", "{B4C00CC4-6872-4EFD-B87D-539F5E7591EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
