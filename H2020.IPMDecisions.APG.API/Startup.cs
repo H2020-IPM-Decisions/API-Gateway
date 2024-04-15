@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using H2020.IPMDecisions.APG.API.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +27,7 @@ namespace H2020.IPMDecisions.APG.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureForwardedHeaders(Configuration);
-            
+
             if (!CurrentEnvironment.IsDevelopment())
             {
                 services.ConfigureHttps(Configuration);
@@ -54,7 +55,7 @@ namespace H2020.IPMDecisions.APG.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseForwardedHeaders();
 
@@ -78,7 +79,7 @@ namespace H2020.IPMDecisions.APG.API
                     });
                 });
             }
-            
+
             app.UseCors("ApiGatewayCORS");
             app.UseRouting();
             app.UseAuthentication();
@@ -89,7 +90,7 @@ namespace H2020.IPMDecisions.APG.API
                 endpoints.MapControllers();
             });
 
-            await app.UseOcelot();
+            app.UseOcelot().Wait();
         }
     }
 }

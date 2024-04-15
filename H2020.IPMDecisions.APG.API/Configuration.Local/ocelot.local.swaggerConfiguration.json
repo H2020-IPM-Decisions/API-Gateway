@@ -1,5 +1,5 @@
 {
-    "ReRoutes": [
+    "Routes": [
         {
             "DownstreamPathTemplate": "/api/idp/swagger/{all}",
             "DownstreamScheme": "http",
