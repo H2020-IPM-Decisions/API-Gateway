@@ -1,17 +1,21 @@
 {
-    "ReRoutes": [
+    "Routes": [
         {
             "DownstreamPathTemplate": "/api",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5000
+                    "Port": 5002
                 }
             ],
             "UpstreamPathTemplate": "/api/idp",
             "UpstreamScheme": "http",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -19,14 +23,18 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5005
+                    "Port": 5006
                 }
             ],
             "UpstreamPathTemplate": "/api/upr",
             "UpstreamScheme": "http",
             "UpstreamHttpMethod": [
                 "Get"
-            ]
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -41,7 +49,11 @@
             "UpstreamScheme": "http",
             "UpstreamHttpMethod": [
                 "Get"
-            ]
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         }
     ]
 }

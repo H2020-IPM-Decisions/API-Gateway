@@ -1,5 +1,5 @@
 {
-    "ReRoutes": [
+    "Routes": [
         {
             "DownstreamPathTemplate": "/api",
             "DownstreamScheme": "http",
@@ -10,7 +10,14 @@
                 }
             ],
             "UpstreamPathTemplate": "/api/idp",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -22,7 +29,14 @@
                 }
             ],
             "UpstreamPathTemplate": "/api/upr",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api",
@@ -34,7 +48,14 @@
                 }
             ],
             "UpstreamPathTemplate": "/api/eml",
-            "UpstreamScheme": "https"
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ],
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         }
     ]
 }

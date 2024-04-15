@@ -1,18 +1,22 @@
 {
-    "ReRoutes": [
+    "Routes": [
         {
             "DownstreamPathTemplate": "/api/accounts/{catchAll}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5000
+                    "Port": 5002
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/accounts/{catchAll}",
             "UpstreamScheme": "http",
             "Priority": 0,
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api/users/{userId}/accounts/{catchAll}",
@@ -20,7 +24,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5000
+                    "Port": 5002
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/accounts/{userId}/manage/{catchAll}",
@@ -29,6 +33,25 @@
                 "AuthenticationProviderKey": "Bearer"
             },
             "Priority": 1,
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002
+                }
+            ],
+            "UpstreamPathTemplate": "/api/idp/internal/{catchAll}",
+            "UpstreamScheme": "http",
+            "AuthenticationOptions": {
+            },
             "RouteClaimsRequirement": {}
         }
     ]

@@ -1,5 +1,5 @@
 {
-    "ReRoutes": [
+    "Routes": [
         {
             "DownstreamPathTemplate": "/api/{catchAll}",
             "DownstreamScheme": "http",
@@ -15,9 +15,29 @@
                 "AuthenticationProviderKey": "Bearer"
             },
             "DownstreamHeaderTransform": {
-                "Location": "{DownstreamBaseUrl}/api, {BaseUrl}/api/upr"
+                "Location": "{DownstreamBaseUrl}, {BaseUrl}/api/upr"
             },
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "Priority": 0,
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/upr/internal/{catchAll}",
+            "UpstreamScheme": "http",
+            "AuthenticationOptions": {},
+            "RouteClaimsRequirement": {},
+            "Priority": 1
         }
     ]
 }

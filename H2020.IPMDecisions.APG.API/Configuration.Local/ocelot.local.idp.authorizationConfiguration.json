@@ -1,17 +1,21 @@
 {
-    "ReRoutes": [
+    "Routes": [
         {
             "DownstreamPathTemplate": "/api/accounts/{catchAll}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5000
+                    "Port": 5002
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/authorization/{catchAll}",
             "UpstreamScheme": "http",
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         },
         {
             "DownstreamPathTemplate": "/api/accounts/",
@@ -19,13 +23,17 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5000
+                    "Port": 5002
                 }
             ],
             "UpstreamPathTemplate": "/api/idp/authorization/",
             "UpstreamScheme": "http",
             "UpstreamHttpMethod": [ "Options" ],
-            "RouteClaimsRequirement": {}
+            "RouteClaimsRequirement": {},
+            "UpstreamHeaderTransform": 
+            {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         }
     ]
 }

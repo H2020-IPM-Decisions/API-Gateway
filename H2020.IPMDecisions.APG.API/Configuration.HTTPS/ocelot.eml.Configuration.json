@@ -2,30 +2,26 @@
     "Routes": [
         {
             "DownstreamPathTemplate": "/api/{catchAll}",
-            "DownstreamScheme": "http",
+            "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "eml.api",
-                    "Port": 80
+                    "Port": 443
                 }
             ],
             "UpstreamPathTemplate": "/api/eml/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {},
-            "Priority": 0,
-            "UpstreamHeaderTransform": 
-            {
-                "X-Forwarded-For": "{BaseUrl}"
-            }
+            "Priority": 0
         },
         {
             "DownstreamPathTemplate": "/api/internalcall/{catchAll}",
-            "DownstreamScheme": "http",
+            "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "eml.api",
-                    "Port": 80
+                    "Port": 443
                 }
             ],
             "UpstreamPathTemplate": "/api/eml/internal/{catchAll}",

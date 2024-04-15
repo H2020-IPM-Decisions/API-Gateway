@@ -1,16 +1,55 @@
 {
-    "ReRoutes": [
+    "Routes": [
         {
-            "DownstreamPathTemplate": "/{catchAll}",
+            "DownstreamPathTemplate": "/DSSService/rest/{catchAll}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "dss.api",
-                    "Port": 80
+                    "Port": 8080
                 }
             ],
             "UpstreamPathTemplate": "/api/dss/{catchAll}",
-            "UpstreamScheme": "http",
+            "UpstreamScheme": "https",
+            "Priority": 0,
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {}
+        },
+        {
+            "DownstreamPathTemplate": "/DSSService/apidocs/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "dss.api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/api/dss/apidocs/{catchAll}",
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ],
+            "Priority": 1,
+            "AuthenticationOptions": {},
+            "RouteClaimsRequirement": {}
+        },
+        {
+            "DownstreamPathTemplate": "/DSSService/apidocs/",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "dss.api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/api/dss/apidocs/",
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ],
+            "Priority": 2,
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {}
         }

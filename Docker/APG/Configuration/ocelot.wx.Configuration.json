@@ -1,16 +1,55 @@
 {
-    "ReRoutes": [
+    "Routes": [
         {
-            "DownstreamPathTemplate": "/{catchAll}",
+            "DownstreamPathTemplate": "/WeatherService/rest/{catchAll}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "wx.api",
-                    "Port": 80
+                    "Port": 8080
                 }
             ],
             "UpstreamPathTemplate": "/api/wx/{catchAll}",
-            "UpstreamScheme": "http",
+            "UpstreamScheme": "https",
+            "Priority": 0,
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "RouteClaimsRequirement": {}
+        },
+        {
+            "DownstreamPathTemplate": "/WeatherService/apidocs/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "wx.api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/api/wx/apidocs/{catchAll}",
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ],
+            "Priority": 1,
+            "AuthenticationOptions": {},
+            "RouteClaimsRequirement": {}
+        },
+        {
+            "DownstreamPathTemplate": "/WeatherService/apidocs/",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "wx.api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/api/wx/apidocs/",
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ],
+            "Priority": 2,
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {}
         }

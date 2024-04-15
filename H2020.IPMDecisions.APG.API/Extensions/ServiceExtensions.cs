@@ -47,29 +47,34 @@ namespace H2020.IPMDecisions.APG.API.Extensions
 
         public static void ConfigureAuthorization(this IServiceCollection services, IConfiguration config)
         {
-            var claimType = config["AccessClaims:ClaimTypeName"];
+            var claimType = config["AccessClaims:ClaimTypeName"].ToLower();
             var accessLevels = AccessLevels(config["AccessClaims:UserAccessLevels"]);
 
             services.AddAuthorization(options =>
             {
-                accessLevels.ToList().ForEach(
-                    (level => 
-                    {
-                        options.AddPolicy(level, policy => policy.RequireClaim(claimType, level));                    
-                    }
-                ));
+                accessLevels.ToList().ForEach(level =>
+                {
+                    options.AddPolicy(level,
+                        policy =>
+                        {
+                            policy.RequireClaim(claimType, level.ToLower());
+                        });
+                });
             });
         }
 
         public static void ConfigureCors(this IServiceCollection services, IConfiguration config)
         {
             var allowedHosts = config["AllowedHosts"];
+            var allowedHeaders =  config["AllowedHeaders"];
             services.AddCors(options =>
             {
                 options.AddPolicy("ApiGatewayCORS", builder =>
                 {
                     builder
                     .WithOrigins(allowedHosts)
+                    .WithExposedHeaders(allowedHeaders)
+                    .AllowAnyMethod()
                     .AllowAnyHeader();
                 });
             });
@@ -117,7 +122,7 @@ namespace H2020.IPMDecisions.APG.API.Extensions
 
         public static IEnumerable<string> AccessLevels(string levels)
         {
-            var listOfLevels = levels.Split(';').ToList();
+            var listOfLevels = levels.ToLower().Split(';').ToList();
             return listOfLevels;
         }
     }

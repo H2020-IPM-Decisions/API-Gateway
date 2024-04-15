@@ -5,13 +5,18 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "eml.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5006
                 }
             ],
-            "UpstreamPathTemplate": "/api/eml/{catchAll}",
-            "UpstreamScheme": "http",
-            "AuthenticationOptions": {},
+            "UpstreamPathTemplate": "/api/upr/{catchAll}",
+            "UpstreamScheme": "https",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer"
+            },
+            "DownstreamHeaderTransform": {
+                "Location": "{DownstreamBaseUrl}, {BaseUrl}/api/upr/"
+            },
             "RouteClaimsRequirement": {},
             "Priority": 0,
             "UpstreamHeaderTransform": 
@@ -24,11 +29,11 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "eml.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 5006
                 }
             ],
-            "UpstreamPathTemplate": "/api/eml/internal/{catchAll}",
+            "UpstreamPathTemplate": "/api/upr/internal/{catchAll}",
             "UpstreamScheme": "http",
             "AuthenticationOptions": {},
             "RouteClaimsRequirement": {},

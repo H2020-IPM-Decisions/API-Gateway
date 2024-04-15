@@ -15,9 +15,9 @@ These instructions will get you a copy of the project up and running on your loc
 The API Gateway uses the following technologies:
 
 ```
-ASP.NET Core 3.1.101
+ASP.NET Core 8.0.x
 ```
-1. [Install](https://dotnet.microsoft.com/download/dotnet-core/3.1) the required .NET Core SDK.
+1. [Install](https://dotnet.microsoft.com/download/dotnet-core) the required .NET Core SDK.
 
 ### Getting the solution
 

@@ -1,0 +1,71 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/idp/swagger/{all}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/idp/swagger/{all}",
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/idp/dashboard/{all}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "idp.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/idp/dashboard/{all}",
+            "UpstreamScheme": "https"
+        },
+        {
+            "DownstreamPathTemplate": "/api/upr/swagger/{all}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/upr/swagger/{all}",
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/upr/dashboard/{all}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "upr.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/upr/dashboard/{all}",
+            "UpstreamScheme": "https"
+        },
+        {
+            "DownstreamPathTemplate": "/api/eml/swagger/{all}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "eml.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/eml/swagger/{all}",
+            "UpstreamScheme": "https",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
+        }
+    ]
+}
